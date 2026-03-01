@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Domain Mastery — From Oil &amp; Commodity to Power Trading</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --primary: #2563EB;
+  --primary-light: #DBEAFE;
+  --primary-dark: #1D4ED8;
+  --surface: #F8FAFC;
+  --card: #FFFFFF;
+  --text: #1E293B;
+  --text-sec: #64748B;
+  --text-light: #94A3B8;
+  --border: #E2E8F0;
+  --border-lt: #F1F5F9;
+
+  --power: #2563EB;     --power-lt: #DBEAFE;
+  --oil: #F59E0B;       --oil-lt: #FEF3C7;
+  --trade: #16A34A;     --trade-lt: #DCFCE7;
+  --endur: #7C3AED;     --endur-lt: #EDE9FE;
+  --alert: #DC2626;     --alert-lt: #FEE2E2;
+  --teal: #0D9488;      --teal-lt: #CCFBF1;
+
+  --code-bg: #1E293B;
+  --code-fg: #E2E8F0;
+  --code-kw: #93C5FD;
+  --code-str: #86EFAC;
+  --code-num: #FDE68A;
+  --code-cmt: #64748B;
+
+  --font-h: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-b: 'DM Sans', system-ui, sans-serif;
+  --font-m: 'JetBrains Mono', monospace;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px;
+  --sh-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --sh-md: 0 4px 12px rgba(0,0,0,0.08);
+  --sh-lg: 0 8px 25px rgba(37,99,235,0.10);
+  --sh-xl: 0 12px 40px rgba(37,99,235,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-b);
+  color: var(--text);
+  background: var(--surface);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navigation ── */
+.nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; gap: 0.5rem;
+  height: 60px; overflow-x: auto;
+}
+.nav-logo {
+  font-family: var(--font-h); font-weight: 800;
+  font-size: 1.1rem; color: var(--primary);
+  white-space: nowrap; margin-right: 1.5rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo svg { width: 28px; height: 28px; }
+#mainTabs { display: flex; gap: 0.25rem; }
+#mainTabs button {
+  font-family: var(--font-h); font-weight: 600;
+  font-size: 0.8rem; padding: 0.5rem 1rem;
+  border: none; background: none; cursor: pointer;
+  color: var(--text-sec); border-radius: var(--r-md);
+  transition: all 0.2s; white-space: nowrap;
+}
+#mainTabs button:hover { background: var(--border-lt); color: var(--text); }
+#mainTabs button.active {
+  background: var(--primary-light); color: var(--primary-dark);
+}
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeUp 0.35s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideD {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Section Header ── */
+.sh { margin-bottom: 2rem; }
+.sh h1 {
+  font-family: var(--font-h); font-weight: 800;
+  font-size: 1.8rem; color: var(--text); margin-bottom: 0.5rem;
+}
+.sh p { color: var(--text-sec); font-size: 1rem; max-width: 680px; }
+
+/* ── Pillar Cards ── */
+.pillars {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem; margin-bottom: 2rem;
+}
+.pillar {
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.5rem; border-top: 4px solid var(--border);
+  box-shadow: var(--sh-sm); transition: all 0.25s;
+}
+.pillar:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.pillar.power-border { border-top-color: var(--power); }
+.pillar.oil-border { border-top-color: var(--oil); }
+.pillar.trade-border { border-top-color: var(--trade); }
+.pillar.endur-border { border-top-color: var(--endur); }
+.pillar.teal-border { border-top-color: var(--teal); }
+.pillar.alert-border { border-top-color: var(--alert); }
+.pillar-icon {
+  width: 42px; height: 42px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem; font-size: 1.2rem;
+}
+.pillar-icon.power-bg { background: var(--power-lt); color: var(--power); }
+.pillar-icon.oil-bg { background: var(--oil-lt); color: var(--oil); }
+.pillar-icon.trade-bg { background: var(--trade-lt); color: var(--trade); }
+.pillar-icon.endur-bg { background: var(--endur-lt); color: var(--endur); }
+.pillar-icon.teal-bg { background: var(--teal-lt); color: var(--teal); }
+.pillar-icon.alert-bg { background: var(--alert-lt); color: var(--alert); }
+.pillar h3 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 1.05rem; margin-bottom: 0.5rem;
+}
+.pillar p { color: var(--text-sec); font-size: 0.88rem; }
+.pillar ul { margin-top: 0.75rem; padding-left: 1.2rem; }
+.pillar li { color: var(--text-sec); font-size: 0.85rem; margin-bottom: 0.35rem; }
+
+/* ── Badges ── */
+.badge {
+  display: inline-block; font-family: var(--font-h);
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+}
+.badge-power { background: var(--power-lt); color: var(--power); }
+.badge-oil { background: var(--oil-lt); color: #92400E; }
+.badge-trade { background: var(--trade-lt); color: #166534; }
+.badge-endur { background: var(--endur-lt); color: var(--endur); }
+.badge-teal { background: var(--teal-lt); color: var(--teal); }
+.badge-alert { background: var(--alert-lt); color: var(--alert); }
+.badge-gray { background: #F1F5F9; color: var(--text-sec); }
+
+/* ── Info Box ── */
+.info-box {
+  padding: 1rem 1.25rem; border-radius: 0 var(--r-md) var(--r-md) 0;
+  margin: 1.25rem 0; font-size: 0.88rem;
+}
+.info-box.power { background: var(--power-lt); border-left: 3px solid var(--power); }
+.info-box.oil { background: var(--oil-lt); border-left: 3px solid var(--oil); }
+.info-box.trade { background: var(--trade-lt); border-left: 3px solid var(--trade); }
+.info-box.endur { background: var(--endur-lt); border-left: 3px solid var(--endur); }
+.info-box.alert { background: var(--alert-lt); border-left: 3px solid var(--alert); }
+.info-box strong { font-family: var(--font-h); }
+
+/* ── Code Blocks ── */
+.code-block {
+  background: var(--code-bg); color: var(--code-fg);
+  font-family: var(--font-m); font-size: 0.78rem;
+  padding: 1.25rem; border-radius: var(--r-md);
+  overflow-x: auto; margin: 1rem 0; line-height: 1.7;
+}
+.code-block .k { color: var(--code-kw); }
+.code-block .s { color: var(--code-str); }
+.code-block .n { color: var(--code-num); }
+.code-block .c { color: var(--code-cmt); font-style: italic; }
+
+/* ── Comparison Table ── */
+.cmp-table {
+  width: 100%; border-collapse: collapse;
+  margin: 1.25rem 0; font-size: 0.85rem;
+}
+.cmp-table th {
+  font-family: var(--font-h); font-weight: 700;
+  text-align: left; padding: 0.75rem 1rem;
+  background: var(--surface); border-bottom: 2px solid var(--border);
+  font-size: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--text-sec);
+}
+.cmp-table td {
+  padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-lt);
+  vertical-align: top;
+}
+.cmp-table tr:hover td { background: #FAFBFD; }
+.cmp-table .label-cell {
+  font-family: var(--font-h); font-weight: 600;
+  color: var(--text); white-space: nowrap;
+}
+
+/* ── Key Insights + Impact ── */
+.ki-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin: 2rem 0;
+}
+.ki-card {
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.5rem; box-shadow: var(--sh-sm);
+}
+.ki-card.insights { border-left: 4px solid var(--power); }
+.ki-card.insights.oil-sig { border-left-color: var(--oil); }
+.ki-card.insights.trade-sig { border-left-color: var(--trade); }
+.ki-card.insights.endur-sig { border-left-color: var(--endur); }
+.ki-card.insights.teal-sig { border-left-color: var(--teal); }
+.ki-card.impact { border-left: 4px solid var(--endur); }
+.ki-card h4 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.85rem; text-transform: uppercase;
+  letter-spacing: 0.04em; margin-bottom: 0.75rem;
+}
+.ki-card.insights h4 { color: var(--power); }
+.ki-card.insights.oil-sig h4 { color: var(--oil); }
+.ki-card.insights.trade-sig h4 { color: var(--trade); }
+.ki-card.insights.endur-sig h4 { color: var(--endur); }
+.ki-card.insights.teal-sig h4 { color: var(--teal); }
+.ki-card.impact h4 { color: var(--endur); }
+.ki-card ul { padding-left: 1.2rem; }
+.ki-card li { font-size: 0.88rem; color: var(--text-sec); margin-bottom: 0.4rem; }
+
+/* ── Sub-Tabs (Prominent Cards) ── */
+.sub-tabs-prominent {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem; margin-bottom: 1.5rem;
+}
+.sub-tab-card {
+  background: var(--card); border: 2px solid var(--border);
+  border-radius: var(--r-lg); padding: 1rem 1.25rem;
+  cursor: pointer; transition: all 0.2s; text-align: left;
+}
+.sub-tab-card:hover { border-color: var(--text-light); }
+.sub-tab-card.active[data-color="blue"] {
+  border-color: var(--power); background: var(--power-lt);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+.sub-tab-card.active[data-color="amber"] {
+  border-color: var(--oil); background: var(--oil-lt);
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.12);
+}
+.sub-tab-card.active[data-color="green"] {
+  border-color: var(--trade); background: var(--trade-lt);
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.12);
+}
+.sub-tab-card.active[data-color="purple"] {
+  border-color: var(--endur); background: var(--endur-lt);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+}
+.sub-tab-card.active[data-color="teal"] {
+  border-color: var(--teal); background: var(--teal-lt);
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+.sub-tab-card .stc-label {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.82rem; display: block; margin-bottom: 0.25rem;
+}
+.sub-tab-card .stc-desc {
+  font-size: 0.78rem; color: var(--text-sec);
+}
+.sub-panel { display: none; }
+.sub-panel.active { display: block; animation: fadeUp 0.3s ease; }
+
+/* ── SVG Container ── */
+.svg-wrap {
+  overflow-x: auto; margin: 1.5rem 0;
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.25rem; box-shadow: var(--sh-sm);
+}
+.svg-wrap svg { display: block; margin: 0 auto; width: 100%; height: auto; }
+
+/* ── Info Modal ── */
+.info-help-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--endur-lt); color: var(--endur);
+  border: none; cursor: pointer; font-family: var(--font-h);
+  font-weight: 700; font-size: 0.7rem; margin-left: 0.35rem;
+  vertical-align: middle; transition: all 0.15s;
+}
+.info-help-btn:hover { background: var(--endur); color: white; }
+.info-modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(15,23,42,0.5); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.info-modal {
+  background: var(--card); border-radius: var(--r-xl);
+  padding: 2rem; max-width: 600px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: var(--sh-xl); animation: slideD 0.25s ease;
+}
+.info-modal-close {
+  float: right; border: none; background: none;
+  font-size: 1.5rem; cursor: pointer; color: var(--text-light);
+  line-height: 1;
+}
+.info-modal-close:hover { color: var(--text); }
+.info-modal h3 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 1.15rem; margin-bottom: 1rem; padding-right: 2rem;
+}
+.info-modal p { font-size: 0.88rem; color: var(--text-sec); margin-bottom: 0.75rem; }
+
+/* ── Accordion Steps ── */
+.acc-steps { margin: 1.5rem 0; }
+.acc-step {
+  background: var(--card); border-radius: var(--r-md);
+  margin-bottom: 0.5rem; box-shadow: var(--sh-sm);
+  overflow: hidden;
+}
+.acc-step-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 1rem 1.25rem; cursor: pointer; transition: background 0.15s;
+}
+.acc-step-header:hover { background: var(--surface); }
+.acc-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--power-lt); color: var(--power);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-h); font-weight: 700; font-size: 0.78rem;
+  flex-shrink: 0;
+}
+.acc-step-title {
+  font-family: var(--font-h); font-weight: 600; font-size: 0.9rem;
+  flex: 1;
+}
+.acc-step-arrow {
+  font-size: 0.75rem; color: var(--text-light);
+  transition: transform 0.2s;
+}
+.acc-step.open .acc-step-arrow { transform: rotate(180deg); }
+.acc-step-body {
+  display: none; padding: 0 1.25rem 1.25rem 3.5rem;
+  font-size: 0.88rem; color: var(--text-sec);
+}
+.acc-step.open .acc-step-body { display: block; }
+
+/* ── Scroll Reveal ── */
+.reveal { opacity: 0; transform: translateY(16px); transition: all 0.5s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .pillars { grid-template-columns: 1fr; }
+  .ki-grid { grid-template-columns: 1fr; }
+  .sub-tabs-prominent { grid-template-columns: 1fr; }
+  #mainTabs { font-size: 0.72rem; }
+  .nav-inner { gap: 0.25rem; }
+  .sh h1 { font-size: 1.4rem; }
+  .cmp-table { font-size: 0.78rem; }
+  .cmp-table th, .cmp-table td { padding: 0.5rem; }
+}
+
+/* ── Section Divider ── */
+.section-div {
+  border: none; border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+}
+
+/* ── Inline Highlight ── */
+.hl-power { background: var(--power-lt); color: var(--primary-dark); padding: 0.1em 0.4em; border-radius: 4px; font-family: var(--font-m); font-size: 0.82em; }
+.hl-oil { background: var(--oil-lt); color: #92400E; padding: 0.1em 0.4em; border-radius: 4px; font-family: var(--font-m); font-size: 0.82em; }
+.hl-endur { background: var(--endur-lt); color: var(--endur); padding: 0.1em 0.4em; border-radius: 4px; font-family: var(--font-m); font-size: 0.82em; }
+.hl-trade { background: var(--trade-lt); color: #166534; padding: 0.1em 0.4em; border-radius: 4px; font-family: var(--font-m); font-size: 0.82em; }
+
+/* ── Formula Box ── */
+.formula-box {
+  background: var(--code-bg); color: var(--code-fg);
+  font-family: var(--font-m); font-size: 0.85rem;
+  padding: 1rem 1.5rem; border-radius: var(--r-md);
+  margin: 1rem 0; text-align: center; letter-spacing: 0.02em;
+}
+.formula-box .eq-label {
+  display: block; font-size: 0.7rem; color: var(--code-cmt);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
+}
+
+/* ── Glossary Row ── */
+.gloss-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.75rem; margin: 1rem 0;
+}
+.gloss-item {
+  background: var(--card); border-radius: var(--r-md);
+  padding: 0.85rem 1rem; box-shadow: var(--sh-sm);
+  display: flex; align-items: flex-start; gap: 0.75rem;
+}
+.gloss-item .gi-arrow {
+  flex-shrink: 0; font-size: 1rem; margin-top: 0.15rem;
+}
+.gloss-item .gi-from {
+  font-family: var(--font-h); font-weight: 600;
+  font-size: 0.82rem; color: #92400E;
+}
+.gloss-item .gi-to {
+  font-family: var(--font-h); font-weight: 600;
+  font-size: 0.82rem; color: var(--power);
+}
+.gloss-item .gi-desc {
+  font-size: 0.78rem; color: var(--text-sec); margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .gloss-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#2563EB" stroke-width="2.5"/><path d="M9 14h10M14 9l5 5-5 5" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Power Mastery
+    </div>
+    <div id="mainTabs">
+      <button class="active" onclick="showTab(0)">Oil &rarr; Power</button>
+      <button onclick="showTab(1)">Power Markets</button>
+      <button onclick="showTab(2)">Products &amp; Trading</button>
+      <button onclick="showTab(3)">Endur for Power</button>
+      <button onclick="showTab(4)">Leading Teams</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 0: OIL → POWER BRIDGE                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="tab0">
+
+  <div class="sh">
+    <h1>From Oil &amp; Commodity to Power</h1>
+    <p>You already speak the language of trading, risk, and Endur. This section maps what you know to what you'll need — highlighting what transfers directly, what changes fundamentally, and the mental model shifts that matter most.</p>
+  </div>
+
+  <!-- Sub-tabs -->
+  <div class="sub-tabs-prominent" id="bridgeSubs">
+    <button class="sub-tab-card active" data-color="amber" onclick="showSub('bridge',0)">
+      <span class="stc-label">What Transfers</span>
+      <span class="stc-desc">Skills and knowledge that carry over directly</span>
+    </button>
+    <button class="sub-tab-card" data-color="blue" onclick="showSub('bridge',1)">
+      <span class="stc-label">What Changes</span>
+      <span class="stc-desc">Fundamental differences in the power world</span>
+    </button>
+    <button class="sub-tab-card" data-color="purple" onclick="showSub('bridge',2)">
+      <span class="stc-label">Concept Map</span>
+      <span class="stc-desc">Oil terms mapped to their power equivalents</span>
+    </button>
+  </div>
+
+  <!-- ── Sub-panel: What Transfers ── -->
+  <div class="sub-panel active" id="bridge-0">
+    <div class="pillars reveal">
+      <div class="pillar oil-border">
+        <div class="pillar-icon oil-bg">&#9878;</div>
+        <h3>Trading Lifecycle</h3>
+        <p>The deal state machine is identical across commodities in Endur.</p>
+        <ul>
+          <li>Capture &rarr; Validate &rarr; Confirm &rarr; Settle</li>
+          <li>Counterparty management &amp; credit (CLSA)</li>
+          <li>Portfolio &amp; book hierarchy</li>
+          <li>Legal entity &amp; netting agreements</li>
+        </ul>
+      </div>
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#9733;</div>
+        <h3>Risk Management</h3>
+        <p>Core risk concepts apply directly — the math doesn't change, only the inputs.</p>
+        <ul>
+          <li>VaR (Value at Risk) methodology</li>
+          <li>Greeks: Delta, Gamma, Vega, Theta</li>
+          <li>Mark-to-Market P&amp;L calculation</li>
+          <li>Hedge accounting (IFRS 9 / IAS 39)</li>
+          <li>Stress testing &amp; scenario analysis</li>
+        </ul>
+      </div>
+      <div class="pillar endur-border">
+        <div class="pillar-icon endur-bg">&#9881;</div>
+        <h3>Endur Platform Skills</h3>
+        <p>Your platform expertise transfers completely — same engine, different fuel.</p>
+        <ul>
+          <li>AVS / JVS / OpenComponents scripting</li>
+          <li>Ops Service batch processing</li>
+          <li>APM simulation &amp; position views</li>
+          <li>Connex market data integration</li>
+          <li>Settlement Desktop workflows</li>
+          <li>Document generation &amp; confirmations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box oil reveal">
+      <strong>Key Confidence Builder:</strong> If you can configure a crude oil swap in Endur, build an Ops Service for price loading, and run an APM simulation — you already know 60-70% of what's needed. The remaining 30-40% is learning power-specific data structures (hourly granularity), power-specific deal templates, and the domain knowledge of how electricity markets work.
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights oil-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Endur's architecture is commodity-agnostic — the platform engine doesn't change</li>
+          <li>Your AVS/JVS scripts, Ops Service patterns, and APM configurations are fully reusable</li>
+          <li>Counterparty management, credit, and settlement workflows are identical</li>
+          <li>Options pricing (Black-76) uses the same framework — only the vol surface differs</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>You can immediately contribute to Endur administration and support</li>
+          <li>Focus your learning energy on power domain knowledge, not platform retraining</li>
+          <li>Your oil/gas debugging instincts for Endur issues transfer directly</li>
+          <li>You can mentor juniors on Endur fundamentals from day one</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: What Changes ── -->
+  <div class="sub-panel" id="bridge-1">
+
+    <div class="info-box alert reveal">
+      <strong>The #1 Mental Model Shift:</strong> Electricity cannot be economically stored at scale. A barrel of crude you can't sell today sits in a tank. A megawatt-hour of power you can't deliver at 3pm <em>ceases to exist</em>. Every hour is a separate, perishable commodity.
+    </div>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th><span class="badge badge-oil">Oil / Commodity</span></th>
+          <th><span class="badge badge-power">Power</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell">Time Granularity</td>
+          <td>Monthly / daily positions. A March crude contract is one position.</td>
+          <td>Hourly or sub-hourly. March has <span class="hl-power">744 separate positions</span> (one per hour). Each is a distinct commodity.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Storability</td>
+          <td>Oil sits in tanks, ships, or pipelines. Inventory is a strategic buffer. You can hold and wait.</td>
+          <td>No practical storage. An unscheduled position creates an <span class="hl-power">imbalance</span> settled at penalty prices by the TSO. No holding.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Location</td>
+          <td>Global benchmarks (Brent, WTI, Dubai). Basis differentials are small &amp; slow-moving.</td>
+          <td>Intensely locational. The price at Node A can be &euro;50/MWh while Node B — 200 km away — is &euro;5,000/MWh due to <span class="hl-power">grid congestion</span>.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Price Indices</td>
+          <td>A handful of global benchmarks: Dated Brent, WTI, Henry Hub, JKM, Platts assessments.</td>
+          <td>Thousands of locational indices: one per node/hub/zone, per hour, for both day-ahead and real-time. Each TSO publishes its own.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Delivery</td>
+          <td>Tanker, pipeline, truck. Scheduling is operational but not the primary risk driver.</td>
+          <td>Grid scheduling via the TSO. <span class="hl-power">Day-ahead nomination</span> is mandatory. Failure to schedule = imbalance penalty.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Settlement</td>
+          <td>Invoice on volume &times; price. Monthly cycle. Clean, simple.</td>
+          <td>Multi-layer: DA auction settlement + RT imbalance settlement + ancillary services + resettlements extending 90 days.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Weather Impact</td>
+          <td>Moderate: hurricanes disrupt supply, seasons affect demand.</td>
+          <td>Dominant: wind speed drives supply, temperature drives demand, solar irradiance sets generation. <span class="hl-power">Weather IS the market.</span></td>
+        </tr>
+        <tr>
+          <td class="label-cell">Curves in Endur</td>
+          <td>Forward curve with ~30 monthly pillars per year. Manageable data volume.</td>
+          <td>Hourly Price Curves (HPCs) with <span class="hl-power">8,760 data points per year</span> per location. Requires shape factors and curve construction.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- SVG: Visual comparison -->
+    <div class="svg-wrap reveal">
+      <svg viewBox="0 0 820 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Title -->
+        <text x="410" y="28" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="14" fill="#1E293B">Position Granularity: Oil vs Power</text>
+
+        <!-- Oil Side -->
+        <rect x="30" y="50" width="360" height="260" rx="12" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+        <text x="210" y="78" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="12" fill="#92400E">OIL / COMMODITY</text>
+        <text x="210" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#92400E">March Position = 1 number</text>
+
+        <!-- Single bar for oil -->
+        <rect x="70" y="120" width="280" height="60" rx="8" fill="#F59E0B" opacity="0.7"/>
+        <text x="210" y="155" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="500" font-size="14" fill="#FFF">Long 500,000 bbl Brent @ $78.40</text>
+
+        <text x="210" y="210" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#92400E">One row in your position report.</text>
+        <text x="210" y="226" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#92400E">Monthly P&amp;L. Monthly settlement.</text>
+
+        <!-- Inventory icon -->
+        <rect x="150" y="248" width="120" height="40" rx="6" fill="white" stroke="#F59E0B" stroke-width="1"/>
+        <text x="210" y="272" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#92400E">Can hold in storage</text>
+
+        <!-- Power Side -->
+        <rect x="430" y="50" width="360" height="260" rx="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+        <text x="610" y="78" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="12" fill="#1D4ED8">POWER / ELECTRICITY</text>
+        <text x="610" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1D4ED8">March Position = 744 numbers</text>
+
+        <!-- Many small bars for power -->
+        <g>
+          <rect x="450" y="115" width="8" height="30" rx="2" fill="#2563EB" opacity="0.8"/>
+          <rect x="460" y="125" width="8" height="20" rx="2" fill="#2563EB" opacity="0.6"/>
+          <rect x="470" y="120" width="8" height="25" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="480" y="110" width="8" height="35" rx="2" fill="#2563EB" opacity="0.9"/>
+          <rect x="490" y="128" width="8" height="17" rx="2" fill="#2563EB" opacity="0.5"/>
+          <rect x="500" y="118" width="8" height="27" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="510" y="108" width="8" height="37" rx="2" fill="#2563EB" opacity="0.85"/>
+          <rect x="520" y="122" width="8" height="23" rx="2" fill="#2563EB" opacity="0.65"/>
+          <rect x="530" y="130" width="8" height="15" rx="2" fill="#2563EB" opacity="0.45"/>
+          <rect x="540" y="115" width="8" height="30" rx="2" fill="#2563EB" opacity="0.75"/>
+          <rect x="550" y="105" width="8" height="40" rx="2" fill="#2563EB" opacity="0.95"/>
+          <rect x="560" y="120" width="8" height="25" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="570" y="125" width="8" height="20" rx="2" fill="#2563EB" opacity="0.6"/>
+          <rect x="580" y="112" width="8" height="33" rx="2" fill="#2563EB" opacity="0.8"/>
+          <rect x="590" y="118" width="8" height="27" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="600" y="108" width="8" height="37" rx="2" fill="#2563EB" opacity="0.85"/>
+          <rect x="610" y="128" width="8" height="17" rx="2" fill="#2563EB" opacity="0.5"/>
+          <rect x="620" y="115" width="8" height="30" rx="2" fill="#2563EB" opacity="0.75"/>
+          <rect x="630" y="110" width="8" height="35" rx="2" fill="#2563EB" opacity="0.88"/>
+          <rect x="640" y="125" width="8" height="20" rx="2" fill="#2563EB" opacity="0.6"/>
+          <rect x="650" y="120" width="8" height="25" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="660" y="130" width="8" height="15" rx="2" fill="#2563EB" opacity="0.45"/>
+          <rect x="670" y="112" width="8" height="33" rx="2" fill="#2563EB" opacity="0.82"/>
+          <rect x="680" y="118" width="8" height="27" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="690" y="108" width="8" height="37" rx="2" fill="#2563EB" opacity="0.9"/>
+          <rect x="700" y="122" width="8" height="23" rx="2" fill="#2563EB" opacity="0.65"/>
+          <rect x="710" y="115" width="8" height="30" rx="2" fill="#2563EB" opacity="0.75"/>
+          <rect x="720" y="128" width="8" height="17" rx="2" fill="#2563EB" opacity="0.5"/>
+          <rect x="730" y="112" width="8" height="33" rx="2" fill="#2563EB" opacity="0.8"/>
+          <rect x="740" y="120" width="8" height="25" rx="2" fill="#2563EB" opacity="0.7"/>
+          <rect x="750" y="108" width="8" height="37" rx="2" fill="#2563EB" opacity="0.88"/>
+        </g>
+
+        <text x="610" y="175" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#1D4ED8">Each bar = 1 hour's position (MW)</text>
+        <text x="610" y="190" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#1D4ED8">31 days x 24 hours = 744 rows</text>
+
+        <text x="610" y="218" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1D4ED8">744 rows in your position report.</text>
+        <text x="610" y="234" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1D4ED8">Hourly P&amp;L. Multi-pass settlement.</text>
+
+        <!-- No storage icon -->
+        <rect x="550" y="248" width="120" height="40" rx="6" fill="white" stroke="#DC2626" stroke-width="1"/>
+        <text x="610" y="265" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#DC2626">Cannot store.</text>
+        <text x="610" y="279" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#DC2626">Use it or lose it.</text>
+      </svg>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Power positions are <strong>vectors, not scalars</strong> — 744+ hourly data points per month vs. 1</li>
+          <li>Non-storability means every open hourly position is an active exposure with no "wait and see"</li>
+          <li>Location matters as much as time — prices can differ 100x between nodes 200 km apart</li>
+          <li>Weather is the primary driver, not geopolitics or OPEC decisions</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Position reports will look vastly more complex — learn to read hourly profiles, not just totals</li>
+          <li>Your Endur Ops Services will process 100x more data points per cycle</li>
+          <li>Settlement reconciliation is multi-pass (initial + resettlements up to 90 days)</li>
+          <li>You'll work closely with scheduling/operations teams — the boundary between trading and ops blurs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Concept Map ── -->
+  <div class="sub-panel" id="bridge-2">
+
+    <p class="reveal" style="color:var(--text-sec);margin-bottom:1.25rem;font-size:0.9rem;">
+      The left column shows concepts you already know from oil/commodity. The right column shows their power equivalents. Some map cleanly; others are fundamentally different.
+    </p>
+
+    <div class="gloss-grid reveal">
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Barrel (bbl) / MT</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Megawatt-hour (MWh)</div>
+          <div class="gi-desc">The fundamental unit of energy traded. 1 MWh = 1,000 kWh. Power capacity is measured in MW (megawatts).</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Brent / WTI Benchmark</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Phelix (DE) / APX (NL) / N2EX (UK)</div>
+          <div class="gi-desc">Regional, not global. Each country/zone has its own price reference. No single "world power price."</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Pipeline Nomination</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Grid Schedule / Nomination</div>
+          <div class="gi-desc">Day-ahead schedule submitted to TSO by 12:00 CET. Intraday adjustments until 5 min before delivery.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Storage Tank / Floating Storage</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Battery Storage (BESS)</div>
+          <div class="gi-desc">Limited capacity, expensive, typically 1-4 hours duration. Not comparable to months of oil storage. Emerging asset class.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Crude Grade (Arab Light, Forties)</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Generation Source (Wind, Solar, CCGT)</div>
+          <div class="gi-desc">Different sources have different cost profiles and output characteristics, like different crude grades.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">OPEC Production Cut</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Plant Outage / Dunkelflaute</div>
+          <div class="gi-desc">Dunkelflaute = "dark calm" — no wind, no sun in winter. The power market's supply shock. Nuclear outages similarly spike prices.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Tanker Freight / Shipping</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Transmission / Interconnector Capacity</div>
+          <div class="gi-desc">Moving power across borders requires interconnector capacity. Congestion = high implicit transport cost.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Basis Differential (WTI-Brent)</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Locational Spread / FTR</div>
+          <div class="gi-desc">Financial Transmission Rights hedge node-to-hub basis risk. Power basis can be extreme — not a small premium like oil.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Crack Spread (Crude → Products)</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Spark Spread (Gas → Power)</div>
+          <div class="gi-desc">Gross margin of converting gas to electricity. Clean Spark Spread includes carbon cost (EU ETS).</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Monthly Forward Curve</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Hourly Price Curve (HPC)</div>
+          <div class="gi-desc">8,760 hourly prices per year per location. Built from monthly base prices &times; shape factors.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">cMotion (Crude Logistics)</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">pMotion (Power Scheduling)</div>
+          <div class="gi-desc">Endur's power scheduling module. Handles nominations, ISO schedule submission, and imbalance tracking.</div>
+        </div>
+      </div>
+      <div class="gloss-item">
+        <div>
+          <div class="gi-from">Bill of Lading</div>
+          <div style="margin:0.3rem 0"><span class="gi-arrow">&darr;</span></div>
+          <div class="gi-to">Meter Data / Allocation</div>
+          <div class="gi-desc">Actual delivered MWh measured by meters at connection points. The power equivalent of proving delivery.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights oil-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Most oil concepts have power analogs, but the analogs are more complex (higher dimensionality)</li>
+          <li>The biggest gap is <strong>non-storability</strong> — no oil concept maps to this; it's genuinely new</li>
+          <li>Location complexity in power dwarfs oil — thousands of price points vs. a handful of benchmarks</li>
+          <li><strong>Dunkelflaute</strong> (dark calm) is a concept you should memorize — it's the power equivalent of a supply crisis</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Use these mappings when explaining power concepts to engineers who come from oil/gas backgrounds</li>
+          <li>When reading Endur config, look for the power equivalents: pMotion not cMotion, HPCs not monthly curves</li>
+          <li>In meetings with traders, you'll hear "spark spread" as often as you used to hear "crack spread"</li>
+          <li>Learn the TSO names (TenneT, Amprion, RTE) like you once learned pipeline operators</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END TAB 0 -->
+
+<!-- PLACEHOLDER FOR REMAINING TABS - WILL BE ADDED -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 1: POWER MARKETS                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab1">
+
+  <div class="sh">
+    <h1>How Power Markets Work</h1>
+    <p>Electricity markets are a chain: generation feeds the grid, the grid delivers to consumers, and markets coordinate the price signals at every stage. Here's how it all connects — focused on European markets where Shell operates.</p>
+  </div>
+
+  <div class="sub-tabs-prominent" id="pmSubs">
+    <button class="sub-tab-card active" data-color="blue" onclick="showSub('pm',0)">
+      <span class="stc-label">Market Structure</span>
+      <span class="stc-desc">Exchanges, auctions, and how prices are set</span>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('pm',1)">
+      <span class="stc-label">Grid &amp; Delivery</span>
+      <span class="stc-desc">TSOs, balancing, interconnectors</span>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('pm',2)">
+      <span class="stc-label">Merit Order</span>
+      <span class="stc-desc">How generation cost sets the market price</span>
+    </button>
+    <button class="sub-tab-card" data-color="purple" onclick="showSub('pm',3)">
+      <span class="stc-label">Price Drivers</span>
+      <span class="stc-desc">What moves power prices day-to-day</span>
+    </button>
+  </div>
+
+  <!-- ── Sub-panel: Market Structure ── -->
+  <div class="sub-panel active" id="pm-0">
+
+    <div class="pillars reveal">
+      <div class="pillar power-border">
+        <div class="pillar-icon power-bg">&#9889;</div>
+        <h3>EPEX SPOT</h3>
+        <p>Dominant short-term exchange for Central Western Europe. Part of EEX Group.</p>
+        <ul>
+          <li>Day-ahead &amp; intraday markets</li>
+          <li>17 countries including DE, FR, NL, BE, GB</li>
+          <li>2024 volume: 868 TWh (654 DA + 215 intraday)</li>
+          <li>Gate closure: 12:00 CET for day-ahead</li>
+        </ul>
+      </div>
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#9733;</div>
+        <h3>EEX (European Energy Exchange)</h3>
+        <p>Leipzig-based derivatives exchange. Where longer-tenor products live.</p>
+        <ul>
+          <li>Monthly, quarterly, yearly futures</li>
+          <li>Phelix = German power benchmark</li>
+          <li>Cal products tradeable up to 6 years forward</li>
+          <li>Also: EU ETS (carbon), gas, GoO futures</li>
+        </ul>
+      </div>
+      <div class="pillar teal-border">
+        <div class="pillar-icon teal-bg">&#9730;</div>
+        <h3>Nord Pool</h3>
+        <p>Leading exchange for Nordic &amp; Baltic regions. 16 countries.</p>
+        <ul>
+          <li>Day-ahead (Elspot) &amp; intraday (Elbas)</li>
+          <li>Prices vary by bidding zone &amp; hydrology</li>
+          <li>Nordic system price = unconstrained reference</li>
+          <li>Also operates N2EX (GB day-ahead)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box power reveal">
+      <strong>ICE Endex</strong> — The Intercontinental Exchange's Amsterdam-based platform. Prominent for OTC-cleared power products and natural gas (TTF, NBP). Trayport (ICE-owned) is the broker screen connecting OTC energy traders across Europe — the dominant platform for bilateral power and gas trading.
+    </div>
+
+    <!-- Day-Ahead Auction SVG -->
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.5rem;font-size:1.1rem;" class="reveal">The Day-Ahead Auction: SDAC
+      <button class="info-help-btn" onclick="openInfoModal('sdac-modal')">?</button>
+    </h3>
+
+    <div class="svg-wrap reveal">
+      <svg viewBox="0 0 820 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="410" y="24" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="13" fill="#1E293B">Single Day-Ahead Coupling (SDAC) — Pan-European Auction Flow</text>
+
+        <!-- Participants -->
+        <rect x="30" y="50" width="130" height="45" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+        <text x="95" y="70" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#1D4ED8">Market</text>
+        <text x="95" y="83" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#1D4ED8">Participants</text>
+
+        <rect x="240" y="50" width="130" height="45" rx="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
+        <text x="305" y="70" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#166534">Local Exchange</text>
+        <text x="305" y="83" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#166534">(EPEX/NordPool)</text>
+
+        <rect x="450" y="50" width="130" height="45" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+        <text x="515" y="70" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#7C3AED">EUPHEMIA</text>
+        <text x="515" y="83" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#7C3AED">Algorithm</text>
+
+        <rect x="660" y="50" width="130" height="45" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+        <text x="725" y="70" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#92400E">TSOs</text>
+        <text x="725" y="83" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="10" fill="#92400E">(30 operators)</text>
+
+        <!-- Lifelines -->
+        <line x1="95" y1="95" x2="95" y2="460" stroke="#2563EB" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <line x1="305" y1="95" x2="305" y2="460" stroke="#16A34A" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <line x1="515" y1="95" x2="515" y2="460" stroke="#7C3AED" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <line x1="725" y1="95" x2="725" y2="460" stroke="#F59E0B" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+
+        <!-- Step 1: Submit orders -->
+        <text x="50" y="125" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#64748B">BY 12:00 CET</text>
+        <line x1="95" y1="135" x2="305" y2="135" stroke="#2563EB" stroke-width="2" marker-end="url(#arrowBlue)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+        </line>
+        <text x="200" y="130" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#1D4ED8">Submit buy/sell orders</text>
+
+        <!-- Order detail box -->
+        <rect x="120" y="148" width="170" height="50" rx="6" fill="#1E293B"/>
+        <text x="130" y="163" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#93C5FD">Hourly bids:</text>
+        <text x="130" y="175" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#86EFAC">  Buy 50MW HE08 @ €85/MWh</text>
+        <text x="130" y="187" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#86EFAC">  Sell 30MW HE03 @ €25/MWh</text>
+
+        <!-- Step 2: TSO provides capacity -->
+        <line x1="725" y1="220" x2="515" y2="220" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowPurple)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+        </line>
+        <text x="620" y="215" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#92400E">Interconnector capacity</text>
+
+        <!-- Step 3: Exchange sends to EUPHEMIA -->
+        <line x1="305" y1="250" x2="515" y2="250" stroke="#16A34A" stroke-width="2" marker-end="url(#arrowPurple)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+        </line>
+        <text x="410" y="245" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#166534">All orders from 61 zones</text>
+
+        <!-- Step 4: EUPHEMIA runs -->
+        <rect x="475" y="275" width="80" height="35" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1"/>
+        <text x="515" y="290" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#7C3AED">Optimize</text>
+        <text x="515" y="302" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#7C3AED">~15 min</text>
+
+        <!-- Step 5: Results -->
+        <text x="580" y="340" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#64748B">~12:55 CET</text>
+        <line x1="515" y1="345" x2="305" y2="345" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrowGreen)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+        </line>
+        <text x="410" y="340" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#7C3AED">Clearing prices per zone/hour</text>
+
+        <!-- Results box -->
+        <rect x="180" y="358" width="250" height="55" rx="6" fill="#1E293B"/>
+        <text x="190" y="373" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#93C5FD">Day-ahead results:</text>
+        <text x="190" y="385" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#FDE68A">  DE: €82.40   FR: €78.10</text>
+        <text x="190" y="397" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#FDE68A">  NL: €84.20   BE: €83.50</text>
+        <text x="190" y="409" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#64748B">  // per hour, per zone</text>
+
+        <!-- Step 6: Notify participants -->
+        <line x1="305" y1="430" x2="95" y2="430" stroke="#16A34A" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrowBlue2)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+        </line>
+        <text x="200" y="425" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#166534">Awards &amp; schedules</text>
+
+        <!-- Bottom annotation -->
+        <rect x="30" y="450" width="760" height="25" rx="6" fill="#F1F5F9"/>
+        <text x="410" y="466" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#64748B">SDAC connects 27 countries, 61 bidding zones, 30 TSOs, and 16 NEMOs in a single daily auction. Since Oct 2025: 15-minute Market Time Units.</text>
+
+        <!-- Arrow markers -->
+        <defs>
+          <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+          <marker id="arrowBlue2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+          <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/></marker>
+          <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7C3AED"/></marker>
+          <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#F59E0B"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.5rem;font-size:1rem;" class="reveal">Intraday Continuous Trading (SIDC)</h3>
+    <p style="color:var(--text-sec);font-size:0.88rem;margin-bottom:1rem;" class="reveal">
+      After the day-ahead auction clears (~12:55 CET), the <strong>intraday market</strong> opens. Unlike the blind auction, intraday is a <strong>continuous order book</strong> — trades execute as soon as a buy and sell order match. Gate closure is typically <strong>5 minutes before delivery</strong>. Products exist for 15-min, 30-min, and 60-min intervals. SIDC uses a shared order book across participating zones — a German seller can match with a Dutch buyer if interconnector capacity is available.
+    </p>
+
+    <div class="info-box trade reveal">
+      <strong>Why intraday matters:</strong> If your wind farm generates 20% less than forecast, you are "short" on your day-ahead schedule. You must buy the deficit on intraday before real-time, or face the TSO's imbalance price. Intraday is the last chance to fix your position before the grid settles it for you — at a penalty.
+    </div>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.5rem;font-size:1rem;" class="reveal">Balancing Market &amp; Reserves</h3>
+
+    <div class="acc-steps reveal">
+      <div class="acc-step open">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num">1</div>
+          <div class="acc-step-title">FCR — Frequency Containment Reserve <span class="badge badge-alert" style="margin-left:0.5rem">Seconds</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>The first line of defense. <strong>Automatically activated within 30 seconds</strong> of a frequency deviation from 50.00 Hz. Symmetric (responds in both directions). Think of it as the grid's reflex — no human decision involved. Procured through daily or weekly auctions by TSOs.</p>
+          <p style="margin-top:0.5rem"><strong>Example:</strong> A 1,400 MW French nuclear unit trips unexpectedly. Grid frequency drops. FCR from generators across Continental Europe activates automatically within seconds to arrest the decline.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num">2</div>
+          <div class="acc-step-title">aFRR — Automatic Frequency Restoration <span class="badge badge-power" style="margin-left:0.5rem">~5 min</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Secondary reserve. Automatically activated within 5 minutes. Brings frequency back toward 50 Hz after FCR has stabilized it. Coordinated cross-border via the <strong>PICASSO platform</strong> (Platform for the International Coordination of Automated Frequency Restoration and Stable System Operation).</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num">3</div>
+          <div class="acc-step-title">mFRR — Manual Frequency Restoration <span class="badge badge-trade" style="margin-left:0.5rem">~15 min</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Tertiary reserve. <strong>Manually activated by TSOs within 15 minutes.</strong> Slower but provides larger volumes. Coordinated cross-border via the <strong>MARI platform</strong> (Manually Activated Reserves Initiative), operational since 2022. This is the "heavy artillery" of balancing.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num">4</div>
+          <div class="acc-step-title">Imbalance Settlement <span class="badge badge-alert" style="margin-left:0.5rem">Financial</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Every market participant is connected to a <strong>Balance Responsible Party (BRP)</strong>. The BRP is financially responsible for any difference between its registered schedule and actual metered volumes within a settlement period (15 minutes in DE/NL/BE, 30 minutes in GB).</p>
+          <p style="margin-top:0.5rem">Imbalance prices are designed to be <strong>economically painful</strong> — above market when the system is short, below market when long. This incentivizes active position management in intraday.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Power markets operate in <strong>three time horizons</strong>: Forward (months/years), Day-ahead (D-1 auction), Real-time (intraday + balancing)</li>
+          <li>EUPHEMIA clears the entire European day-ahead market simultaneously — the world's largest daily optimization</li>
+          <li>Intraday is your last chance to fix forecast errors before the TSO settles your imbalance at penalty prices</li>
+          <li>Imbalance prices are intentionally punishing — the market design forces BRPs to manage their positions</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>In Endur, you'll configure indices for <strong>both DA and RT prices</strong> — they're separate market data feeds</li>
+          <li>Settlement modules must handle multi-pass resettlement (initial + corrections up to 90 days)</li>
+          <li>Scheduling workflows (pMotion) align with these market timelines — DA submission by noon, intraday adjustments until 5 min before</li>
+          <li>Balancing products (FCR/aFRR/mFRR) may have their own deal types if Shell participates in reserve markets</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Grid & Delivery ── -->
+  <div class="sub-panel" id="pm-1">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 1rem;font-size:1.1rem;" class="reveal">Transmission System Operators (TSOs)</h3>
+    <p style="color:var(--text-sec);font-size:0.88rem;margin-bottom:1.25rem;" class="reveal">
+      TSOs own and operate high-voltage transmission networks (typically 110 kV+) and are responsible for grid stability, balancing, and cross-border flows. They are <strong>regulated monopolies</strong>. ENTSO-E coordinates 41 TSOs from 34 countries.
+    </p>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>TSO(s)</th>
+          <th>Key Characteristics</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell">Germany</td>
+          <td>TenneT TSO GmbH, 50Hertz, Amprion, TransnetBW</td>
+          <td>Uniquely fragmented — 4 TSOs. TenneT (north-to-south), 50Hertz (north-east), Amprion (west/NRW), TransnetBW (southwest)</td>
+        </tr>
+        <tr>
+          <td class="label-cell">France</td>
+          <td>RTE (Réseau de Transport d'Electricité)</td>
+          <td>Nuclear-dominated system (~70%). Complex balancing due to large baseload blocks.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Netherlands</td>
+          <td>TenneT TSO B.V.</td>
+          <td>Same parent as German TenneT. Major trading hub due to TTF gas &amp; power convergence.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Belgium</td>
+          <td>Elia</td>
+          <td>Also owns stake in 50Hertz (German TSO). Gateway between Continental &amp; UK grids.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">UK</td>
+          <td>NESO (National Energy System Operator)</td>
+          <td>Separated from National Grid in late 2024. UK is <strong>asynchronous</strong> from Continental Europe — connected only via HVDC interconnectors.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Nordics</td>
+          <td>Statnett (NO), Svenska Kraftnät (SE), Fingrid (FI), Energinet (DK)</td>
+          <td>Hydro-dominated (Norway). Bidding zones within countries reflect transmission constraints.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.75rem;font-size:1rem;" class="reveal">Key Interconnectors</h3>
+
+    <div class="pillars reveal">
+      <div class="pillar power-border">
+        <h3>UK Connections</h3>
+        <ul>
+          <li><strong>IFA1 + IFA2</strong> (UK-France): 2,000 MW total</li>
+          <li><strong>BritNed</strong> (UK-NL): 1,000 MW</li>
+          <li><strong>NEMO</strong> (UK-Belgium): 1,000 MW</li>
+          <li><strong>ElecLink</strong> (Channel Tunnel): 1,000 MW</li>
+          <li><strong>North Sea Link</strong> (UK-Norway): 1,400 MW, 730 km — one of world's longest subsea cables</li>
+          <li><strong>Viking Link</strong> (UK-Denmark): 1,400 MW, commissioned 2024</li>
+        </ul>
+      </div>
+      <div class="pillar trade-border">
+        <h3>Continental Links</h3>
+        <ul>
+          <li><strong>NordLink</strong> (DE-Norway): 1,400 MW — exports German wind, imports Norwegian hydro</li>
+          <li><strong>NorNed</strong> (NL-Norway): 700 MW, 580 km</li>
+          <li>Many AC interconnectors between DE-FR, DE-NL, FR-BE, etc.</li>
+        </ul>
+        <p style="margin-top:0.75rem">Interconnectors create <strong>trading opportunities</strong>: price spreads between zones = profit for traders who can flow power across the link.</p>
+      </div>
+      <div class="pillar alert-border">
+        <h3>Congestion</h3>
+        <p>When interconnector capacity is insufficient to equalize prices, <strong>persistent price spreads</strong> emerge.</p>
+        <p style="margin-top:0.5rem">German day-ahead can be &euro;50/MWh while a neighbouring zone is &euro;40 because the cable is full. Congestion rent (price diff &times; capacity) goes to TSOs to fund new infrastructure.</p>
+        <p style="margin-top:0.5rem;font-family:var(--font-h);font-weight:600;font-size:0.82rem;color:var(--alert);">In Endur: FTR deals hedge this basis risk.</p>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights trade-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Know your TSOs by name — you'll see them daily in scheduling interfaces and settlement statements</li>
+          <li>Germany having 4 TSOs creates unique complexity for power trading operations</li>
+          <li>UK is <strong>asynchronous</strong> from Continental Europe — no AC ties, only HVDC. This limits flexibility.</li>
+          <li>Interconnector congestion is the #1 reason why power prices differ between countries</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Each TSO has different data formats, APIs, and settlement processes — integration work varies by country</li>
+          <li>Endur's pMotion must be configured for each TSO's specific nomination protocols</li>
+          <li>Cross-border trading P&amp;L depends on interconnector availability — monitor ENTSO-E transparency platform</li>
+          <li>Engineers must understand bidding zones to correctly configure location-based indices in Endur</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Merit Order ── -->
+  <div class="sub-panel" id="pm-2">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      The <strong>merit order</strong> is the sequence in which power plants are dispatched, ranked from lowest to highest marginal cost. The market clears at the price of the <strong>last (most expensive) unit needed to satisfy demand</strong> — the marginal plant. All cheaper plants receive the same clearing price.
+    </p>
+
+    <!-- Merit Order SVG -->
+    <div class="svg-wrap reveal">
+      <svg viewBox="0 0 820 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="410" y="24" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="13" fill="#1E293B">The Merit Order Curve — Who Gets Dispatched and Who Sets the Price</text>
+
+        <!-- Axes -->
+        <line x1="80" y1="350" x2="780" y2="350" stroke="#CBD5E1" stroke-width="1.5"/>
+        <line x1="80" y1="350" x2="80" y2="60" stroke="#CBD5E1" stroke-width="1.5"/>
+        <text x="410" y="395" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#64748B">Cumulative Capacity (GW) →</text>
+        <text x="35" y="205" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#64748B" transform="rotate(-90 35 205)">Marginal Cost (€/MWh) →</text>
+
+        <!-- Y-axis labels -->
+        <text x="72" y="344" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8" fill="#94A3B8">0</text>
+        <text x="72" y="290" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8" fill="#94A3B8">20</text>
+        <text x="72" y="236" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8" fill="#94A3B8">40</text>
+        <text x="72" y="182" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8" fill="#94A3B8">60</text>
+        <text x="72" y="128" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8" fill="#94A3B8">80</text>
+        <text x="72" y="74" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8" fill="#94A3B8">100</text>
+
+        <!-- Merit order blocks (left to right, cheapest to most expensive) -->
+        <!-- Renewables (wind/solar) — near zero marginal cost -->
+        <rect x="80" y="340" width="100" height="10" fill="#16A34A" opacity="0.8"/>
+        <text x="130" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#16A34A">Wind/Solar</text>
+        <text x="130" y="380" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#16A34A">~€0/MWh</text>
+
+        <!-- Nuclear -->
+        <rect x="180" y="326" width="80" height="24" fill="#7C3AED" opacity="0.7"/>
+        <text x="220" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#7C3AED">Nuclear</text>
+        <text x="220" y="380" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#7C3AED">~€10/MWh</text>
+
+        <!-- Hydro -->
+        <rect x="260" y="320" width="60" height="30" fill="#0D9488" opacity="0.7"/>
+        <text x="290" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#0D9488">Hydro</text>
+        <text x="290" y="380" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#0D9488">~€12/MWh</text>
+
+        <!-- Lignite -->
+        <rect x="320" y="282" width="80" height="68" fill="#92400E" opacity="0.6"/>
+        <text x="360" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#92400E">Lignite</text>
+        <text x="360" y="380" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#92400E">~€25+C</text>
+
+        <!-- Hard Coal -->
+        <rect x="400" y="236" width="80" height="114" fill="#78716C" opacity="0.6"/>
+        <text x="440" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#78716C">Hard Coal</text>
+        <text x="440" y="380" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#78716C">~€40+C</text>
+
+        <!-- CCGT -->
+        <rect x="480" y="155" width="120" height="195" fill="#2563EB" opacity="0.7"/>
+        <text x="540" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#1D4ED8">CCGT (Gas)</text>
+        <text x="540" y="382" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#1D4ED8">~€70-90/MWh</text>
+
+        <!-- OCGT -->
+        <rect x="600" y="100" width="70" height="250" fill="#F59E0B" opacity="0.7"/>
+        <text x="635" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#92400E">OCGT</text>
+        <text x="635" y="382" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#92400E">~€90-120</text>
+
+        <!-- Oil peakers -->
+        <rect x="670" y="75" width="50" height="275" fill="#DC2626" opacity="0.5"/>
+        <text x="695" y="370" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#DC2626">Oil/Diesel</text>
+        <text x="695" y="382" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#DC2626">€150+</text>
+
+        <!-- Demand line -->
+        <line x1="550" y1="55" x2="550" y2="355" stroke="#DC2626" stroke-width="2" stroke-dasharray="8 4"/>
+        <text x="555" y="52" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#DC2626">← Demand</text>
+
+        <!-- Clearing price line -->
+        <line x1="78" y1="155" x2="555" y2="155" stroke="#DC2626" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+        <text x="60" y="153" text-anchor="end" font-family="JetBrains Mono,monospace" font-weight="500" font-size="9" fill="#DC2626">€72</text>
+
+        <!-- Annotation: Price setter -->
+        <rect x="540" y="132" width="120" height="30" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+        <text x="600" y="147" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="8" fill="#DC2626">PRICE SETTER</text>
+        <text x="600" y="158" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#DC2626">Marginal CCGT unit</text>
+
+        <!-- Annotation: Infra-marginal rent -->
+        <rect x="130" y="306" width="100" height="32" rx="4" fill="rgba(22,163,74,0.1)" stroke="#16A34A" stroke-width="1" stroke-dasharray="4 2"/>
+        <text x="180" y="320" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#166534">Infra-marginal</text>
+        <text x="180" y="330" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#166534">rent (profit)</text>
+
+        <!-- Legend -->
+        <text x="90" y="410" font-family="DM Sans,sans-serif" font-size="8" fill="#64748B">+C = plus carbon cost (EU ETS EUA price × emission factor). At €65/tonne, coal carbon cost ≈ €55-65/MWh; gas carbon cost ≈ €27/MWh.</text>
+      </svg>
+    </div>
+
+    <div class="info-box alert reveal">
+      <strong>Negative Prices:</strong> When renewable output exceeds demand + export capacity, prices go negative. Nuclear plants pay to keep running (restart is costly). Wind operators with feed-in tariffs generate regardless. In Germany, negative prices occurred for <strong>thousands of hours in 2024</strong>. EPEX SPOT allows prices down to <strong>-€500/MWh</strong>.
+    </div>
+
+    <div class="info-box power reveal">
+      <strong>Merit Order Effect of Renewables:</strong> When wind/solar generate heavily, they push gas plants out of the dispatch order. The clearing price drops dramatically. This is why a sunny, windy Sunday in Germany can see prices at €0-10/MWh, while a cold, calm winter evening can see €200+/MWh. The market has two increasingly common states: <strong>very cheap</strong> (VRE abundant) and <strong>very expensive</strong> (VRE absent, gas setting).
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights oil-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>The marginal plant sets the price for ALL plants — cheap renewables get paid the same as the most expensive unit needed</li>
+          <li>Gas plants (CCGTs) are the most common <strong>price setter</strong> in European markets — making gas price the primary driver of power prices</li>
+          <li>Renewables earn declining "capture rates" as they cannibalise their own price — a key PPA pricing concern</li>
+          <li>Carbon cost (EU ETS) is effectively a surcharge on coal and gas — it changes the merit order by making coal less competitive</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Understanding merit order is essential for: PPA valuation, spark spread trading, and explaining price moves to stakeholders</li>
+          <li>Negative prices affect settlement — your Endur settlement rules must handle negative values correctly</li>
+          <li>Shape factors in HPCs reflect the merit order: peak hours (high demand, gas setting) vs. off-peak (low demand, renewables/nuclear setting)</li>
+          <li>Engineers must understand: the power price is NOT the cost of generation — it's the cost of the marginal unit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Price Drivers ── -->
+  <div class="sub-panel" id="pm-3">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      Power prices are driven by a complex interplay of fuel costs, weather, carbon policy, and grid constraints. Unlike oil (where OPEC and geopolitics dominate), power prices are shaped by forces you can literally feel outside your window.
+    </p>
+
+    <div class="pillars reveal">
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#9981;</div>
+        <h3>Gas Price (TTF)</h3>
+        <p>The #1 driver. CCGTs are the marginal price setter in most European hours. When TTF gas rises, power prices follow almost immediately.</p>
+        <div class="formula-box" style="margin-top:0.75rem;text-align:left;font-size:0.75rem;">
+          <span class="eq-label">Price transmission</span>
+          <span class="k">Power Price</span> ≈ <span class="s">Gas (TTF)</span> / <span class="n">0.50</span> + <span class="s">Carbon</span> × <span class="n">0.41</span>
+        </div>
+      </div>
+      <div class="pillar power-border">
+        <div class="pillar-icon power-bg">&#9729;</div>
+        <h3>Weather</h3>
+        <p>Temperature drives demand (heating in winter, cooling in summer). Wind speed drives supply. Solar irradiance sets daytime generation. Cloud cover matters.</p>
+        <ul>
+          <li><strong>Dunkelflaute</strong> = cold, calm, dark winter. Prices spike.</li>
+          <li><strong>Wind storm</strong> = excess supply. Prices crash / go negative.</li>
+        </ul>
+      </div>
+      <div class="pillar alert-border">
+        <div class="pillar-icon alert-bg">&#9878;</div>
+        <h3>Carbon Price (EU ETS)</h3>
+        <p>EU Emissions Trading System. Every tonne of CO<sub>2</sub> requires an EUA allowance. At €65/t, coal generation adds ~€55-65/MWh in carbon cost; gas adds ~€27/MWh.</p>
+        <p style="margin-top:0.5rem">High carbon prices structurally favour gas over coal (fuel switching) and make renewables more competitive.</p>
+      </div>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar teal-border">
+        <div class="pillar-icon teal-bg">&#9883;</div>
+        <h3>Plant Outages</h3>
+        <p>Nuclear outages (planned maintenance or surprise) remove large baseload blocks. France's 2022 nuclear corrosion crisis — 32 of 56 reactors offline — sent prices to record highs.</p>
+      </div>
+      <div class="pillar endur-border">
+        <div class="pillar-icon endur-bg">&#8644;</div>
+        <h3>Interconnector Flows</h3>
+        <p>Cross-border capacity determines whether cheap power from one zone can reach expensive neighbours. Congestion = price divergence between zones.</p>
+      </div>
+      <div class="pillar oil-border">
+        <div class="pillar-icon oil-bg">&#128200;</div>
+        <h3>Demand Patterns</h3>
+        <p>Daily: low overnight, peak 8am-8pm. Weekly: lower on weekends. Seasonal: winter heating peak, summer cooling peak (southern Europe). Industrial load follows factory schedules.</p>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights teal-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li><strong>Gas-power correlation</strong> is the single most important relationship to understand — it drives most price moves</li>
+          <li>Weather forecasts move power prices <em>before</em> weather happens — the market is forward-looking</li>
+          <li>Nuclear outages in France can affect prices across all of Continental Europe via interconnectors</li>
+          <li>Demand is more predictable than supply (renewables) — supply volatility is the primary challenge</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>When traders ask "why is the curve up today?" — check TTF gas, weather forecast, and nuclear availability first</li>
+          <li>Your Endur market data feeds must include gas (TTF), carbon (EUA), and power indices — they're inseparable</li>
+          <li>Spark spread monitoring (Power - Gas/Efficiency - Carbon) should be a standard dashboard for any power trading desk</li>
+          <li>Weather data integration is a real engineering requirement — some teams build feeds from meteorological services</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END TAB 1 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 2: PRODUCTS & TRADING                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab2">
+
+  <div class="sh">
+    <h1>Power Products &amp; Trading</h1>
+    <p>From standardized exchange products to bespoke PPAs — the instruments of power trading, how they work, and how they're structured in practice.</p>
+  </div>
+
+  <div class="sub-tabs-prominent" id="ptSubs">
+    <button class="sub-tab-card active" data-color="blue" onclick="showSub('pt',0)">
+      <span class="stc-label">Standard Products</span>
+      <span class="stc-desc">Baseload, peakload, tenors, and exchange futures</span>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('pt',1)">
+      <span class="stc-label">PPAs &amp; Renewables</span>
+      <span class="stc-desc">Power Purchase Agreements and green certificates</span>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('pt',2)">
+      <span class="stc-label">Spreads</span>
+      <span class="stc-desc">Spark, dark, and clean spreads explained</span>
+    </button>
+    <button class="sub-tab-card" data-color="teal" onclick="showSub('pt',3)">
+      <span class="stc-label">Scheduling &amp; Settlement</span>
+      <span class="stc-desc">Nominations, imbalance, and multi-pass settlement</span>
+    </button>
+  </div>
+
+  <!-- ── Sub-panel: Standard Products ── -->
+  <div class="sub-panel active" id="pt-0">
+
+    <div class="pillars reveal">
+      <div class="pillar power-border">
+        <div class="pillar-icon power-bg">&#9608;</div>
+        <h3>Baseload</h3>
+        <p>Flat delivery of 1 MW for <strong>every hour</strong> of the delivery period — 24/7, including weekends and holidays.</p>
+        <ul>
+          <li>Cal 26 Baseload Germany = 1 MW for all 8,760 hours of 2026</li>
+          <li>Traded on EEX as "Phelix Base Year Futures"</li>
+          <li>The most liquid forward product</li>
+          <li>Key benchmark for budgeting and long-dated hedging</li>
+        </ul>
+      </div>
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#9650;</div>
+        <h3>Peakload</h3>
+        <p>Delivery during <strong>Monday-Friday, 08:00-20:00</strong> (12 hours/day). Excludes weekends and public holidays.</p>
+        <ul>
+          <li>Captures hours of highest demand</li>
+          <li>Traded as "Phelix Peak Year Futures" on EEX</li>
+          <li>Peak-to-base ratio reflects demand shape</li>
+          <li>Off-peak = all hours NOT in peak</li>
+        </ul>
+      </div>
+      <div class="pillar endur-border">
+        <div class="pillar-icon endur-bg">&#9776;</div>
+        <h3>Shaped Products</h3>
+        <p>Custom delivery profile matching a buyer's actual consumption pattern — a factory's two-shift schedule, a retailer's demand curve.</p>
+        <ul>
+          <li>More expensive than baseload (shaping cost)</li>
+          <li>Trader/generator absorbs profile &amp; balancing risk</li>
+          <li>Common in corporate supply contracts</li>
+          <li>In Endur: requires TSD table with hourly volumes</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.75rem;font-size:1rem;" class="reveal">Tenor Products — The Forward Curve</h3>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Tenor</th>
+          <th>Period</th>
+          <th>Liquidity</th>
+          <th>Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell"><span class="badge badge-power">Day</span></td>
+          <td>Single day delivery</td>
+          <td>Very high (day-ahead auction)</td>
+          <td>Short-term optimization, balancing</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="badge badge-power">Weekend</span></td>
+          <td>Saturday-Sunday block</td>
+          <td>Moderate</td>
+          <td>Weekend load coverage</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="badge badge-trade">Week</span></td>
+          <td>Monday to Sunday</td>
+          <td>Moderate</td>
+          <td>Short-term hedging, position adjustment</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="badge badge-trade">Month</span></td>
+          <td>Calendar month (e.g., Feb-26)</td>
+          <td>High</td>
+          <td>Standard hedging horizon, customer pricing</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="badge badge-endur">Quarter</span></td>
+          <td>Q1-Q4 (e.g., Q2-26 = Apr-Jun)</td>
+          <td>High</td>
+          <td>Intermediate hedging, up to 11 quarters forward on EEX</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="badge badge-alert">Cal (Year)</span></td>
+          <td>Full calendar year (e.g., Cal 27)</td>
+          <td>Very high</td>
+          <td>Primary long-term benchmark. Up to Cal 31 on EEX. PPA pricing reference.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box power reveal">
+      <strong>From Oil Perspective:</strong> Think of Cal products like Brent annual strip contracts, Month products like monthly Platts assessments, and Day products like your spot market. The key difference: power has <strong>on-peak/off-peak splits</strong> at every tenor level. A Cal 26 Baseload and Cal 26 Peak are separate, independently traded instruments.
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Baseload and Peakload are the two primary building blocks — everything else is derived from combining them</li>
+          <li>Cal products are the most-watched reference — equivalent to annual Brent averages in oil</li>
+          <li>"Shaping cost" is a power-specific concept: the premium paid to convert flat generation into a consumption-matching profile</li>
+          <li>Off-peak is becoming increasingly important as renewables produce more during formerly "quiet" hours</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>In Endur, every product type (baseload/peak/shaped) needs its own deal template with the correct hour profile</li>
+          <li>Forward curve construction must handle the base/peak split — you can't just store one monthly price like oil</li>
+          <li>Cal product prices flow through to PPA valuations, customer contract pricing, and budget forecasts</li>
+          <li>Your position reports must distinguish base vs. peak exposure for risk management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: PPAs & Renewables ── -->
+  <div class="sub-panel" id="pt-1">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      <strong>Power Purchase Agreements (PPAs)</strong> are long-term contracts (5-20 years) between a generator and a buyer. They are the backbone of renewable project financing — without a PPA, most wind and solar projects cannot secure bank debt. Shell Energy Europe is a major PPA originator.
+    </p>
+
+    <div class="pillars reveal">
+      <div class="pillar power-border">
+        <div class="pillar-icon power-bg">&#9889;</div>
+        <h3>Physical PPA</h3>
+        <p>Generator physically delivers power to the offtaker or via a trader. Direct energy transfer.</p>
+        <ul>
+          <li>Generator sells all output at agreed price</li>
+          <li>Buyer receives physical electrons (or equivalent via grid)</li>
+          <li>Requires scheduling and balancing arrangements</li>
+          <li>In Endur: Physical power deal with long tenor + nomination workflow</li>
+        </ul>
+      </div>
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#8644;</div>
+        <h3>Virtual / Synthetic PPA</h3>
+        <p>No physical delivery. A financial Contract for Difference (CfD). Generator sells to grid at spot; financial settlement on the difference.</p>
+        <ul>
+          <li>Settlement: <span class="hl-trade">(Strike - Spot) &times; MWh</span></li>
+          <li>Popular with tech companies (Google, Microsoft) who can't receive physical power</li>
+          <li>In Endur: Financial swap with settlement against actual generation volumes</li>
+        </ul>
+      </div>
+      <div class="pillar endur-border">
+        <div class="pillar-icon endur-bg">&#9734;</div>
+        <h3>Sleeved PPA</h3>
+        <p>A retailer (the "sleeve") stands between generator and buyer, handling balancing and supply obligations.</p>
+        <ul>
+          <li>Corporate gets a clean supply contract with renewable attributes</li>
+          <li>Generator gets creditworthy offtake</li>
+          <li>Sleeve earns a fee for managing complexity</li>
+          <li>Shell often acts as the sleeve (route-to-market)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.75rem;font-size:1rem;" class="reveal">PPA Volume Structures</h3>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Structure</th>
+          <th>Volume Risk</th>
+          <th>Who Bears It</th>
+          <th>Typical Use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell">Pay-as-Produced</td>
+          <td>Buyer pays for actual generation output</td>
+          <td>Buyer bears volume variability</td>
+          <td>Wind/solar PPAs where output fluctuates with weather</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Baseload PPA</td>
+          <td>Generator delivers flat volume regardless of actual output</td>
+          <td>Generator bears profile &amp; balancing risk</td>
+          <td>Corporate buyers who want predictable supply</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Fixed Price</td>
+          <td>One agreed price for contract life</td>
+          <td>Both sides locked in</td>
+          <td>Project financing — banks want revenue certainty</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Floor + Upside</td>
+          <td>Minimum price guaranteed, generator participates if market rises</td>
+          <td>Shared risk</td>
+          <td>Balanced risk structure for long-term deals</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-div">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 0.75rem;font-size:1rem;" class="reveal">Guarantees of Origin (GoOs) &amp; REGOs
+      <button class="info-help-btn" onclick="openInfoModal('goo-modal')">?</button>
+    </h3>
+
+    <p style="color:var(--text-sec);font-size:0.88rem;margin-bottom:1rem;" class="reveal">
+      A <strong>GoO</strong> is a certificate representing 1 MWh of electricity generated from a renewable source. It certifies technology (wind, solar, hydro), country, and generation time. GoOs are the primary mechanism for corporate renewable energy claims in Europe. The UK equivalent is <strong>REGO</strong> (Renewable Energy Guarantee of Origin).
+    </p>
+
+    <div class="info-box trade reveal">
+      <strong>Market dynamics:</strong> GoO prices collapsed from ~€7/MWh in 2023 to below €0.30/MWh by end of 2024, driven by massive oversupply as European renewable capacity expanded. In 2024: 1,084 TWh issued, 884 TWh cancelled. EEX has launched GoO futures for standardized trading. Shell Energy Europe has dedicated environmental products desks covering GoOs, REGOs, EUAs, and voluntary carbon credits.
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights trade-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>PPAs are the #1 revenue certainty mechanism for renewable projects — no PPA = no bank financing</li>
+          <li>Shell's "route-to-market" business = acting as creditworthy offtaker + balancing service for renewable generators</li>
+          <li>Virtual PPAs are financial instruments — they look like swaps in Endur, settled against actual generation volumes</li>
+          <li>GoO/REGO trading is a separate market from power — you can buy green certificates without buying the underlying electrons</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>PPA deal capture in Endur is the most complex power deal type — multi-year, variable volume, custom settlement formulas</li>
+          <li>Your team will likely build custom Ops Service scripts for PPA settlement (importing meter data, calculating CfD payments)</li>
+          <li>GoO tracking requires its own data model — generation certificates linked to specific generation assets and time periods</li>
+          <li>Shell's notable PPAs: 600 MW German solar (Hansainvest), 300 MW Spanish solar (Solaria), REFHYNE 2 hydrogen project</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Spreads ── -->
+  <div class="sub-panel" id="pt-2">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      Spreads measure the <strong>economics of converting fuel to electricity</strong> — the power equivalent of oil's crack spread. If you understand crack spreads, these are intuitive.
+    </p>
+
+    <div class="pillars reveal">
+      <div class="pillar power-border">
+        <div class="pillar-icon power-bg">&#9889;</div>
+        <h3>Spark Spread</h3>
+        <p>Gross margin of a <strong>gas-fired CCGT</strong> power plant.</p>
+        <div class="formula-box" style="text-align:left;font-size:0.78rem;">
+          <span class="eq-label">Spark Spread</span>
+          <span class="k">Power Price</span> - (<span class="s">Gas Price</span> / <span class="n">Efficiency</span>)
+        </div>
+        <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--text-sec);">
+          Example: Gas at €30/MWh, CCGT at 50% efficiency → gas cost = €60/MWh. Power at €80 → Spark spread = <strong>€20/MWh</strong>.
+        </p>
+      </div>
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#9670;</div>
+        <h3>Clean Spark Spread</h3>
+        <p>Spark spread adjusted for <strong>carbon cost</strong> (EU ETS).</p>
+        <div class="formula-box" style="text-align:left;font-size:0.78rem;">
+          <span class="eq-label">Clean Spark Spread</span>
+          <span class="k">Power</span> - (<span class="s">Gas</span>/<span class="n">Eff</span>) - (<span class="n">0.41</span> × <span class="s">Carbon</span>)
+        </div>
+        <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--text-sec);">
+          Gas emission factor ≈ 0.411 tCO<sub>2</sub>/MWh at 50% efficiency. At EUA = €65/t → carbon cost = €26.7/MWh.
+        </p>
+      </div>
+      <div class="pillar oil-border">
+        <div class="pillar-icon oil-bg">&#9679;</div>
+        <h3>Dark Spread / Clean Dark</h3>
+        <p>Same concept for a <strong>coal-fired</strong> plant.</p>
+        <div class="formula-box" style="text-align:left;font-size:0.78rem;">
+          <span class="eq-label">Clean Dark Spread</span>
+          <span class="k">Power</span> - (<span class="s">Coal</span>/<span class="n">Eff</span>) - (<span class="n">0.9</span> × <span class="s">Carbon</span>)
+        </div>
+        <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--text-sec);">
+          Coal plants at 35-40% efficiency. Emission factor ~0.9 tCO<sub>2</sub>/MWh. Carbon cost is ~2x higher than gas.
+        </p>
+      </div>
+    </div>
+
+    <div class="info-box oil reveal">
+      <strong>Oil Analogy:</strong> <span class="hl-oil">Crack Spread</span> (Crude → Refined Products) is directly analogous to <span class="hl-power">Spark Spread</span> (Gas → Power). The economics are identical: input fuel cost vs. output product value. Clean Spark adds carbon cost, just as a "clean" crack would add environmental compliance costs.
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights oil-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>When Clean Spark Spread &gt; Clean Dark Spread, gas dispatch is favoured over coal — this is the "fuel switching" signal</li>
+          <li>At ~€25-30/t carbon, the merit order structurally shifts from coal-first to gas-first</li>
+          <li>Negative spark spreads mean it's unprofitable to run a gas plant — they should be shut down (if flexible enough)</li>
+          <li>Spark spread trading is a core strategy: buy gas, sell power, hedge the margin</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Spread calculations are standard Endur deal types — cross-commodity swap templates</li>
+          <li>Your Connex feeds need gas (TTF), carbon (EUA), AND power prices to compute spreads</li>
+          <li>APM P&amp;L reports should include spread decomposition: power component, gas component, carbon component</li>
+          <li>Traders will expect real-time spark spread monitors — a common engineering request</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Scheduling & Settlement ── -->
+  <div class="sub-panel" id="pt-3">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      In oil, scheduling is operational housekeeping. In power, <strong>scheduling IS the primary operational activity</strong>. Every day, you must tell the grid exactly what you'll produce and consume, hour by hour. Get it wrong, and the TSO settles the difference at penalty prices.
+    </p>
+
+    <!-- Scheduling SVG -->
+    <div class="svg-wrap reveal">
+      <svg viewBox="0 0 820 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="410" y="24" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="13" fill="#1E293B">Power Scheduling &amp; Settlement Timeline — Day D</text>
+
+        <!-- Timeline -->
+        <line x1="60" y1="80" x2="780" y2="80" stroke="#CBD5E1" stroke-width="2"/>
+
+        <!-- D-1: Day-ahead -->
+        <circle cx="140" cy="80" r="8" fill="#2563EB"/>
+        <text x="140" y="65" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#1D4ED8">D-1 12:00</text>
+        <rect x="80" y="100" width="120" height="65" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1"/>
+        <text x="140" y="118" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#1D4ED8">DAY-AHEAD</text>
+        <text x="140" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Submit buy/sell bids</text>
+        <text x="140" y="144" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">to EPEX/Nord Pool</text>
+        <text x="140" y="156" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Gate closes 12:00 CET</text>
+
+        <!-- D-1 13:00: Results -->
+        <circle cx="260" cy="80" r="8" fill="#16A34A"/>
+        <text x="260" y="65" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#166534">D-1 12:55</text>
+        <rect x="200" y="100" width="120" height="65" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1"/>
+        <text x="260" y="118" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#166534">DA RESULTS</text>
+        <text x="260" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Clearing prices &amp;</text>
+        <text x="260" y="144" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">schedule awards</text>
+        <text x="260" y="156" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">published per zone</text>
+
+        <!-- D-1 to D: Intraday -->
+        <circle cx="410" cy="80" r="8" fill="#7C3AED"/>
+        <text x="410" y="65" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#7C3AED">D-1 15:00 → D</text>
+        <rect x="345" y="100" width="130" height="65" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1"/>
+        <text x="410" y="118" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#7C3AED">INTRADAY</text>
+        <text x="410" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Continuous trading</text>
+        <text x="410" y="144" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Fix forecast errors</text>
+        <text x="410" y="156" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Gate: 5 min before HE</text>
+
+        <!-- D: Real-time -->
+        <circle cx="560" cy="80" r="8" fill="#F59E0B"/>
+        <text x="560" y="65" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#92400E">Day D</text>
+        <rect x="500" y="100" width="120" height="65" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+        <text x="560" y="118" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#92400E">REAL-TIME</text>
+        <text x="560" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Grid balances supply</text>
+        <text x="560" y="144" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">&amp; demand in real-time</text>
+        <text x="560" y="156" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">TSO activates reserves</text>
+
+        <!-- D+7 to D+90: Settlement -->
+        <circle cx="710" cy="80" r="8" fill="#DC2626"/>
+        <text x="710" y="65" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="9" fill="#DC2626">D+7 → D+90</text>
+        <rect x="645" y="100" width="130" height="65" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+        <text x="710" y="118" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="8" fill="#DC2626">SETTLEMENT</text>
+        <text x="710" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Initial + resettlements</text>
+        <text x="710" y="144" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Meter corrections</text>
+        <text x="710" y="156" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#64748B">Up to 90 days later</text>
+
+        <!-- Flow arrows -->
+        <line x1="200" y1="80" x2="250" y2="80" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowGray)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="320" y1="80" x2="400" y2="80" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowGray)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="475" y1="80" x2="550" y2="80" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowGray)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="620" y1="80" x2="700" y2="80" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowGray)">
+          <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Imbalance illustration -->
+        <rect x="80" y="195" width="700" height="170" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+        <text x="430" y="218" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="11" fill="#1E293B">Imbalance = Scheduled Position vs. Actual Metered Position</text>
+
+        <rect x="120" y="235" width="290" height="110" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1"/>
+        <text x="265" y="258" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="10" fill="#1D4ED8">Scheduled: 100 MW at HE14</text>
+        <text x="265" y="278" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#64748B">Committed in day-ahead auction</text>
+        <text x="265" y="296" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#64748B">Settled at DA price: €82/MWh</text>
+        <text x="265" y="314" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#1D4ED8">Revenue = 100 × €82 = €8,200</text>
+        <text x="265" y="334" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="#16A34A">✓ This is planned and hedged</text>
+
+        <rect x="450" y="235" width="290" height="110" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+        <text x="595" y="258" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="600" font-size="10" fill="#DC2626">Actual: 85 MW at HE14</text>
+        <text x="595" y="278" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#64748B">Wind dropped below forecast</text>
+        <text x="595" y="296" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#64748B">Short 15 MW → imbalance price: €140/MWh</text>
+        <text x="595" y="314" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#DC2626">Penalty = 15 × €140 = €2,100</text>
+        <text x="595" y="334" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="#DC2626">✗ Imbalance cost eats into margin</text>
+
+        <defs>
+          <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#CBD5E1"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="info-box alert reveal">
+      <strong>Multi-Pass Resettlement:</strong> TSOs frequently restate settlement statements — meter corrections, market corrections, dispute resolution. Resettlements can arrive up to <strong>90 days</strong> after initial settlement. Your Endur implementation must handle importing revised statements, re-running calculations, and generating credit/debit memos. This is one of the most implementation-intensive aspects of power Endur.
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Scheduling is not optional — failure to nominate creates an imbalance settled at <strong>penalty prices</strong></li>
+          <li>The timeline is relentless: day-ahead by noon, intraday until 5 min before, then TSO balances in real-time</li>
+          <li>Imbalance = (Scheduled - Actual) × (Imbalance Price - DA Price). It's always a loss.</li>
+          <li>Resettlement means your "final" settlement number isn't final for up to 3 months</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>pMotion in Endur runs <strong>daily</strong>, not monthly. Your ops team lives in the scheduling module.</li>
+          <li>Imbalance P&amp;L is a unique power concept — build reports that show DA P&amp;L vs. imbalance P&amp;L separately</li>
+          <li>Your settlement Ops Services must be designed for <strong>multi-pass execution</strong> — idempotent, reconcilable, auditable</li>
+          <li>Engineers need to understand: settlement in power is fundamentally different from oil invoice settlement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END TAB 2 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 3: ENDUR FOR POWER                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab3">
+
+  <div class="sh">
+    <h1>Endur for Power</h1>
+    <p>You know Endur inside-out for oil and commodity. This section maps the power-specific configurations, deal types, and workflows — the 30-40% that's new.</p>
+  </div>
+
+  <div class="sub-tabs-prominent" id="epSubs">
+    <button class="sub-tab-card active" data-color="purple" onclick="showSub('ep',0)">
+      <span class="stc-label">Deal Types</span>
+      <span class="stc-desc">Power deal capture in Endur</span>
+    </button>
+    <button class="sub-tab-card" data-color="blue" onclick="showSub('ep',1)">
+      <span class="stc-label">Curves &amp; Indices</span>
+      <span class="stc-desc">Hourly Price Curves, shape factors, market data</span>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('ep',2)">
+      <span class="stc-label">Position &amp; Risk</span>
+      <span class="stc-desc">Hourly position management and P&amp;L</span>
+    </button>
+    <button class="sub-tab-card" data-color="teal" onclick="showSub('ep',3)">
+      <span class="stc-label">Operations</span>
+      <span class="stc-desc">pMotion, settlement, Ops Services</span>
+    </button>
+  </div>
+
+  <!-- ── Sub-panel: Deal Types ── -->
+  <div class="sub-panel active" id="ep-0">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      Endur uses the same Trading Manager / deal entry framework for power as for oil. The key differences are in the <span class="hl-endur">Commodity</span> field (set to "Power" or "Electricity"), the <span class="hl-endur">instrument type</span>, and the deal's <strong>timed delivery profile</strong>.
+    </p>
+
+    <div class="acc-steps reveal">
+      <div class="acc-step open">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--power-lt);color:var(--power);">1</div>
+          <div class="acc-step-title">Physical Block Power Deal <span class="badge badge-power" style="margin-left:0.5rem">Most Common</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Fixed volume (MW) for a defined period with a standard hourly profile (on-peak, off-peak, or baseload).</p>
+          <table class="cmp-table" style="margin-top:0.75rem">
+            <tr><td class="label-cell" style="width:160px">Key Fields</td><td>Buy/Sell, Counterparty, MW quantity, Start/End date, Delivery Location (hub/zone), Profile Type, Price</td></tr>
+            <tr><td class="label-cell">Profile Type</td><td><span class="hl-power">On-Peak</span> (Mon-Fri 08:00-20:00), <span class="hl-power">Off-Peak</span> (remaining hours), <span class="hl-power">Baseload</span> (24/7)</td></tr>
+            <tr><td class="label-cell">Oil Equivalent</td><td>Similar to a physical crude forward — but with an hourly delivery profile instead of a single delivery date</td></tr>
+            <tr><td class="label-cell">Generates</td><td>Scheduling obligation (nomination to TSO via pMotion), settlement entry, physical position</td></tr>
+          </table>
+          <div class="code-block" style="margin-top:0.75rem">
+<span class="c">// Example block deal in Endur</span>
+<span class="k">Commodity:</span>    <span class="s">Power</span>
+<span class="k">Instrument:</span>  <span class="s">Physical Power</span>
+<span class="k">Direction:</span>   <span class="s">Buy</span>
+<span class="k">Quantity:</span>    <span class="n">50</span> MW
+<span class="k">Profile:</span>     <span class="s">On-Peak (Mon-Fri 08:00-20:00)</span>
+<span class="k">Location:</span>    <span class="s">TenneT NL Hub</span>
+<span class="k">Period:</span>      <span class="s">Cal-2026</span>
+<span class="k">Price:</span>       <span class="n">€84.50</span>/MWh (fixed)
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--endur-lt);color:var(--endur);">2</div>
+          <div class="acc-step-title">Shaped / Timed Power Deal</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Volume varies hour by hour. Requires a <strong>Time-Stamped Detail (TSD) table</strong> or a <strong>shape factor curve reference</strong>.</p>
+          <table class="cmp-table" style="margin-top:0.75rem">
+            <tr><td class="label-cell" style="width:160px">TSD Table</td><td>Each row = one hour with its own MW volume and potentially its own price. For a monthly deal: <strong>744 rows</strong>.</td></tr>
+            <tr><td class="label-cell">Shape Factor</td><td>A dimensionless curve that multiplies a base volume. E.g., shape = 1.3 at hour 14 means 130% of base volume.</td></tr>
+            <tr><td class="label-cell">Use Cases</td><td>Renewable PPA output profiles, industrial load-following contracts, customer-specific demand shapes</td></tr>
+            <tr><td class="label-cell">Oil Equivalent</td><td>No direct analog. Oil deals don't have hourly volume profiles. This is fundamentally new.</td></tr>
+          </table>
+          <div class="info-box endur" style="margin-top:0.75rem">
+            <strong>Performance Note:</strong> A single shaped deal for Cal-2026 has <strong>8,760 TSD rows</strong>. A book of 500 shaped deals = 4.38 million rows. This is why KWA Analytics recommends <strong>separate Ops Service packages for Power vs. Gas</strong> — the data volume per deal is orders of magnitude higher.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--trade-lt);color:var(--trade);">3</div>
+          <div class="acc-step-title">Financial Power Swap</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Same structure as a gas or oil swap, but with power-specific pricing.</p>
+          <table class="cmp-table" style="margin-top:0.75rem">
+            <tr><td class="label-cell" style="width:160px">Fixed Leg</td><td>Agreed strike price × notional MWh</td></tr>
+            <tr><td class="label-cell">Floating Leg</td><td>References a published power price index (e.g., EPEX Spot DE DA, APX NL) — typically the arithmetic average of hourly prices over the delivery period</td></tr>
+            <tr><td class="label-cell">Settlement</td><td>Cash settled monthly. Floating leg requires <strong>hourly price fixings</strong> imported from exchange/TSO — potentially 720+ data points per month</td></tr>
+            <tr><td class="label-cell">Oil Equivalent</td><td>Identical to a Brent/WTI swap in structure. The complexity is in the number of fixings (720 hourly vs. ~22 daily for oil)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--oil-lt);color:#92400E;">4</div>
+          <div class="acc-step-title">PPA in Endur</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>The most complex deal type. PPAs are multi-year, variable-volume contracts requiring custom configuration.</p>
+          <table class="cmp-table" style="margin-top:0.75rem">
+            <tr><td class="label-cell" style="width:160px">Physical PPA</td><td>Long-term physical deal with TSD volumes from generation forecast. Settlement rule: true-up against actual metered generation imported from EDM.</td></tr>
+            <tr><td class="label-cell">Virtual PPA</td><td>Financial swap where the floating leg references actual spot prices and the notional volume is actual generation. Settlement formula: <span class="hl-endur">(Strike - LMP) × Actual MWh</span></td></tr>
+            <tr><td class="label-cell">Data Integration</td><td>Meter data from EDM (Energy Data Management) system loaded via <strong>Data Series module</strong> or <strong>XML over HTTPS (XOHS)</strong> webservices</td></tr>
+            <tr><td class="label-cell">Hedge Accounting</td><td>IFRS 9 / FAS 133 designation. Effectiveness testing configured in APM — same framework as oil, different underlying.</td></tr>
+          </table>
+          <div class="info-box endur" style="margin-top:0.75rem">
+            <strong>Implementation complexity:</strong> PPA settlement in Endur typically requires custom JVS scripts for importing meter data, calculating CfD payments with TSD-level reset variables, and handling the payment formula model. Value Creed's approach uses the Data Series module for aggregated generation actuals.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--alert-lt);color:var(--alert);">5</div>
+          <div class="acc-step-title">Financial Transmission Rights (FTRs)</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>A locational basis swap between two nodes. Hedges the price differential between a source and sink location.</p>
+          <table class="cmp-table" style="margin-top:0.75rem">
+            <tr><td class="label-cell" style="width:160px">Payoff</td><td><span class="hl-endur">(Sink LMP - Source LMP) × MW</span></td></tr>
+            <tr><td class="label-cell">In Endur</td><td>Custom deal template with two location fields (source + sink). Reported under own portfolio/book.</td></tr>
+            <tr><td class="label-cell">Oil Equivalent</td><td>Loosely like a basis swap (WTI-Brent), but power basis can be extreme — hundreds of €/MWh vs. a few $/bbl for oil.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--teal-lt);color:var(--teal);">6</div>
+          <div class="acc-step-title">Spark Spread Options</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Option on the margin between power price and fuel cost.</p>
+          <div class="formula-box" style="text-align:left;font-size:0.78rem;">
+            <span class="eq-label">Payoff</span>
+            <span class="k">max</span>(<span class="n">0</span>, <span class="s">Power_Price</span> - <span class="s">Gas_Price</span> × <span class="s">Heat_Rate</span> - <span class="s">VOM_Cost</span>)
+          </div>
+          <p style="margin-top:0.5rem">In Endur: options deal with custom payoff formula. APM module handles valuation using Black-76 or similar. Greeks (Delta, Gamma, Vega) computed against the power forward curve.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights endur-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>The deal entry framework is the same — the complexity is in the <strong>hourly granularity</strong> and <strong>TSD tables</strong></li>
+          <li>A single Cal-year shaped deal creates <strong>8,760 rows</strong> — vs. 12 rows for an oil monthly deal</li>
+          <li>PPAs are the most implementation-intensive deal type — custom JVS scripts, EDM integration, complex settlement formulas</li>
+          <li>FTRs have no clean oil analog — they're a fundamentally new instrument to learn</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Deal template configuration is your first task — ensure on-peak/off-peak/baseload profiles are correctly defined</li>
+          <li>Performance tuning will be a constant theme — hourly data volumes stress APM simulations and Ops Services</li>
+          <li>Your JVS skills will be heavily used for PPA settlement customization and ISO data integration</li>
+          <li>Separate Power Ops Service packages from Gas to avoid memory and processing bottlenecks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Curves & Indices ── -->
+  <div class="sub-panel" id="ep-1">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      This is where power diverges most dramatically from oil/gas in Endur's data model. Instead of ~30 monthly curve points per year, power requires <strong>8,760 hourly data points per year per location</strong>.
+    </p>
+
+    <!-- HPC Architecture SVG -->
+    <div class="svg-wrap reveal">
+      <svg viewBox="0 0 820 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="410" y="24" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="13" fill="#1E293B">Hourly Price Curve (HPC) Construction</text>
+
+        <!-- Monthly Base Curve -->
+        <rect x="40" y="60" width="200" height="120" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+        <text x="140" y="85" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="11" fill="#92400E">Monthly Base Curve</text>
+        <text x="140" y="102" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#92400E">from EEX / ICE futures</text>
+
+        <!-- Monthly bars -->
+        <rect x="60" y="115" width="12" height="25" rx="2" fill="#F59E0B" opacity="0.7"/>
+        <rect x="76" y="120" width="12" height="20" rx="2" fill="#F59E0B" opacity="0.6"/>
+        <rect x="92" y="110" width="12" height="30" rx="2" fill="#F59E0B" opacity="0.8"/>
+        <rect x="108" y="118" width="12" height="22" rx="2" fill="#F59E0B" opacity="0.65"/>
+        <rect x="124" y="125" width="12" height="15" rx="2" fill="#F59E0B" opacity="0.5"/>
+        <rect x="140" y="128" width="12" height="12" rx="2" fill="#F59E0B" opacity="0.45"/>
+        <rect x="156" y="122" width="12" height="18" rx="2" fill="#F59E0B" opacity="0.55"/>
+        <rect x="172" y="115" width="12" height="25" rx="2" fill="#F59E0B" opacity="0.7"/>
+        <rect x="188" y="108" width="12" height="32" rx="2" fill="#F59E0B" opacity="0.85"/>
+        <rect x="204" y="112" width="12" height="28" rx="2" fill="#F59E0B" opacity="0.75"/>
+        <text x="140" y="165" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#92400E">~12 data points/year</text>
+
+        <!-- Multiply sign -->
+        <text x="275" y="125" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="24" fill="#7C3AED">×</text>
+
+        <!-- Shape Factor Curve -->
+        <rect x="310" y="60" width="200" height="120" rx="10" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+        <text x="410" y="85" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="11" fill="#7C3AED">Shape Factor Curve</text>
+        <text x="410" y="102" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#7C3AED">from historical patterns</text>
+
+        <!-- Shape factor wave -->
+        <path d="M330,140 Q340,125 350,135 Q360,145 370,130 Q380,115 390,128 Q400,140 410,120 Q420,100 430,125 Q440,145 450,138 Q460,130 470,140 Q480,148 490,142" stroke="#7C3AED" stroke-width="2" fill="none" opacity="0.8"/>
+        <text x="410" y="165" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#7C3AED">ratio per hour (e.g., 0.7–1.4)</text>
+
+        <!-- Equals sign -->
+        <text x="545" y="125" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="24" fill="#2563EB">=</text>
+
+        <!-- Hourly Price Curve -->
+        <rect x="580" y="60" width="210" height="120" rx="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+        <text x="685" y="85" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="11" fill="#1D4ED8">Hourly Price Curve</text>
+        <text x="685" y="102" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#1D4ED8">for valuation &amp; settlement</text>
+
+        <!-- Many hourly bars -->
+        <g>
+          <rect x="600" y="118" width="3" height="22" rx="1" fill="#2563EB" opacity="0.6"/>
+          <rect x="605" y="125" width="3" height="15" rx="1" fill="#2563EB" opacity="0.5"/>
+          <rect x="610" y="120" width="3" height="20" rx="1" fill="#2563EB" opacity="0.6"/>
+          <rect x="615" y="110" width="3" height="30" rx="1" fill="#2563EB" opacity="0.8"/>
+          <rect x="620" y="105" width="3" height="35" rx="1" fill="#2563EB" opacity="0.9"/>
+          <rect x="625" y="115" width="3" height="25" rx="1" fill="#2563EB" opacity="0.7"/>
+          <rect x="630" y="122" width="3" height="18" rx="1" fill="#2563EB" opacity="0.55"/>
+          <rect x="635" y="128" width="3" height="12" rx="1" fill="#2563EB" opacity="0.45"/>
+          <rect x="640" y="118" width="3" height="22" rx="1" fill="#2563EB" opacity="0.6"/>
+          <rect x="645" y="108" width="3" height="32" rx="1" fill="#2563EB" opacity="0.85"/>
+          <rect x="650" y="112" width="3" height="28" rx="1" fill="#2563EB" opacity="0.75"/>
+          <rect x="655" y="120" width="3" height="20" rx="1" fill="#2563EB" opacity="0.6"/>
+          <rect x="660" y="125" width="3" height="15" rx="1" fill="#2563EB" opacity="0.5"/>
+          <rect x="665" y="118" width="3" height="22" rx="1" fill="#2563EB" opacity="0.65"/>
+          <rect x="670" y="110" width="3" height="30" rx="1" fill="#2563EB" opacity="0.8"/>
+          <rect x="675" y="105" width="3" height="35" rx="1" fill="#2563EB" opacity="0.9"/>
+          <rect x="680" y="115" width="3" height="25" rx="1" fill="#2563EB" opacity="0.7"/>
+          <rect x="685" y="120" width="3" height="20" rx="1" fill="#2563EB" opacity="0.6"/>
+          <rect x="690" y="128" width="3" height="12" rx="1" fill="#2563EB" opacity="0.45"/>
+          <rect x="695" y="115" width="3" height="25" rx="1" fill="#2563EB" opacity="0.7"/>
+          <rect x="700" y="108" width="3" height="32" rx="1" fill="#2563EB" opacity="0.85"/>
+          <rect x="705" y="118" width="3" height="22" rx="1" fill="#2563EB" opacity="0.65"/>
+          <rect x="710" y="110" width="3" height="30" rx="1" fill="#2563EB" opacity="0.8"/>
+          <rect x="715" y="122" width="3" height="18" rx="1" fill="#2563EB" opacity="0.55"/>
+          <rect x="720" y="125" width="3" height="15" rx="1" fill="#2563EB" opacity="0.5"/>
+          <rect x="725" y="112" width="3" height="28" rx="1" fill="#2563EB" opacity="0.75"/>
+          <rect x="730" y="108" width="3" height="32" rx="1" fill="#2563EB" opacity="0.85"/>
+          <rect x="735" y="118" width="3" height="22" rx="1" fill="#2563EB" opacity="0.65"/>
+          <rect x="740" y="105" width="3" height="35" rx="1" fill="#2563EB" opacity="0.9"/>
+          <rect x="745" y="115" width="3" height="25" rx="1" fill="#2563EB" opacity="0.7"/>
+          <rect x="750" y="120" width="3" height="20" rx="1" fill="#2563EB" opacity="0.6"/>
+          <rect x="755" y="128" width="3" height="12" rx="1" fill="#2563EB" opacity="0.45"/>
+          <rect x="760" y="112" width="3" height="28" rx="1" fill="#2563EB" opacity="0.75"/>
+          <rect x="765" y="118" width="3" height="22" rx="1" fill="#2563EB" opacity="0.65"/>
+          <rect x="770" y="108" width="3" height="32" rx="1" fill="#2563EB" opacity="0.85"/>
+        </g>
+        <text x="685" y="165" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#1D4ED8">8,760 data points/year</text>
+
+        <!-- Endur Config Details -->
+        <rect x="40" y="210" width="740" height="120" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+        <text x="410" y="235" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="11" fill="#1E293B">Index Configuration in Endur</text>
+
+        <rect x="60" y="250" width="230" height="60" rx="6" fill="var(--code-bg)"/>
+        <text x="70" y="268" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Index Name:</text>
+        <text x="155" y="268" font-family="JetBrains Mono,monospace" font-size="8" fill="#86EFAC">EPEX.DE.DA.BASE</text>
+        <text x="70" y="282" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Unit:</text>
+        <text x="110" y="282" font-family="JetBrains Mono,monospace" font-size="8" fill="#FDE68A">EUR/MWh</text>
+        <text x="70" y="296" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Delivery Type:</text>
+        <text x="167" y="296" font-family="JetBrains Mono,monospace" font-size="8" fill="#86EFAC">Hourly</text>
+
+        <rect x="310" y="250" width="230" height="60" rx="6" fill="var(--code-bg)"/>
+        <text x="320" y="268" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Index Name:</text>
+        <text x="405" y="268" font-family="JetBrains Mono,monospace" font-size="8" fill="#86EFAC">EPEX.DE.RT.IMBAL</text>
+        <text x="320" y="282" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Unit:</text>
+        <text x="360" y="282" font-family="JetBrains Mono,monospace" font-size="8" fill="#FDE68A">EUR/MWh</text>
+        <text x="320" y="296" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Purpose:</text>
+        <text x="380" y="296" font-family="JetBrains Mono,monospace" font-size="8" fill="#86EFAC">Imbalance settlement</text>
+
+        <rect x="560" y="250" width="200" height="60" rx="6" fill="var(--code-bg)"/>
+        <text x="570" y="268" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Index Name:</text>
+        <text x="655" y="268" font-family="JetBrains Mono,monospace" font-size="8" fill="#86EFAC">DE.SHAPE.PEAK</text>
+        <text x="570" y="282" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Unit:</text>
+        <text x="610" y="282" font-family="JetBrains Mono,monospace" font-size="8" fill="#FDE68A">Ratio (dimensionless)</text>
+        <text x="570" y="296" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">Source:</text>
+        <text x="618" y="296" font-family="JetBrains Mono,monospace" font-size="8" fill="#86EFAC">Historical patterns</text>
+      </svg>
+    </div>
+
+    <div class="info-box endur reveal">
+      <strong>DA vs RT — Two Separate Worlds:</strong> Power markets publish two sets of hourly prices. <strong>Day-Ahead (DA)</strong>: published D-1, used for scheduling and forward valuation. <strong>Real-Time (RT)</strong>: published ex-post, used for imbalance settlement and financial swap fixings. In Endur, you maintain <strong>separate price indices</strong> for DA and RT at each location. Both need their own Connex feeds.
+    </div>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.75rem;font-size:1rem;" class="reveal">Market Data Integration</h3>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Data Source</th>
+          <th>What It Provides</th>
+          <th>Integration Path</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell">EEX / ICE</td>
+          <td>Power futures settlement prices (monthly granularity for liquid products)</td>
+          <td>Connex feed — same as oil. Standard market data.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">EPEX SPOT / Nord Pool</td>
+          <td>Hourly DA clearing prices per zone</td>
+          <td>API or CSV import via custom JVS script. Published daily after 12:55 CET.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">TSO Portals</td>
+          <td>RT imbalance prices, actual meter data, reserve auction results</td>
+          <td>Custom connector — TSO APIs vary by country. Often XML/JSON format.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Platts / Argus / LSEG</td>
+          <td>Assessed power prices, volatility data for options</td>
+          <td>Connex feed — same as oil. Standard data vendor integration.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights endur-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>HPC = Monthly Base × Shape Factor. This two-layer approach keeps the curve manageable while providing hourly granularity.</li>
+          <li>You need <strong>separate indices for DA and RT</strong> at each location — they serve different purposes</li>
+          <li>Hourly price loading is <strong>critical infrastructure</strong> — without it, no financial swap can settle</li>
+          <li>Shape factor sources: historical realized patterns, on-peak/off-peak spread markets, proprietary models</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Index/curve configuration is the #1 power-specific Endur setup task — plan it carefully</li>
+          <li>The hourly Connex Ops Service is your most important batch job — if it fails, settlement stops</li>
+          <li>Shape factor curves need regular maintenance — patterns change with renewable penetration</li>
+          <li>APM simulation performance depends on curve data availability — missing hours cause errors</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Position & Risk ── -->
+  <div class="sub-panel" id="ep-2">
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th><span class="badge badge-oil">Oil Position</span></th>
+          <th><span class="badge badge-power">Power Position</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell">Granularity</td>
+          <td>Monthly. "Long 500k bbl March" = 1 number.</td>
+          <td>Hourly. "March position" = 744 numbers (one per hour).</td>
+        </tr>
+        <tr>
+          <td class="label-cell">APM Display</td>
+          <td>Monthly pillars. Year view = 12 columns.</td>
+          <td>Configurable buckets: monthly aggregate, daily profile, hourly detail. Peak vs off-peak split.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Hierarchy</td>
+          <td>Commodity → Grade → Month → Portfolio</td>
+          <td>Commodity → Market/ISO → Location (Hub/Zone/Node) → Period (Year/Month/Day/Hour) → Product (DA/RT) → Deal Type</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Netting</td>
+          <td>Physical + Financial net at monthly level.</td>
+          <td>Physical and financial tracked separately. Physical → scheduling obligation. Financial → P&amp;L. Consolidated view for total exposure.</td>
+        </tr>
+        <tr>
+          <td class="label-cell">Unique Instrument</td>
+          <td>—</td>
+          <td>FTR positions: basis exposure between nodes. Tracked under own portfolio/book.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.75rem;font-size:1rem;" class="reveal">P&amp;L Attribution for Power</h3>
+
+    <div class="pillars reveal">
+      <div class="pillar power-border">
+        <h3>Price Change P&amp;L</h3>
+        <p>Same concept as oil: Delta P&amp;L from forward curve moves. But computed across 8,760 hourly curve points × hourly position volumes.</p>
+      </div>
+      <div class="pillar endur-border">
+        <h3>Curve Roll P&amp;L</h3>
+        <p>As time passes, each hour's forward price converges to its settlement value. Power has more granular roll than oil — daily roll effects are visible.</p>
+      </div>
+      <div class="pillar alert-border">
+        <h3>Imbalance P&amp;L</h3>
+        <p><strong>Unique to power.</strong> The difference between your scheduled position (settled at DA prices) and your actual position (settled at RT prices). No oil equivalent. Always a cost.</p>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights endur-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Power position reports have <strong>vastly more rows</strong> — learn to read hourly profiles, not just totals</li>
+          <li><strong>Imbalance P&amp;L</strong> is a new concept with no oil analog — it's always negative (a cost), and minimizing it is a key metric</li>
+          <li>Physical positions feed scheduling; financial positions feed P&amp;L — they're tracked separately in many configurations</li>
+          <li>APM simulation time scales with hourly data volume — optimize bucket configurations for performance</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Build position reports that show <strong>DA P&amp;L, realized P&amp;L, and imbalance P&amp;L</strong> separately</li>
+          <li>On-peak vs. off-peak position split is essential for risk management — traders manage these independently</li>
+          <li>APM bucket configuration is a key performance lever — get this right early</li>
+          <li>A European power firm using Endur reduced manual reconciliations by 70% by centralizing imbalance exposure management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Operations ── -->
+  <div class="sub-panel" id="ep-3">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 1rem;font-size:1.1rem;" class="reveal">pMotion — Power Scheduling Module</h3>
+
+    <p style="color:var(--text-sec);font-size:0.88rem;margin-bottom:1rem;" class="reveal">
+      pMotion is to power what cMotion is to crude logistics. It handles the entire scheduling lifecycle: position aggregation, schedule submission to TSOs/ISOs, award receipt, and imbalance tracking.
+    </p>
+
+    <div class="acc-steps reveal">
+      <div class="acc-step open">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--power-lt);color:var(--power);">1</div>
+          <div class="acc-step-title">Position Aggregation</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>pMotion reads physical positions from Trading Manager, aggregates by delivery point for the next operating day. Combines generation dispatch data with load forecasts.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--trade-lt);color:var(--trade);">2</div>
+          <div class="acc-step-title">Schedule Creation &amp; Submission</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>Creates schedule files in TSO-specific formats. Nomination Manager handles submission timing: DA bid window closes at noon CET D-1. Each TSO has different portals and protocols.</p>
+          <table class="cmp-table" style="margin-top:0.5rem">
+            <tr><td class="label-cell" style="width:120px">Germany</td><td>Submit to TenneT/50Hertz/Amprion/TransnetBW portals</td></tr>
+            <tr><td class="label-cell">Netherlands</td><td>TenneT NL scheduling portal</td></tr>
+            <tr><td class="label-cell">UK</td><td>NESO (formerly National Grid ESO) ELEXON portal</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--endur-lt);color:var(--endur);">3</div>
+          <div class="acc-step-title">Award Import &amp; Real-Time Tracking</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p>TSO confirms schedule. Awards imported back into Endur. As operating day progresses, pMotion tracks adjustments against DA schedule. Imbalance (actual vs. scheduled) tracked in real-time, feeding imbalance P&amp;L.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-div">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 0.75rem;font-size:1rem;" class="reveal">Key Ops Services for Power</h3>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>Ops Service</th>
+          <th>Frequency</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-cell"><span class="hl-endur">Power_PriceLoad_Hourly</span></td>
+          <td>Hourly or more frequent</td>
+          <td>Loads RT/DA prices from EPEX/TSO APIs into index fixing table. <strong>Most critical batch job.</strong></td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="hl-endur">Power_APM_Simulation</span></td>
+          <td>Multiple times daily</td>
+          <td>Generates APM position &amp; P&amp;L data for the power book. Separate from gas APM for performance.</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="hl-endur">Power_Schedule_Export</span></td>
+          <td>Daily (D-1)</td>
+          <td>Exports scheduling files for TSO submission via pMotion Nomination Manager.</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="hl-endur">Power_EOD_Settlement</span></td>
+          <td>Daily / Monthly</td>
+          <td>Runs end-of-day settlement calculations. Handles multi-pass resettlement.</td>
+        </tr>
+        <tr>
+          <td class="label-cell"><span class="hl-endur">Power_Meter_Import</span></td>
+          <td>Daily / As received</td>
+          <td>Imports actual meter data from EDM systems for PPA true-up and imbalance calculation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:1.5rem 0 0.75rem;font-size:1rem;" class="reveal">Technical Extension Points</h3>
+
+    <div class="pillars reveal">
+      <div class="pillar endur-border">
+        <h3>AVS / JVS Scripts</h3>
+        <p>The workhorses of power customization. Common uses:</p>
+        <ul>
+          <li>Shape factor calculation (apply hourly shape to deal volume)</li>
+          <li>TSO price file parsing (CSV/XML from exchange APIs)</li>
+          <li>Resettlement reconciliation (import revised TSO statement, generate delta invoices)</li>
+          <li>PPA settlement formulas (custom CfD calculations with meter data)</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Trend:</strong> JVS preferred for new development (Java IDE tooling, better debugging, external library access).</p>
+      </div>
+      <div class="pillar power-border">
+        <h3>OpenComponents</h3>
+        <p>Most modern extension mechanism. Recommended for:</p>
+        <ul>
+          <li>REST API integrations with TSO portals</li>
+          <li>Cloud-based market data feeds</li>
+          <li>Integration with external settlement systems</li>
+          <li>Custom UI extensions for power-specific workflows</li>
+        </ul>
+      </div>
+      <div class="pillar trade-border">
+        <h3>Connex (TPM)</h3>
+        <p>Market data integration framework. For power, configure:</p>
+        <ul>
+          <li>DA price feeds from EPEX SPOT / Nord Pool APIs</li>
+          <li>Power futures from EEX / ICE via standard data vendors</li>
+          <li>Volatility data for options valuation</li>
+          <li>Higher frequency than oil — hourly or sub-hourly updates</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights endur-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>pMotion runs <strong>daily</strong>, not monthly — the ops team lives in the scheduling module</li>
+          <li>The hourly price loading Ops Service is <strong>critical infrastructure</strong> — build monitoring and alerting around it</li>
+          <li>Power Ops Services must be separated from Gas for performance — different data volume profiles</li>
+          <li>Multi-pass resettlement requires <strong>idempotent, auditable</strong> settlement scripts</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Your first engineering task: ensure the hourly price loading pipeline is robust and monitored</li>
+          <li>Build resettlement handling as a core capability, not an afterthought — TSOs restate frequently</li>
+          <li>pMotion configuration varies by TSO — budget for per-country integration work</li>
+          <li>Use JVS for new custom development; maintain AVS for legacy scripts; evaluate OpenComponents for new integrations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END TAB 3 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 4: LEADING POWER TEAMS                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab4">
+
+  <div class="sh">
+    <h1>Leading &amp; Mentoring in the Power Domain</h1>
+    <p>Beyond technical knowledge — the leadership skills, engineering challenges, and team-building approaches specific to power trading technology teams.</p>
+  </div>
+
+  <div class="sub-tabs-prominent" id="ldSubs">
+    <button class="sub-tab-card active" data-color="purple" onclick="showSub('ld',0)">
+      <span class="stc-label">Domain Mastery</span>
+      <span class="stc-desc">What you must know deeply to lead effectively</span>
+    </button>
+    <button class="sub-tab-card" data-color="blue" onclick="showSub('ld',1)">
+      <span class="stc-label">Engineering Challenges</span>
+      <span class="stc-desc">Common technical problems in power systems</span>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('ld',2)">
+      <span class="stc-label">Team Leadership</span>
+      <span class="stc-desc">Onboarding, mentoring, and growing engineers</span>
+    </button>
+  </div>
+
+  <!-- ── Sub-panel: Domain Mastery ── -->
+  <div class="sub-panel active" id="ld-0">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      As a team lead, you're the bridge between business stakeholders (traders, ops, risk) and your engineering team. You don't need to trade power, but you <strong>must</strong> be able to translate trader requests into technical requirements — and push back when requirements are ambiguous.
+    </p>
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 0.75rem;font-size:1rem;" class="reveal">The 10 Concepts You Must Master First</h3>
+
+    <div class="acc-steps reveal">
+      <div class="acc-step open">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--alert-lt);color:var(--alert);">1</div>
+          <div class="acc-step-title">Non-Storability of Power</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> Every technical decision flows from this. When a trader says "hold the position," you must understand that power positions can't be held — they must be scheduled or sold. When an engineer suggests a "retry later" approach for a failed nomination, you must know that in power, "later" means imbalance penalties.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--power-lt);color:var(--power);">2</div>
+          <div class="acc-step-title">Hourly Granularity</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> Every data model discussion, every performance issue, every storage calculation comes back to this. An engineer who designs a monthly-grain data model will build a system that fails. You must catch this in design reviews.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--trade-lt);color:var(--trade);">3</div>
+          <div class="acc-step-title">DA vs. RT Pricing</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> When a stakeholder asks for "the power price," you must clarify: DA or RT? Hub or node? Which zone? Which hour? An ambiguous requirement here causes weeks of rework.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--endur-lt);color:var(--endur);">4</div>
+          <div class="acc-step-title">Merit Order &amp; Price Formation</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> When a trader says "the curve moved because of wind," you need to understand the causal chain: more wind → renewables push gas out of merit order → clearing price drops. Without this, you can't prioritize weather data integration work.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--teal-lt);color:var(--teal);">5</div>
+          <div class="acc-step-title">Balancing &amp; Imbalance</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> Imbalance cost is the number your ops team and traders watch daily. When they request a "real-time position dashboard," they mean: show me my scheduled position vs. my forecast actual, and compute my likely imbalance cost. You must understand the formula to validate the output.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--oil-lt);color:#92400E;">6</div>
+          <div class="acc-step-title">Spark Spread Economics</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> The spark spread is the fundamental P&amp;L metric for gas-to-power operations. When your team builds spread monitoring tools, you need to verify: are they using the correct efficiency factor? Are they including carbon cost? Are they using the right gas index (TTF vs. NBP)?</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--power-lt);color:var(--power);">7</div>
+          <div class="acc-step-title">PPA Structures</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> PPAs are Shell's growth area. When a business analyst brings a new PPA structure for Endur configuration, you must assess: is this a physical or virtual PPA? What settlement formula is needed? Do we need meter data integration? What's the hedge accounting treatment? This is high-value, high-complexity work.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--trade-lt);color:var(--trade);">8</div>
+          <div class="acc-step-title">TSOs &amp; Their Differences</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> Each TSO has different APIs, data formats, scheduling protocols, and settlement timelines. When scoping integration work, you must know that "connecting to the German market" means potentially integrating with 4 different TSOs (TenneT, 50Hertz, Amprion, TransnetBW). Estimate accordingly.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--endur-lt);color:var(--endur);">9</div>
+          <div class="acc-step-title">Multi-Pass Resettlement</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> When your settlement team says "the numbers changed again," you must know this is normal — TSOs restate settlements up to 90 days. Your systems must be designed for this from day one. Retrofitting multi-pass settlement is painful and expensive.</p>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--alert-lt);color:var(--alert);">10</div>
+          <div class="acc-step-title">Renewable Intermittency</div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <p><strong>Why it matters for leadership:</strong> Shell's growing renewable portfolio means your systems must handle variable, weather-dependent generation. When a product owner requests "generation forecasting integration," you must understand: this feeds scheduling (pMotion), which feeds imbalance management, which feeds P&amp;L. It's not a nice-to-have — it's operational infrastructure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights endur-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>You don't need to trade — you need to <strong>translate</strong> between traders and engineers</li>
+          <li>The 10 concepts above are your "minimum viable domain knowledge" — master them in the first 2-3 months</li>
+          <li>Your oil/commodity Endur experience gives you a <strong>huge credibility advantage</strong> — leverage it while you learn power specifics</li>
+          <li>Ask traders to explain in terms of oil analogs when possible — it accelerates your learning</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>In design reviews: always ask "does this handle hourly granularity?" and "does this work for multi-pass resettlement?"</li>
+          <li>In stakeholder meetings: clarify DA vs. RT, hub vs. node, and which TSO before any technical discussion</li>
+          <li>In sprint planning: factor in per-country integration complexity — "connect to European power markets" is 4-6x the effort of a single-market integration</li>
+          <li>In hiring: look for candidates who understand time-series data at scale — it's the core engineering challenge</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Engineering Challenges ── -->
+  <div class="sub-panel" id="ld-1">
+
+    <p style="color:var(--text-sec);font-size:0.9rem;margin-bottom:1.25rem;" class="reveal">
+      Power trading technology has unique engineering challenges that don't exist (or are much smaller) in oil/commodity systems. Knowing these upfront helps you plan, staff, and architect correctly.
+    </p>
+
+    <div class="pillars reveal">
+      <div class="pillar alert-border">
+        <div class="pillar-icon alert-bg">&#9888;</div>
+        <h3>Data Volume at Hourly Scale</h3>
+        <p>The #1 engineering challenge. Everything operates at hourly (or 15-min) granularity.</p>
+        <ul>
+          <li>A single deal for one year = 8,760 TSD rows</li>
+          <li>500 shaped deals = 4.38 million rows</li>
+          <li>APM simulation: 8,760 price lookups × N deals per location</li>
+          <li>Connex feeds: hourly price updates, not daily</li>
+        </ul>
+        <p style="margin-top:0.5rem;font-family:var(--font-h);font-weight:600;font-size:0.82rem;color:var(--alert);">Design for hourly scale from day one. Retrofitting monthly-grain systems is a rewrite.</p>
+      </div>
+      <div class="pillar power-border">
+        <div class="pillar-icon power-bg">&#9200;</div>
+        <h3>Time Zone Complexity</h3>
+        <p>European power trading spans CET/CEST, GMT, EET. Time zone transitions create data challenges.</p>
+        <ul>
+          <li>Daylight saving: March has 23 hours, October has 25</li>
+          <li>TSOs report in local time; exchanges in CET; Endur in configured TZ</li>
+          <li>Hour numbering: HE (Hour Ending) vs. HB (Hour Beginning)</li>
+          <li>15-minute MTUs since Oct 2025 multiply complexity by 4</li>
+        </ul>
+      </div>
+      <div class="pillar endur-border">
+        <div class="pillar-icon endur-bg">&#128268;</div>
+        <h3>Multi-TSO Integration</h3>
+        <p>Each country's TSO has different APIs, data formats, and protocols.</p>
+        <ul>
+          <li>Germany alone has 4 TSOs with 4 different portals</li>
+          <li>No standardized API — XML, CSV, REST, SOAP all in use</li>
+          <li>Settlement statement formats vary by TSO</li>
+          <li>Certification requirements for automated submission</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar trade-border">
+        <div class="pillar-icon trade-bg">&#9851;</div>
+        <h3>Real-Time Operations</h3>
+        <p>The boundary between "trading system" and "operations system" blurs in power. Daily scheduling is a production-critical workflow.</p>
+        <ul>
+          <li>Nomination submission has hard deadlines (noon CET for DA)</li>
+          <li>Intraday position adjustments until 5 min before delivery</li>
+          <li>System downtime during scheduling window = imbalance penalties</li>
+          <li>SLA: pMotion and price loading are Tier 1 critical</li>
+        </ul>
+      </div>
+      <div class="pillar oil-border">
+        <div class="pillar-icon oil-bg">&#128202;</div>
+        <h3>Curve Construction</h3>
+        <p>Building hourly forward curves from monthly liquid prices + shape factors is non-trivial.</p>
+        <ul>
+          <li>Shape factors change as renewable penetration grows</li>
+          <li>Weekend vs. weekday patterns differ by season</li>
+          <li>Holiday calendars affect profiles (Christmas, Easter)</li>
+          <li>Cross-commodity correlation: gas-power-carbon triangle</li>
+        </ul>
+      </div>
+      <div class="pillar teal-border">
+        <div class="pillar-icon teal-bg">&#128295;</div>
+        <h3>Settlement Reconciliation</h3>
+        <p>Multi-pass resettlement is an engineering problem, not just a business process.</p>
+        <ul>
+          <li>Scripts must be idempotent (safe to re-run with new data)</li>
+          <li>Audit trail required for every version</li>
+          <li>Delta calculations between settlement versions</li>
+          <li>Reconciliation against external TSO statements</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights">
+        <h4>Key Insights</h4>
+        <ul>
+          <li><strong>Data volume is the root cause</strong> of most power system performance issues — not algorithm complexity</li>
+          <li>Time zones are a landmine — every daylight saving transition will break something if not handled carefully</li>
+          <li>pMotion and price loading are <strong>Tier 1 critical systems</strong> — treat them like production payment systems</li>
+          <li>Multi-TSO integration is where most project timeline overruns happen — scope carefully</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Staff your team with engineers who are comfortable with <strong>time-series data at scale</strong></li>
+          <li>Build monitoring dashboards for price loading, scheduling submission, and settlement batch jobs</li>
+          <li>Plan for DST transitions explicitly — add them to your release calendar and testing plan</li>
+          <li>Budget 3-4x engineering time for multi-country vs. single-country integration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Team Leadership ── -->
+  <div class="sub-panel" id="ld-2">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 0.75rem;font-size:1.1rem;" class="reveal">Your First 90 Days — A Roadmap</h3>
+
+    <div class="acc-steps reveal">
+      <div class="acc-step open">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--trade-lt);color:var(--trade);">1</div>
+          <div class="acc-step-title">Weeks 1-2: Orient &amp; Connect <span class="badge badge-trade" style="margin-left:0.5rem">Foundation</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <ul>
+            <li><strong>Shadow a power trader</strong> for at least 2 full days. Watch the day-ahead bidding process, intraday adjustments, and EOD settlement review. Ask "why" at every step.</li>
+            <li><strong>Map your stakeholders:</strong> front office (traders, originators), middle office (risk, P&amp;L reporting), back office (settlement, ops), and technology (your peer leads). Know who owns what.</li>
+            <li><strong>Review the Endur configuration:</strong> Look at deal templates, index/curve setup, Ops Service schedules, and pMotion configuration. Your oil/gas Endur skills let you read this immediately.</li>
+            <li><strong>Meet each team member 1:1.</strong> Understand their background, strengths, current projects, and what they wish was different.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--power-lt);color:var(--power);">2</div>
+          <div class="acc-step-title">Weeks 3-6: Learn &amp; Contribute <span class="badge badge-power" style="margin-left:0.5rem">Deep Dive</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <ul>
+            <li><strong>Pick up a small but visible task</strong> — e.g., improve a JVS price loading script, fix a settlement report bug, or enhance a position view. This builds credibility fast.</li>
+            <li><strong>Study this guide's tabs 2-4</strong> in depth. Aim to explain spark spreads, merit order, and HPCs to a junior engineer by week 6.</li>
+            <li><strong>Attend the daily scheduling/ops standup.</strong> Even if you don't contribute yet, absorb the vocabulary and workflow.</li>
+            <li><strong>Map the critical path:</strong> What systems must work for the desk to trade tomorrow? Price loading → pMotion → settlement. Build your monitoring strategy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-step">
+        <div class="acc-step-header" onclick="toggleAcc(this)">
+          <div class="acc-step-num" style="background:var(--endur-lt);color:var(--endur);">3</div>
+          <div class="acc-step-title">Weeks 7-12: Lead &amp; Shape <span class="badge badge-endur" style="margin-left:0.5rem">Leadership</span></div>
+          <div class="acc-step-arrow">&#9660;</div>
+        </div>
+        <div class="acc-step-body">
+          <ul>
+            <li><strong>Run a domain knowledge session</strong> for your team. Use this guide as the curriculum. Cover Tabs 1-2 in session 1, Tabs 3-4 in session 2.</li>
+            <li><strong>Establish code review standards</strong> with power-specific checks: hourly data handling, time zone awareness, idempotent settlement logic.</li>
+            <li><strong>Propose one architectural improvement</strong> based on your oil/gas experience. Example: "In oil Endur, we separated Ops Service packages by commodity for performance. We should do the same for power vs. gas here."</li>
+            <li><strong>Build your roadmap.</strong> What are the top 3 technical debt items? What integration is the riskiest? Where is the team spending most of their unplanned support time?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-div">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 0.75rem;font-size:1rem;" class="reveal">Onboarding New Engineers to Power Domain</h3>
+
+    <div class="pillars reveal">
+      <div class="pillar trade-border">
+        <h3>Week 1: Fundamentals</h3>
+        <ul>
+          <li>Have them read Tabs 1-2 of this guide</li>
+          <li>Explain the oil-to-power concept map (Tab 1, Sub-tab 3)</li>
+          <li>Shadow a trader for half a day (even engineers)</li>
+          <li>Pair them with a senior team member on a small task</li>
+        </ul>
+      </div>
+      <div class="pillar power-border">
+        <h3>Week 2-3: Hands-On</h3>
+        <ul>
+          <li>Have them trace a deal through Endur: entry → position → P&amp;L → settlement</li>
+          <li>Ask them to explain HPCs back to you (tests understanding)</li>
+          <li>Assign a well-scoped JVS bug fix or enhancement</li>
+          <li>Review their code with domain-specific feedback</li>
+        </ul>
+      </div>
+      <div class="pillar endur-border">
+        <h3>Month 2+: Independence</h3>
+        <ul>
+          <li>Assign progressively more complex tasks</li>
+          <li>Have them present a technical topic to the team</li>
+          <li>Involve them in design discussions with stakeholders</li>
+          <li>Encourage them to build domain-specific test cases</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="section-div">
+
+    <h3 style="font-family:var(--font-h);font-weight:700;margin:0 0 0.75rem;font-size:1rem;" class="reveal">Stakeholder Communication Cheat Sheet</h3>
+
+    <table class="cmp-table reveal">
+      <thead>
+        <tr>
+          <th>When They Say...</th>
+          <th>They Mean...</th>
+          <th>You Should Ask...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"The curve is wrong"</td>
+          <td>A price index in Endur doesn't match what they see on their broker screen</td>
+          <td>Which index? Which hours? DA or RT? When was the last Connex feed run?</td>
+        </tr>
+        <tr>
+          <td>"We need to see our position"</td>
+          <td>They want an APM position view — but at what granularity? Hourly? Daily? Peak vs. off-peak?</td>
+          <td>What aggregation level? Which locations? Physical only or physical + financial?</td>
+        </tr>
+        <tr>
+          <td>"Settlement is off"</td>
+          <td>The Endur settlement number doesn't match the TSO's statement</td>
+          <td>Which settlement version (initial or resettlement)? Have all meter data been imported? Are we using the same imbalance prices?</td>
+        </tr>
+        <tr>
+          <td>"We're getting hammered on imbalance"</td>
+          <td>Their actual position deviates significantly from their day-ahead schedule</td>
+          <td>Is this a forecasting issue (wind/solar prediction) or a system issue (pMotion not reflecting latest trades)?</td>
+        </tr>
+        <tr>
+          <td>"We need to onboard a new PPA"</td>
+          <td>A new long-term deal needs Endur configuration — deal template, settlement rules, meter data integration</td>
+          <td>Physical or virtual? What's the settlement formula? Where does meter data come from? What's the hedge accounting treatment?</td>
+        </tr>
+        <tr>
+          <td>"Can we trade in a new market?"</td>
+          <td>They want to add a new country/zone — meaning new TSO integration, new indices, new settlement rules</td>
+          <td>Which TSO? What's their data format? Do we have existing connectivity? What's the timeline for TSO certification?</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ki-grid reveal">
+      <div class="ki-card insights teal-sig">
+        <h4>Key Insights</h4>
+        <ul>
+          <li>Your <strong>oil/gas Endur credibility transfers instantly</strong> — leverage it while you build power domain knowledge</li>
+          <li>The fastest way to learn is to <strong>shadow a trader</strong> and ask "why" at every step</li>
+          <li>Domain knowledge sessions for your team are a <strong>leadership multiplier</strong> — teach what you learn</li>
+          <li>The stakeholder cheat sheet above covers 80% of the conversations you'll have in the first 6 months</li>
+        </ul>
+      </div>
+      <div class="ki-card impact">
+        <h4>Impact on Your Day-to-Day</h4>
+        <ul>
+          <li>Invest in your own learning in weeks 1-6 — it pays off permanently in faster decision-making</li>
+          <li>Build onboarding materials early — you'll hire at least 1-2 engineers in the first year</li>
+          <li>Establish domain-specific code review standards — hourly data, time zones, and settlement idempotency</li>
+          <li>Your unique advantage: you can compare oil and power approaches, catching gaps that power-only engineers miss</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END TAB 4 -->
+
+<!-- ═══════════════ INFO MODALS ═══════════════ -->
+<div id="sdac-modal" class="info-modal-overlay" style="display:none">
+  <div class="info-modal">
+    <button class="info-modal-close" onclick="closeInfoModal('sdac-modal')">&#215;</button>
+    <h3>SDAC — Single Day-Ahead Coupling</h3>
+    <p>SDAC is the pan-European mechanism that links <strong>27 countries, 61 bidding zones, 30 TSOs, and 16 NEMOs</strong> (Nominated Electricity Market Operators) in a single daily auction.</p>
+    <p>The core algorithm is called <strong>EUPHEMIA</strong> (EU Pan-European Hybrid Electricity Market Integration Algorithm), developed by N-SIDE. It's a mixed-integer optimization model that maximizes total social welfare (consumer surplus + producer surplus + congestion rent) across all 24 hours simultaneously.</p>
+    <p>Key facts:</p>
+    <ul style="padding-left:1.2rem;font-size:0.88rem;color:var(--text-sec);">
+      <li>Runs once daily at ~12:00-12:55 CET</li>
+      <li>EUPHEMIA solves in approximately 12-17 minutes</li>
+      <li>Handles simple hourly bids AND complex block orders spanning multiple hours</li>
+      <li>Implicitly allocates cross-border transmission capacity — traders don't bid for it separately</li>
+      <li>Since October 2025: 15-minute Market Time Units (MTUs) across all borders</li>
+    </ul>
+    <p>This is arguably the <strong>world's largest daily optimization problem</strong> — millions of bids across 61 zones, 24 hours, with network constraints.</p>
+  </div>
+</div>
+
+<div id="goo-modal" class="info-modal-overlay" style="display:none">
+  <div class="info-modal">
+    <button class="info-modal-close" onclick="closeInfoModal('goo-modal')">&#215;</button>
+    <h3>Guarantees of Origin (GoOs) — Deep Dive</h3>
+    <p>GoOs are governed by the <strong>Association of Issuing Bodies (AIB)</strong> and the <strong>European Energy Certificate System (EECS)</strong>. Each certificate represents exactly 1 MWh and records:</p>
+    <ul style="padding-left:1.2rem;font-size:0.88rem;color:var(--text-sec);">
+      <li><strong>Technology:</strong> Wind, solar PV, hydro, biomass, geothermal</li>
+      <li><strong>Country:</strong> Where the MWh was generated</li>
+      <li><strong>Time period:</strong> When it was generated</li>
+      <li><strong>Plant details:</strong> Specific generating facility</li>
+    </ul>
+    <p style="margin-top:0.75rem"><strong>Market dynamics (2024):</strong></p>
+    <ul style="padding-left:1.2rem;font-size:0.88rem;color:var(--text-sec);">
+      <li>Prices collapsed from ~&euro;7/MWh (2023) to below &euro;0.30/MWh (end 2024)</li>
+      <li>Cause: massive oversupply as European renewable capacity expanded + French nuclear recovery</li>
+      <li>2024 volumes: 1,084 TWh issued, 1,067 TWh transferred, 884 TWh cancelled</li>
+      <li>"Cancelled" = claimed by an end consumer for renewable energy reporting</li>
+    </ul>
+    <p style="margin-top:0.75rem">The UK uses <strong>REGOs</strong> (Renewable Energy Guarantee of Origin) — a similar but separate certificate system post-Brexit.</p>
+    <p style="margin-top:0.75rem">Shell Energy Europe trades GoOs, REGOs, EUAs, and voluntary carbon credits through dedicated environmental products desks.</p>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+function showTab(idx) {
+  document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll('#mainTabs button').forEach((b,i) => b.classList.toggle('active', i===idx));
+  reObserve();
+}
+function showSub(group, idx) {
+  document.querySelectorAll('[id^="'+group+'-"]').forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll('#'+group+'Subs button').forEach((b,i) => b.classList.toggle('active', i===idx));
+  reObserve();
+}
+function openInfoModal(id) { document.getElementById(id).style.display='flex'; }
+function closeInfoModal(id) { document.getElementById(id).style.display='none'; }
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('info-modal-overlay')) e.target.style.display='none';
+});
+function toggleAcc(el) {
+  el.closest('.acc-step').classList.toggle('open');
+}
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.15 });
+function reObserve() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObs.observe(el));
+}
+reObserve();
+</script>
+</body>
+</html>
