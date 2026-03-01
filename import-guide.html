@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Valdez India Import Playbook — Dubai → India</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html { font-size: 18px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #2563EB;
+  --primary-light: #DBEAFE;
+  --primary-dark: #1D4ED8;
+  --surface: #F9FAFB;
+  --card: #FFFFFF;
+  --text: #1F2937;
+  --text-sec: #6B7280;
+  --text-light: #9CA3AF;
+  --border: #E5E7EB;
+  --border-lt: #F3F4F6;
+
+  --reg: #2563EB;      --reg-lt: #DBEAFE;
+  --cost: #16A34A;     --cost-lt: #DCFCE7;
+  --market: #F59E0B;   --market-lt: #FEF3C7;
+  --accent: #7C3AED;   --accent-lt: #EDE9FE;
+  --alert: #DC2626;    --alert-lt: #FEE2E2;
+
+  --code-bg: #1E293B;
+  --code-fg: #E2E8F0;
+  --code-kw: #93C5FD;
+  --code-str: #86EFAC;
+  --code-num: #FDE68A;
+  --code-cmt: #64748B;
+
+  --font-h: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-b: 'DM Sans', system-ui, sans-serif;
+  --font-m: 'JetBrains Mono', monospace;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px;
+  --sh-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --sh-md: 0 4px 12px rgba(0,0,0,0.08);
+  --sh-lg: 0 8px 25px rgba(37,99,235,0.10);
+  --sh-xl: 0 12px 40px rgba(37,99,235,0.15);
+}
+
+body {
+  font-family: var(--font-b);
+  color: var(--text);
+  background: var(--surface);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff; border-bottom: 1px solid var(--border);
+  box-shadow: var(--sh-sm);
+  display: flex; align-items: center; gap: 0.25rem;
+  padding: 0 1.5rem; height: 56px;
+  overflow-x: auto;
+}
+.nav-logo {
+  font-family: var(--font-h); font-weight: 800; font-size: 0.85rem;
+  color: var(--primary); white-space: nowrap; margin-right: 1rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.nav-logo span { font-size: 1.1rem; }
+.nav button {
+  font-family: var(--font-h); font-weight: 600; font-size: 0.72rem;
+  padding: 0.4rem 0.85rem; border: none; cursor: pointer;
+  background: transparent; color: var(--text-sec);
+  border-radius: var(--r-sm); white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav button:hover { color: var(--text); background: var(--border-lt); }
+.nav button.active { color: #fff; background: var(--primary); }
+
+/* ── PANELS ── */
+.tab-panel { display: none; padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.tab-panel.active { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── SECTION HEADER ── */
+.sh { margin-bottom: 2rem; }
+.sh h1 { font-family: var(--font-h); font-size: 1.6rem; font-weight: 800; margin-bottom: 0.25rem; }
+.sh p { color: var(--text-sec); font-size: 0.9rem; }
+
+/* ── PILLAR CARDS ── */
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1rem; margin-bottom: 2rem; }
+.pillar {
+  background: var(--card); border-radius: var(--r-lg); padding: 1.25rem;
+  border-top: 4px solid var(--primary); box-shadow: var(--sh-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pillar:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.pillar.green { border-top-color: var(--cost); }
+.pillar.amber { border-top-color: var(--market); }
+.pillar.purple { border-top-color: var(--accent); }
+.pillar.red { border-top-color: var(--alert); }
+.pillar-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.pillar h3 { font-family: var(--font-h); font-weight: 700; font-size: 0.95rem; margin-bottom: 0.35rem; }
+.pillar p { font-size: 0.8rem; color: var(--text-sec); line-height: 1.5; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block; font-family: var(--font-h); font-weight: 600;
+  font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.badge-reg { background: var(--reg-lt); color: var(--reg); }
+.badge-cost { background: var(--cost-lt); color: var(--cost); }
+.badge-market { background: var(--market-lt); color: var(--market); }
+.badge-accent { background: var(--accent-lt); color: var(--accent); }
+.badge-alert { background: var(--alert-lt); color: var(--alert); }
+
+/* ── INFO BOXES ── */
+.info-box {
+  background: var(--primary-light); border-left: 3px solid var(--primary);
+  border-radius: 0 var(--r-md) var(--r-md) 0; padding: 0.75rem 1rem;
+  margin: 1rem 0; font-size: 0.8rem;
+}
+.info-box.warn { background: var(--alert-lt); border-left-color: var(--alert); }
+.info-box.success { background: var(--cost-lt); border-left-color: var(--cost); }
+.info-box.tip { background: var(--accent-lt); border-left-color: var(--accent); }
+.info-box strong { font-family: var(--font-h); }
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: var(--code-bg); color: var(--code-fg); border-radius: var(--r-md);
+  padding: 1rem; font-family: var(--font-m); font-size: 0.72rem;
+  line-height: 1.7; overflow-x: auto; margin: 1rem 0;
+}
+.code-block .k { color: var(--code-kw); }
+.code-block .s { color: var(--code-str); }
+.code-block .n { color: var(--code-num); }
+.code-block .c { color: var(--code-cmt); }
+
+/* ── KEY INSIGHTS + IMPACT ── */
+.ki-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.ki-card {
+  background: var(--card); border-radius: var(--r-lg); padding: 1.1rem;
+  box-shadow: var(--sh-sm);
+}
+.ki-card.insights { border-left: 4px solid var(--reg); }
+.ki-card.impact { border-left: 4px solid var(--accent); }
+.ki-card h4 { font-family: var(--font-h); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem; }
+.ki-card ul { list-style: none; padding: 0; }
+.ki-card li { font-size: 0.78rem; padding: 0.25rem 0; padding-left: 1rem; position: relative; color: var(--text-sec); }
+.ki-card li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+.ki-card.impact li::before { color: var(--accent); }
+
+/* ── TABLES ── */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 0.78rem;
+  background: var(--card); border-radius: var(--r-md); overflow: hidden;
+  box-shadow: var(--sh-sm);
+}
+th {
+  background: var(--code-bg); color: #fff; font-family: var(--font-h);
+  font-weight: 600; padding: 0.6rem 0.8rem; text-align: left;
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em;
+}
+td { padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--border-lt); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--surface); }
+td.num { font-family: var(--font-m); text-align: right; }
+td.highlight { font-weight: 700; color: var(--primary); }
+td.alert-text { font-weight: 700; color: var(--alert); }
+
+/* ── SVG CONTAINER ── */
+.svg-wrap { overflow-x: auto; margin: 1.5rem 0; }
+.svg-wrap svg { width: 100%; height: auto; min-width: 820px; }
+
+/* ── STEP CARDS ── */
+.steps { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+.step {
+  display: flex; gap: 1rem; padding: 1rem 0;
+  border-left: 3px solid var(--border);
+  margin-left: 1rem; padding-left: 1.5rem;
+  position: relative;
+}
+.step::before {
+  content: attr(data-num); position: absolute; left: -14px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  font-family: var(--font-h); font-weight: 700; font-size: 0.65rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.step.green::before { background: var(--cost); }
+.step.amber::before { background: var(--market); }
+.step.purple::before { background: var(--accent); }
+.step-body h4 { font-family: var(--font-h); font-weight: 700; font-size: 0.85rem; margin-bottom: 0.25rem; }
+.step-body p { font-size: 0.78rem; color: var(--text-sec); }
+
+/* ── COMPARISON CARDS ── */
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; margin: 1.5rem 0; }
+.comp-card {
+  background: var(--card); border-radius: var(--r-lg); padding: 1.1rem;
+  border: 2px solid var(--border); box-shadow: var(--sh-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.comp-card:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
+.comp-card.chosen { border-color: var(--accent); background: linear-gradient(135deg, var(--accent-lt) 0%, #fff 100%); }
+.comp-card h4 { font-family: var(--font-h); font-weight: 700; font-size: 0.85rem; margin-bottom: 0.5rem; }
+.comp-card .price { font-family: var(--font-m); font-size: 1.1rem; font-weight: 700; color: var(--cost); }
+.comp-card .detail { font-size: 0.72rem; color: var(--text-sec); margin-top: 0.35rem; }
+
+/* ── INFO MODAL ── */
+.info-help-btn {
+  width: 20px; height: 20px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--accent); color: #fff; font-family: var(--font-h);
+  font-weight: 700; font-size: 0.6rem; display: inline-flex;
+  align-items: center; justify-content: center; vertical-align: middle;
+  margin-left: 0.3rem; transition: transform 0.15s;
+}
+.info-help-btn:hover { transform: scale(1.15); }
+.info-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.info-modal {
+  background: var(--card); border-radius: var(--r-xl); padding: 1.5rem;
+  max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto;
+  box-shadow: var(--sh-xl); animation: slideD 0.25s ease;
+}
+@keyframes slideD { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.info-modal-close {
+  float: right; width: 28px; height: 28px; border-radius: 50%;
+  border: none; background: var(--surface); cursor: pointer;
+  font-size: 1rem; display: flex; align-items: center; justify-content: center;
+}
+.info-modal h3 { font-family: var(--font-h); font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; }
+.info-modal p, .info-modal li { font-size: 0.8rem; color: var(--text-sec); line-height: 1.6; }
+.info-modal ul { padding-left: 1rem; margin: 0.5rem 0; }
+
+/* ── GAUGE / METRIC ── */
+.metrics-row { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
+.metric-card {
+  background: var(--card); border-radius: var(--r-lg); padding: 1rem 1.25rem;
+  box-shadow: var(--sh-sm); flex: 1; min-width: 160px;
+}
+.metric-card .label { font-size: 0.65rem; color: var(--text-light); text-transform: uppercase; font-family: var(--font-h); font-weight: 600; letter-spacing: 0.04em; }
+.metric-card .value { font-family: var(--font-m); font-size: 1.4rem; font-weight: 700; margin: 0.25rem 0; }
+.metric-card .sub { font-size: 0.7rem; color: var(--text-sec); }
+.metric-card.blue .value { color: var(--reg); }
+.metric-card.green .value { color: var(--cost); }
+.metric-card.amber .value { color: var(--market); }
+.metric-card.red .value { color: var(--alert); }
+.metric-card.purple .value { color: var(--accent); }
+
+/* ── SECTION DIVIDERS ── */
+.section-label {
+  font-family: var(--font-h); font-weight: 700; font-size: 1rem;
+  margin-top: 2.5rem; margin-bottom: 0.25rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.section-sub { color: var(--text-sec); font-size: 0.8rem; margin-bottom: 1rem; }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 2rem; margin: 1.5rem 0; }
+.timeline::before { content: ''; position: absolute; left: 0.65rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.tl-item { position: relative; margin-bottom: 1.5rem; }
+.tl-dot {
+  position: absolute; left: -1.6rem; top: 0.2rem;
+  width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--primary);
+  background: #fff;
+}
+.tl-dot.green { border-color: var(--cost); }
+.tl-dot.amber { border-color: var(--market); }
+.tl-dot.purple { border-color: var(--accent); }
+.tl-item h4 { font-family: var(--font-h); font-weight: 700; font-size: 0.85rem; }
+.tl-item .tl-time { font-family: var(--font-m); font-size: 0.65rem; color: var(--text-light); }
+.tl-item p { font-size: 0.78rem; color: var(--text-sec); margin-top: 0.2rem; }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .pillars, .ki-grid, .comp-grid { grid-template-columns: 1fr; }
+  .nav button { font-size: 0.65rem; padding: 0.3rem 0.6rem; }
+  .metrics-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav class="nav" id="mainTabs">
+  <div class="nav-logo"><span>☕</span> JV India Import</div>
+  <button class="active" onclick="showTab(0)">Regulatory</button>
+  <button onclick="showTab(1)">Import Process</button>
+  <button onclick="showTab(2)">Cost Engineering</button>
+  <button onclick="showTab(3)">Market & Pricing</button>
+  <button onclick="showTab(4)">Negotiation</button>
+</nav>
+
+<!-- ═══════════ TAB 0: REGULATORY ═══════════ -->
+<div class="tab-panel active" id="panel-0">
+  <div class="sh">
+    <h1>Regulatory Roadmap</h1>
+    <p>Every license, certification, and approval needed to legally import Juan Valdez freeze-dried coffee from Dubai to India</p>
+  </div>
+
+  <div class="info-box warn">
+    <strong>CEPA Alert:</strong> Coffee (HS 2101) is on India's exclusion list under the India-UAE CEPA. No preferential duty rates apply — you pay the standard 30% BCD regardless of importing from Dubai. The CEPA covers ~90% of tariff lines but explicitly excludes tea, coffee, dairy, sugar, and tobacco.
+    <button class="info-help-btn" onclick="openInfoModal('cepa-modal')">?</button>
+  </div>
+
+  <!-- CEPA Modal -->
+  <div id="cepa-modal" class="info-modal-overlay" style="display:none">
+    <div class="info-modal">
+      <button class="info-modal-close" onclick="closeInfoModal('cepa-modal')">×</button>
+      <h3>India-UAE CEPA & Coffee</h3>
+      <p>The India-UAE Comprehensive Economic Partnership Agreement (signed May 2022) eliminated or reduced duties on ~90% of tariff lines. However, India protected sensitive agricultural products by placing them on an <strong>Exclusion List</strong> of 1,157 tariff lines (9.72% of total).</p>
+      <p style="margin-top:0.5rem"><strong>Coffee's exclusion means:</strong></p>
+      <ul>
+        <li>No tariff reduction — not immediate, not phased over years</li>
+        <li>No preferential BCD rate — standard MFN 30% applies</li>
+        <li>Same duty whether importing from UAE, Colombia, Brazil, or anywhere else</li>
+        <li>Rules of Origin are moot — you can't claim preference regardless</li>
+      </ul>
+      <p style="margin-top:0.5rem"><strong>Additionally:</strong> Even if coffee were covered, a product manufactured in Colombia and merely traded through Dubai would NOT qualify. CEPA requires either "wholly obtained" in UAE (for agricultural products) or 40% value addition on FOB basis. Simple trading/redistribution does not qualify, and anti-transshipment provisions are actively enforced.</p>
+    </div>
+  </div>
+
+  <!-- PILLAR OVERVIEW -->
+  <div class="pillars reveal">
+    <div class="pillar">
+      <div class="pillar-icon">🏛️</div>
+      <h3>5 Mandatory Licenses</h3>
+      <p>IEC, FSSAI Central License, GST Registration, AD Code Registration, and CHA appointment are non-negotiable prerequisites before your first shipment.</p>
+    </div>
+    <div class="pillar green">
+      <div class="pillar-icon">🔬</div>
+      <h3>FSSAI Lab Testing</h3>
+      <p>Every consignment is risk-assessed through FICS. Samples tested for pesticide residues, mycotoxins (Ochratoxin A), heavy metals, caffeine content, and microbiological parameters against IS 2791 standards.</p>
+    </div>
+    <div class="pillar amber">
+      <div class="pillar-icon">🏷️</div>
+      <h3>Labeling is the #1 Risk</h3>
+      <p>Non-rectifiable label elements (date of manufacture, expiry, country of origin, batch number) MUST be on the product before it ships from Dubai. Failure = consignment rejection at port.</p>
+    </div>
+  </div>
+
+  <!-- LICENSES TABLE -->
+  <div class="section-label">All Required Licenses & Registrations</div>
+  <p class="section-sub">Obtain these before your first shipment clears Indian customs</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr>
+        <th>License</th>
+        <th>Authority</th>
+        <th>Cost</th>
+        <th>Timeline</th>
+        <th>Stage</th>
+      </tr>
+      <tr>
+        <td><strong>Import Export Code (IEC)</strong></td>
+        <td>DGFT</td>
+        <td class="num">₹500 one-time</td>
+        <td>1-5 working days</td>
+        <td><span class="badge badge-reg">Pre-Import</span></td>
+      </tr>
+      <tr>
+        <td><strong>FSSAI Central License</strong> (Importer category)</td>
+        <td>FSSAI via FoSCoS</td>
+        <td class="num">₹7,500/year</td>
+        <td>30-60 days</td>
+        <td><span class="badge badge-reg">Pre-Import</span></td>
+      </tr>
+      <tr>
+        <td><strong>GST Registration</strong></td>
+        <td>GST Portal</td>
+        <td class="num">Free</td>
+        <td>3-7 working days</td>
+        <td><span class="badge badge-reg">Pre-Import</span></td>
+      </tr>
+      <tr>
+        <td><strong>AD Code Registration</strong> at customs port</td>
+        <td>Bank + Customs</td>
+        <td class="num">~₹2,000</td>
+        <td>3-5 working days</td>
+        <td><span class="badge badge-reg">Pre-Import</span></td>
+      </tr>
+      <tr>
+        <td><strong>Customs Broker (CHA)</strong> appointment</td>
+        <td>Licensed CHA</td>
+        <td class="num">₹25K-1L per consignment</td>
+        <td>1 week</td>
+        <td><span class="badge badge-reg">Pre-Import</span></td>
+      </tr>
+      <tr>
+        <td><strong>FSSAI Warehouse License</strong></td>
+        <td>FSSAI</td>
+        <td class="num">₹2,000-5,000/yr</td>
+        <td>15-30 days</td>
+        <td><span class="badge badge-market">Pre-Sale</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box success">
+    <strong>Good news:</strong> Foreign Manufacturer Registration (ReFoM) is NOT required for coffee. It's mandatory only for milk products, meat, egg powder, infant food, and nutraceuticals. Plant Quarantine / Phytosanitary certificate is also generally NOT required for processed freeze-dried coffee (only for raw green beans).
+  </div>
+
+  <!-- LABELING REQUIREMENTS -->
+  <div class="section-label">FSSAI Labeling — The Make-or-Break Requirement
+    <button class="info-help-btn" onclick="openInfoModal('label-modal')">?</button>
+  </div>
+  <p class="section-sub">The #1 reason food imports get held or rejected at Indian ports</p>
+
+  <div id="label-modal" class="info-modal-overlay" style="display:none">
+    <div class="info-modal">
+      <button class="info-modal-close" onclick="closeInfoModal('label-modal')">×</button>
+      <h3>Rectifiable vs Non-Rectifiable Label Elements</h3>
+      <p><strong>Non-Rectifiable</strong> — MUST be on the original product label before shipping. Cannot be added via stickers:</p>
+      <ul>
+        <li>Date of Manufacture / Packaging</li>
+        <li>Best Before / Expiry Date</li>
+        <li>Country of Origin</li>
+        <li>Lot / Batch Number</li>
+      </ul>
+      <p style="margin-top:0.5rem"><strong>Rectifiable via Sticker</strong> — Can be applied at a customs-bonded warehouse in India before FSSAI inspection:</p>
+      <ul>
+        <li>FSSAI Logo + License Number</li>
+        <li>Importer Name & Address</li>
+        <li>MRP (Maximum Retail Price)</li>
+        <li>Vegetarian Symbol (green dot)</li>
+        <li>Nutritional Information (if not on original)</li>
+        <li>Language translation (Hindi/English)</li>
+      </ul>
+      <p style="margin-top:0.5rem"><strong>Tip:</strong> Negotiate with Juan Valdez MENA to print the non-rectifiable elements in English on their production line. This saves you from stickering costs and eliminates the #1 rejection risk.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr>
+        <th>Label Element</th>
+        <th>Mandatory?</th>
+        <th>Rectifiable?</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><strong>Product Name</strong></td>
+        <td>Yes</td>
+        <td class="alert-text">No</td>
+        <td>"Freeze-Dried Coffee" or "Instant Coffee (Freeze-Dried)"</td>
+      </tr>
+      <tr>
+        <td><strong>Date of Manufacture</strong></td>
+        <td>Yes</td>
+        <td class="alert-text">No</td>
+        <td>Must be on original label — cannot sticker</td>
+      </tr>
+      <tr>
+        <td><strong>Best Before / Expiry</strong></td>
+        <td>Yes</td>
+        <td class="alert-text">No</td>
+        <td>Min 60% shelf life remaining at port arrival</td>
+      </tr>
+      <tr>
+        <td><strong>Country of Origin</strong></td>
+        <td>Yes</td>
+        <td class="alert-text">No</td>
+        <td>"Product of Colombia" or "Made in Colombia"</td>
+      </tr>
+      <tr>
+        <td><strong>Lot / Batch Number</strong></td>
+        <td>Yes</td>
+        <td class="alert-text">No</td>
+        <td>Must be on original label</td>
+      </tr>
+      <tr>
+        <td><strong>List of Ingredients</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>Descending order of composition</td>
+      </tr>
+      <tr>
+        <td><strong>Nutritional Info</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>Per 100g + per serving: energy, protein, carbs, sugars, fat, sodium</td>
+      </tr>
+      <tr>
+        <td><strong>FSSAI Logo + License No.</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>Importer's 14-digit FSSAI license number</td>
+      </tr>
+      <tr>
+        <td><strong>Importer Name & Address</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>Full legal name and complete address</td>
+      </tr>
+      <tr>
+        <td><strong>MRP</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>Inclusive of all taxes, per Legal Metrology Act</td>
+      </tr>
+      <tr>
+        <td><strong>Veg Symbol</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>Green circle in green square — coffee is vegetarian</td>
+      </tr>
+      <tr>
+        <td><strong>Net Quantity</strong></td>
+        <td>Yes</td>
+        <td>Yes (sticker)</td>
+        <td>In grams (50g / 100g)</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- IS 2791 -->
+  <div class="section-label">IS 2791:2022 — Soluble Coffee Powder Standard
+    <button class="info-help-btn" onclick="openInfoModal('bis-modal')">?</button>
+  </div>
+  <p class="section-sub">BIS standard governing quality parameters for all soluble coffee in India</p>
+
+  <div id="bis-modal" class="info-modal-overlay" style="display:none">
+    <div class="info-modal">
+      <button class="info-modal-close" onclick="closeInfoModal('bis-modal')">×</button>
+      <h3>IS 2791:2022 — What You Need to Know</h3>
+      <p>This is the fourth revision of India's national standard for soluble coffee powder. Key parameters tested:</p>
+      <ul>
+        <li><strong>Moisture:</strong> Max 5% by mass</li>
+        <li><strong>Caffeine:</strong> Min 2.5% on dry basis (for regular; lower for decaf)</li>
+        <li><strong>Total Ash:</strong> Max limits defined</li>
+        <li><strong>Water-Soluble Ash:</strong> Min thresholds</li>
+        <li><strong>pH:</strong> Specified range</li>
+        <li><strong>Solubility:</strong> Must dissolve completely in hot water</li>
+        <li><strong>Heavy Metals:</strong> Lead ≤1.0 mg/kg, Arsenic ≤1.1 mg/kg</li>
+        <li><strong>Ochratoxin A:</strong> ≤5 μg/kg</li>
+        <li><strong>Pesticide Residues:</strong> Per FSSAI MRL schedule</li>
+      </ul>
+      <p style="margin-top:0.5rem"><strong>Practical tip:</strong> Get a Certificate of Analysis (CoA) from an accredited lab in UAE/Colombia BEFORE shipping. If your pre-shipment CoA shows compliance, the FSSAI port lab test is very unlikely to fail. This is your insurance against costly port rejections.</p>
+    </div>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar">
+      <div class="pillar-icon">🧪</div>
+      <h3>Key Test Parameters</h3>
+      <p>Moisture ≤5%, Caffeine ≥2.5% (dry basis), Total ash limits, Heavy metals (Pb ≤1.0 mg/kg), Ochratoxin A ≤5 μg/kg, Pesticide residues per FSSAI MRLs, Microbiological parameters</p>
+    </div>
+    <div class="pillar green">
+      <div class="pillar-icon">📋</div>
+      <h3>Pre-Shipment CoA</h3>
+      <p>Get a Certificate of Analysis from an accredited lab in UAE before shipping. This dramatically reduces risk of port rejection and speeds up FSSAI clearance.</p>
+    </div>
+    <div class="pillar amber">
+      <div class="pillar-icon">⚠️</div>
+      <h3>ISI Mark Status</h3>
+      <p>IS 2791 compliance is mandatory, but formal ISI Mark through BIS Foreign Manufacturers Certification Scheme (FMCS) is not currently under a Quality Control Order for imports. FSSAI port testing validates compliance.</p>
+    </div>
+  </div>
+
+  <!-- KEY INSIGHTS -->
+  <div class="ki-grid reveal">
+    <div class="ki-card insights">
+      <h4>Key Insights</h4>
+      <ul>
+        <li>CEPA provides zero benefit for coffee — it's explicitly excluded from tariff concessions</li>
+        <li>FSSAI Central License takes 30-60 days — start this FIRST, not last</li>
+        <li>Non-rectifiable label elements cause 60%+ of food import rejections at Indian ports</li>
+        <li>Pre-shipment Certificate of Analysis is your insurance policy against port rejection</li>
+        <li>IEC must be updated annually (April-June) or it lapses — set a calendar reminder</li>
+      </ul>
+    </div>
+    <div class="ki-card impact">
+      <h4>Impact on Your Import Business</h4>
+      <ul>
+        <li>Start FSSAI license application immediately — it's the longest lead-time item</li>
+        <li>Negotiate with Juan Valdez MENA to print non-rectifiable elements on their production line</li>
+        <li>Budget ₹50K-1L for regulatory setup costs before first shipment</li>
+        <li>Factor 4-8 weeks of regulatory prep before you can receive your first container</li>
+        <li>ReFoM exemption and no phytosanitary requirement = simpler compliance vs dairy/meat imports</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 1: IMPORT PROCESS ═══════════ -->
+<div class="tab-panel" id="panel-1">
+  <div class="sh">
+    <h1>Import Process Flow</h1>
+    <p>Dubai (Jebel Ali) → India (JNPT/Nhava Sheva) — end-to-end journey of your coffee container</p>
+  </div>
+
+  <div class="metrics-row reveal">
+    <div class="metric-card blue">
+      <div class="label">Transit Time</div>
+      <div class="value">14-17 days</div>
+      <div class="sub">Jebel Ali → JNPT by sea</div>
+    </div>
+    <div class="metric-card green">
+      <div class="label">Ocean Freight (20ft)</div>
+      <div class="value">$400-500</div>
+      <div class="sub">FCL port-to-port</div>
+    </div>
+    <div class="metric-card amber">
+      <div class="label">Port Clearance</div>
+      <div class="value">7-15 days</div>
+      <div class="sub">FSSAI testing + customs</div>
+    </div>
+    <div class="metric-card red">
+      <div class="label">Total Door-to-Door</div>
+      <div class="value">25-35 days</div>
+      <div class="sub">Order to warehouse</div>
+    </div>
+  </div>
+
+  <!-- SVG: IMPORT FLOW DIAGRAM -->
+  <div class="section-label">End-to-End Import Flow</div>
+  <p class="section-sub">From purchase order to warehouse — every touchpoint mapped</p>
+
+  <div class="svg-wrap reveal">
+    <svg viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background -->
+      <rect width="860" height="520" fill="#F9FAFB" rx="10"/>
+
+      <!-- PHASE 1: Dubai -->
+      <rect x="20" y="15" width="250" height="30" rx="4" fill="#2563EB"/>
+      <text x="145" y="35" fill="#fff" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" text-anchor="middle">PHASE 1: DUBAI (SUPPLIER SIDE)</text>
+
+      <!-- Juan Valdez MENA -->
+      <rect x="40" y="60" width="210" height="40" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+      <text x="145" y="84" fill="#1D4ED8" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" text-anchor="middle">Juan Valdez MENA (Dubai)</text>
+
+      <!-- Actions in Dubai -->
+      <rect x="40" y="115" width="210" height="95" rx="6" fill="#fff" stroke="#E5E7EB"/>
+      <text x="50" y="133" fill="#1F2937" font-family="DM Sans" font-size="8.5">1. Confirm FOB price & quantities</text>
+      <text x="50" y="148" fill="#1F2937" font-family="DM Sans" font-size="8.5">2. Verify label compliance (non-rectifiable)</text>
+      <text x="50" y="163" fill="#1F2937" font-family="DM Sans" font-size="8.5">3. Obtain pre-shipment CoA</text>
+      <text x="50" y="178" fill="#1F2937" font-family="DM Sans" font-size="8.5">4. Arrange insurance</text>
+      <text x="50" y="193" fill="#1F2937" font-family="DM Sans" font-size="8.5">5. Ship from Jebel Ali port</text>
+
+      <!-- Arrow: Dubai to Sea -->
+      <line x1="250" y1="160" x2="310" y2="160" stroke="#2563EB" stroke-width="2" marker-end="url(#arr-blue)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+      </line>
+      <line x1="250" y1="160" x2="310" y2="160" stroke="#2563EB" stroke-width="2" stroke-dasharray="8 4">
+        <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+      </line>
+
+      <!-- PHASE 2: Transit -->
+      <rect x="310" y="15" width="220" height="30" rx="4" fill="#16A34A"/>
+      <text x="420" y="35" fill="#fff" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" text-anchor="middle">PHASE 2: SEA TRANSIT</text>
+
+      <rect x="320" y="110" width="200" height="100" rx="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
+      <text x="420" y="140" fill="#166534" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" text-anchor="middle">🚢 Ocean Freight</text>
+      <text x="420" y="160" fill="#166534" font-family="DM Sans" font-size="9" text-anchor="middle">Jebel Ali → JNPT</text>
+      <text x="420" y="177" fill="#166534" font-family="JetBrains Mono" font-size="10" font-weight="700" text-anchor="middle">14-17 days</text>
+      <text x="420" y="197" fill="#166534" font-family="JetBrains Mono" font-size="9" text-anchor="middle">$400-500 / 20ft FCL</text>
+
+      <!-- Arrow: Sea to Port -->
+      <line x1="520" y1="160" x2="570" y2="160" stroke="#16A34A" stroke-width="2" stroke-dasharray="8 4">
+        <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+      </line>
+
+      <!-- PHASE 3: Indian Port -->
+      <rect x="570" y="15" width="270" height="30" rx="4" fill="#F59E0B"/>
+      <text x="705" y="35" fill="#fff" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" text-anchor="middle">PHASE 3: JNPT PORT CLEARANCE</text>
+
+      <!-- Customs Box -->
+      <rect x="580" y="55" width="250" height="40" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="705" y="72" fill="#92400E" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">Bill of Entry filed on ICEGATE (Day 1)</text>
+      <text x="705" y="85" fill="#92400E" font-family="DM Sans" font-size="7.5" text-anchor="middle">Auto-forwarded to FSSAI FICS</text>
+
+      <!-- FSSAI Box -->
+      <rect x="580" y="105" width="250" height="55" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+      <text x="705" y="122" fill="#1D4ED8" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">FSSAI Authorized Officer</text>
+      <text x="590" y="137" fill="#1E40AF" font-family="DM Sans" font-size="7.5">• Document review (Day 2-3)</text>
+      <text x="590" y="150" fill="#1E40AF" font-family="DM Sans" font-size="7.5">• Visual inspection — labels, packaging (Day 3-4)</text>
+
+      <!-- Lab Testing -->
+      <rect x="580" y="170" width="250" height="50" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/>
+      <text x="705" y="187" fill="#991B1B" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">Lab Testing (Day 4-8)</text>
+      <text x="590" y="202" fill="#991B1B" font-family="DM Sans" font-size="7.5">Samples → FSSAI-notified lab → 3 working days</text>
+      <text x="590" y="213" fill="#991B1B" font-family="DM Sans" font-size="7.5">Tests: pesticides, mycotoxins, heavy metals, IS 2791</text>
+
+      <!-- NOC / Duty -->
+      <rect x="580" y="230" width="120" height="40" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
+      <text x="640" y="248" fill="#166534" font-family="Plus Jakarta Sans" font-size="8" font-weight="700" text-anchor="middle">FSSAI NOC</text>
+      <text x="640" y="261" fill="#166534" font-family="DM Sans" font-size="7" text-anchor="middle">(Day 8-9)</text>
+
+      <rect x="710" y="230" width="120" height="40" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="770" y="248" fill="#92400E" font-family="Plus Jakarta Sans" font-size="8" font-weight="700" text-anchor="middle">Pay Duties</text>
+      <text x="770" y="261" fill="#92400E" font-family="DM Sans" font-size="7" text-anchor="middle">BCD+SWS+IGST</text>
+
+      <!-- Out of Charge -->
+      <rect x="620" y="285" width="170" height="35" rx="6" fill="#16A34A"/>
+      <text x="705" y="307" fill="#fff" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" text-anchor="middle">OUT OF CHARGE (Day 9-10)</text>
+
+      <!-- PHASE 4: Post-Clearance -->
+      <rect x="20" y="340" width="820" height="30" rx="4" fill="#7C3AED"/>
+      <text x="430" y="360" fill="#fff" font-family="Plus Jakarta Sans" font-size="11" font-weight="700" text-anchor="middle">PHASE 4: POST-CLEARANCE → READY FOR SALE</text>
+
+      <rect x="30" y="385" width="180" height="60" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+      <text x="120" y="405" fill="#5B21B6" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">Transport to Warehouse</text>
+      <text x="120" y="420" fill="#5B21B6" font-family="DM Sans" font-size="7.5" text-anchor="middle">JNPT → Distribution center</text>
+      <text x="120" y="433" fill="#5B21B6" font-family="JetBrains Mono" font-size="8" text-anchor="middle">₹15K-25K per truck</text>
+
+      <line x1="210" y1="415" x2="250" y2="415" stroke="#7C3AED" stroke-width="2" stroke-dasharray="8 4">
+        <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+      </line>
+
+      <rect x="250" y="385" width="180" height="60" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+      <text x="340" y="405" fill="#5B21B6" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">Apply India Stickers</text>
+      <text x="340" y="420" fill="#5B21B6" font-family="DM Sans" font-size="7.5" text-anchor="middle">FSSAI logo, importer details</text>
+      <text x="340" y="433" fill="#5B21B6" font-family="DM Sans" font-size="7.5" text-anchor="middle">MRP, veg symbol, nutrition</text>
+
+      <line x1="430" y1="415" x2="470" y2="415" stroke="#7C3AED" stroke-width="2" stroke-dasharray="8 4">
+        <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+      </line>
+
+      <rect x="470" y="385" width="180" height="60" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+      <text x="560" y="405" fill="#5B21B6" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" text-anchor="middle">Quality Check + Storage</text>
+      <text x="560" y="420" fill="#5B21B6" font-family="DM Sans" font-size="7.5" text-anchor="middle">FSSAI-licensed warehouse</text>
+      <text x="560" y="433" fill="#5B21B6" font-family="DM Sans" font-size="7.5" text-anchor="middle">Ambient, dry storage</text>
+
+      <line x1="650" y1="415" x2="690" y2="415" stroke="#7C3AED" stroke-width="2" stroke-dasharray="8 4">
+        <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+      </line>
+
+      <rect x="690" y="385" width="150" height="60" rx="8" fill="#7C3AED"/>
+      <text x="765" y="410" fill="#fff" font-family="Plus Jakarta Sans" font-size="11" font-weight="800" text-anchor="middle">READY</text>
+      <text x="765" y="428" fill="#E9D5FF" font-family="DM Sans" font-size="8" text-anchor="middle">Distribute & Sell</text>
+
+      <!-- Documents list at bottom -->
+      <rect x="30" y="465" width="800" height="45" rx="6" fill="#1E293B"/>
+      <text x="40" y="483" fill="#93C5FD" font-family="Plus Jakarta Sans" font-size="8" font-weight="700">SHIPPING DOCUMENTS REQUIRED:</text>
+      <text x="40" y="500" fill="#E2E8F0" font-family="JetBrains Mono" font-size="7.5">Bill of Lading  •  Commercial Invoice  •  Packing List  •  Certificate of Origin  •  Insurance Certificate  •  Pre-shipment CoA  •  FSSAI License Copy  •  IEC Copy</text>
+
+      <!-- Arrowhead definitions -->
+      <defs>
+        <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="#2563EB"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- DOCUMENTATION CHECKLIST -->
+  <div class="section-label">Documentation Checklist</div>
+  <p class="section-sub">Every document needed at each stage of the import process</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Document</th><th>Source</th><th>When Needed</th><th>Filed With</th></tr>
+      <tr>
+        <td><strong>Commercial Invoice</strong></td>
+        <td>Juan Valdez MENA</td>
+        <td>At customs filing</td>
+        <td>ICEGATE (Bill of Entry)</td>
+      </tr>
+      <tr>
+        <td><strong>Bill of Lading</strong></td>
+        <td>Shipping line</td>
+        <td>At customs filing</td>
+        <td>ICEGATE</td>
+      </tr>
+      <tr>
+        <td><strong>Packing List</strong></td>
+        <td>Juan Valdez MENA</td>
+        <td>At customs filing</td>
+        <td>ICEGATE</td>
+      </tr>
+      <tr>
+        <td><strong>Certificate of Origin</strong> (non-preferential)</td>
+        <td>UAE Chamber of Commerce</td>
+        <td>At customs filing</td>
+        <td>ICEGATE</td>
+      </tr>
+      <tr>
+        <td><strong>Insurance Certificate</strong></td>
+        <td>Your insurer</td>
+        <td>At customs filing</td>
+        <td>ICEGATE</td>
+      </tr>
+      <tr>
+        <td><strong>Pre-shipment Certificate of Analysis</strong></td>
+        <td>Accredited lab (UAE)</td>
+        <td>FSSAI clearance</td>
+        <td>FICS portal</td>
+      </tr>
+      <tr>
+        <td><strong>FSSAI Import License copy</strong></td>
+        <td>Your license</td>
+        <td>FSSAI clearance</td>
+        <td>FICS portal</td>
+      </tr>
+      <tr>
+        <td><strong>Label images</strong> (all faces of package)</td>
+        <td>Photograph</td>
+        <td>FSSAI clearance</td>
+        <td>FICS portal</td>
+      </tr>
+      <tr>
+        <td><strong>IEC copy</strong></td>
+        <td>DGFT</td>
+        <td>At customs filing</td>
+        <td>ICEGATE</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <strong>Demurrage Warning:</strong> Port storage at JNPT costs ₹5,000-10,000/day after free period (typically 3-5 days). If FSSAI testing or lab results are delayed, demurrage accumulates fast. Budget for at least 10-15 days total port time.
+  </div>
+
+  <div class="ki-grid reveal">
+    <div class="ki-card insights">
+      <h4>Key Insights</h4>
+      <ul>
+        <li>Dubai→JNPT is one of the busiest trade lanes — frequent sailings, competitive rates</li>
+        <li>14-17 day transit preserves shelf life far better than 35-50 days from Colombia</li>
+        <li>FSSAI FICS is integrated with ICEGATE via SWIFT — Bill of Entry auto-triggers FSSAI review</li>
+        <li>Lab results mandated within 3 working days under 2025 FSSAI norms</li>
+        <li>Transshipment scrutiny risk: customs may question why Colombian coffee routes through Dubai</li>
+      </ul>
+    </div>
+    <div class="ki-card impact">
+      <h4>Impact on Your Import Business</h4>
+      <ul>
+        <li>Shorter transit = you can order more frequently with smaller volumes (better cash flow)</li>
+        <li>$400-500 FCL freight vs $2,500-3,500 from Colombia = ~$2,000 savings per container</li>
+        <li>Keep a pre-shipment CoA from UAE lab ready to expedite FSSAI clearance</li>
+        <li>Prepare a clear narrative for customs: "Purchased from Juan Valdez MENA distribution hub"</li>
+        <li>Total door-to-door: 25-35 days — plan inventory cycles accordingly</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 2: COST ENGINEERING ═══════════ -->
+<div class="tab-panel" id="panel-2">
+  <div class="sh">
+    <h1>Cost Engineering</h1>
+    <p>Complete landed cost breakdown — from FOB Dubai to shelf-ready in India, with 18% margin reverse-engineering</p>
+  </div>
+
+  <div class="info-box">
+    <strong>Exchange Rate Assumption:</strong> USD/INR spot ~₹91.15 (March 2026). With <strong>5% forex buffer</strong> applied: <strong>₹95.70 per USD</strong> used for all calculations below. AED/INR calculated via USD peg (AED 3.6725 = 1 USD).
+  </div>
+
+  <!-- KEY METRICS -->
+  <div class="metrics-row reveal">
+    <div class="metric-card blue">
+      <div class="label">BCD Rate</div>
+      <div class="value">30%</div>
+      <div class="sub">HS 21011120 — No CEPA relief</div>
+    </div>
+    <div class="metric-card amber">
+      <div class="label">SWS</div>
+      <div class="value">3%</div>
+      <div class="sub">10% of BCD (effective 3% on CIF)</div>
+    </div>
+    <div class="metric-card red">
+      <div class="label">IGST</div>
+      <div class="value">18%</div>
+      <div class="sub">On (CIF + BCD + SWS) — recoverable as ITC</div>
+    </div>
+    <div class="metric-card green">
+      <div class="label">Effective Non-Recoverable Duty</div>
+      <div class="value">~33%</div>
+      <div class="sub">BCD + SWS only (IGST claimed back)</div>
+    </div>
+  </div>
+
+  <!-- DUTY CALCULATION -->
+  <div class="section-label">Customs Duty Calculation</div>
+  <p class="section-sub">Step-by-step duty computation on a CIF value of ₹10,00,000</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Component</th><th>Rate</th><th>Base</th><th style="text-align:right">Amount (₹)</th></tr>
+      <tr>
+        <td>CIF Value (Assessable Value)</td>
+        <td>—</td>
+        <td>—</td>
+        <td class="num highlight">10,00,000</td>
+      </tr>
+      <tr>
+        <td>Basic Customs Duty (BCD)</td>
+        <td>30%</td>
+        <td>On CIF</td>
+        <td class="num">3,00,000</td>
+      </tr>
+      <tr>
+        <td>Social Welfare Surcharge (SWS)</td>
+        <td>10% of BCD</td>
+        <td>On BCD amount</td>
+        <td class="num">30,000</td>
+      </tr>
+      <tr>
+        <td>IGST Base</td>
+        <td>—</td>
+        <td>CIF + BCD + SWS</td>
+        <td class="num">13,30,000</td>
+      </tr>
+      <tr>
+        <td>IGST</td>
+        <td>18%</td>
+        <td>On IGST Base</td>
+        <td class="num">2,39,400</td>
+      </tr>
+      <tr style="background:#F0FDF4">
+        <td><strong>Total Duty Payable</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td class="num" style="font-weight:800; color:#DC2626; font-size:0.9rem">5,69,400</td>
+      </tr>
+      <tr style="background:#DBEAFE">
+        <td><strong>Less: IGST recoverable as ITC</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td class="num" style="color:#16A34A">(-2,39,400)</td>
+      </tr>
+      <tr style="background:#FEF3C7">
+        <td><strong>Net Non-Recoverable Duty</strong></td>
+        <td>~33% of CIF</td>
+        <td>—</td>
+        <td class="num" style="font-weight:800">3,30,000</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- LANDED COST PER JAR -->
+  <div class="section-label">Landed Cost Per Jar — 100g SKU
+    <button class="info-help-btn" onclick="openInfoModal('cost-modal')">?</button>
+  </div>
+  <p class="section-sub">From FOB Dubai to shelf-ready at your warehouse — every rupee accounted for</p>
+
+  <div id="cost-modal" class="info-modal-overlay" style="display:none">
+    <div class="info-modal">
+      <button class="info-modal-close" onclick="closeInfoModal('cost-modal')">×</button>
+      <h3>FOB Price Assumptions</h3>
+      <p>Juan Valdez MENA retail prices in UAE:</p>
+      <ul>
+        <li>50g Classic: AED 25 (~$6.80)</li>
+        <li>95g Classic: AED 44 (~$12.00)</li>
+        <li>190g Classic: AED 65 (~$17.70)</li>
+      </ul>
+      <p style="margin-top:0.5rem">Working backwards from UAE retail and typical distribution margins (30-40% retail, 15-20% distributor), the estimated <strong>FOB/wholesale price</strong> for 100g is:</p>
+      <ul>
+        <li><strong>Conservative:</strong> $5.00/jar (₹479)</li>
+        <li><strong>Target negotiated:</strong> $4.00/jar (₹383)</li>
+        <li><strong>Aggressive:</strong> $3.50/jar (₹335)</li>
+      </ul>
+      <p style="margin-top:0.5rem">The "target negotiated" price assumes volume commitment of 1-2 containers per shipment with quarterly purchase agreements. Juan Valdez would be motivated by the India market entry opportunity.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Cost Component</th><th>Calculation</th><th style="text-align:right">Conservative (₹)</th><th style="text-align:right">Target (₹)</th><th style="text-align:right">Aggressive (₹)</th></tr>
+      <tr>
+        <td><strong>A. FOB Price (product cost)</strong></td>
+        <td>USD × ₹95.70</td>
+        <td class="num">479 ($5.00)</td>
+        <td class="num">383 ($4.00)</td>
+        <td class="num">335 ($3.50)</td>
+      </tr>
+      <tr>
+        <td><strong>B. Ocean Freight</strong></td>
+        <td>$450/FCL ÷ ~20,000 jars</td>
+        <td class="num">3</td>
+        <td class="num">3</td>
+        <td class="num">3</td>
+      </tr>
+      <tr>
+        <td><strong>C. Marine Insurance</strong></td>
+        <td>0.5-1% of CIF</td>
+        <td class="num">3</td>
+        <td class="num">2</td>
+        <td class="num">2</td>
+      </tr>
+      <tr style="background:#DBEAFE">
+        <td><strong>CIF Value</strong></td>
+        <td>A + B + C</td>
+        <td class="num highlight">485</td>
+        <td class="num highlight">388</td>
+        <td class="num highlight">340</td>
+      </tr>
+      <tr>
+        <td><strong>D. BCD (30%)</strong></td>
+        <td>30% × CIF</td>
+        <td class="num">146</td>
+        <td class="num">116</td>
+        <td class="num">102</td>
+      </tr>
+      <tr>
+        <td><strong>E. SWS (10% of BCD)</strong></td>
+        <td>10% × D</td>
+        <td class="num">15</td>
+        <td class="num">12</td>
+        <td class="num">10</td>
+      </tr>
+      <tr>
+        <td><strong>F. IGST (18%)</strong></td>
+        <td>18% × (CIF+D+E)</td>
+        <td class="num" style="color:var(--text-light)">116 (ITC)</td>
+        <td class="num" style="color:var(--text-light)">93 (ITC)</td>
+        <td class="num" style="color:var(--text-light)">81 (ITC)</td>
+      </tr>
+      <tr>
+        <td><strong>G. Port & Customs Clearance</strong></td>
+        <td>CHA + handling + testing</td>
+        <td class="num">14</td>
+        <td class="num">12</td>
+        <td class="num">10</td>
+      </tr>
+      <tr>
+        <td><strong>H. FSSAI Labelling/Stickering</strong></td>
+        <td>Stickers + labor</td>
+        <td class="num">5</td>
+        <td class="num">4</td>
+        <td class="num">4</td>
+      </tr>
+      <tr>
+        <td><strong>I. Inland Logistics + Warehousing</strong></td>
+        <td>Transport + 2-month storage</td>
+        <td class="num">10</td>
+        <td class="num">8</td>
+        <td class="num">7</td>
+      </tr>
+      <tr style="background:#F0FDF4">
+        <td><strong>TOTAL LANDED COST (excl IGST)</strong></td>
+        <td>CIF + D + E + G + H + I</td>
+        <td class="num" style="font-weight:800; font-size:0.9rem; color:#DC2626">675</td>
+        <td class="num" style="font-weight:800; font-size:0.9rem; color:#F59E0B">543</td>
+        <td class="num" style="font-weight:800; font-size:0.9rem; color:#16A34A">476</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 50g SKU -->
+  <div class="section-label">Landed Cost Per Jar — 50g SKU</div>
+  <p class="section-sub">Proportional cost structure for the smaller format</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Component</th><th style="text-align:right">Conservative (₹)</th><th style="text-align:right">Target (₹)</th><th style="text-align:right">Aggressive (₹)</th></tr>
+      <tr>
+        <td><strong>FOB Price</strong></td>
+        <td class="num">288 ($3.00)</td>
+        <td class="num">240 ($2.50)</td>
+        <td class="num">211 ($2.20)</td>
+      </tr>
+      <tr>
+        <td><strong>Freight + Insurance</strong></td>
+        <td class="num">4</td>
+        <td class="num">3</td>
+        <td class="num">3</td>
+      </tr>
+      <tr style="background:#DBEAFE">
+        <td><strong>CIF Value</strong></td>
+        <td class="num highlight">292</td>
+        <td class="num highlight">243</td>
+        <td class="num highlight">214</td>
+      </tr>
+      <tr>
+        <td><strong>BCD + SWS (33%)</strong></td>
+        <td class="num">96</td>
+        <td class="num">80</td>
+        <td class="num">71</td>
+      </tr>
+      <tr>
+        <td><strong>Port + Label + Logistics</strong></td>
+        <td class="num">24</td>
+        <td class="num">20</td>
+        <td class="num">18</td>
+      </tr>
+      <tr style="background:#F0FDF4">
+        <td><strong>TOTAL LANDED COST (excl IGST)</strong></td>
+        <td class="num" style="font-weight:800; color:#DC2626">412</td>
+        <td class="num" style="font-weight:800; color:#F59E0B">343</td>
+        <td class="num" style="font-weight:800; color:#16A34A">303</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- REVERSE ENGINEERING: 18% MARGIN -->
+  <div class="section-label">18% Margin Reverse Engineering</div>
+  <p class="section-sub">Working backwards from target MRP to the maximum FOB price you can pay Juan Valdez</p>
+
+  <div class="info-box tip">
+    <strong>Margin Definition:</strong> 18% margin on <em>your selling price to distributor</em> (not on MRP). This is the importer's gross margin before marketing, overheads, and corporate expenses.
+  </div>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Line Item</th><th style="text-align:right">100g @ MRP ₹999</th><th style="text-align:right">100g @ MRP ₹899</th><th style="text-align:right">50g @ MRP ₹549</th><th style="text-align:right">50g @ MRP ₹499</th></tr>
+      <tr>
+        <td>MRP (incl GST)</td>
+        <td class="num">999</td>
+        <td class="num">899</td>
+        <td class="num">549</td>
+        <td class="num">499</td>
+      </tr>
+      <tr>
+        <td>GST in MRP (18%)</td>
+        <td class="num">152</td>
+        <td class="num">137</td>
+        <td class="num">84</td>
+        <td class="num">76</td>
+      </tr>
+      <tr>
+        <td>MRP ex-GST</td>
+        <td class="num">847</td>
+        <td class="num">762</td>
+        <td class="num">465</td>
+        <td class="num">423</td>
+      </tr>
+      <tr>
+        <td>Retailer Margin (25%)</td>
+        <td class="num">-212</td>
+        <td class="num">-191</td>
+        <td class="num">-116</td>
+        <td class="num">-106</td>
+      </tr>
+      <tr>
+        <td>Distributor Margin (10%)</td>
+        <td class="num">-64</td>
+        <td class="num">-57</td>
+        <td class="num">-35</td>
+        <td class="num">-32</td>
+      </tr>
+      <tr style="background:#DBEAFE">
+        <td><strong>Your Selling Price to Distributor</strong></td>
+        <td class="num highlight">571</td>
+        <td class="num highlight">514</td>
+        <td class="num highlight">314</td>
+        <td class="num highlight">285</td>
+      </tr>
+      <tr>
+        <td>Your 18% Margin</td>
+        <td class="num" style="color:var(--cost)">103</td>
+        <td class="num" style="color:var(--cost)">93</td>
+        <td class="num" style="color:var(--cost)">57</td>
+        <td class="num" style="color:var(--cost)">51</td>
+      </tr>
+      <tr style="background:#FEF3C7">
+        <td><strong>Max Landed Cost Allowed</strong></td>
+        <td class="num" style="font-weight:800">468</td>
+        <td class="num" style="font-weight:800">421</td>
+        <td class="num" style="font-weight:800">257</td>
+        <td class="num" style="font-weight:800">234</td>
+      </tr>
+      <tr>
+        <td>Less: Duties + Port + Label + Logistics (est.)</td>
+        <td class="num">-185</td>
+        <td class="num">-170</td>
+        <td class="num">-115</td>
+        <td class="num">-105</td>
+      </tr>
+      <tr style="background:#F0FDF4">
+        <td><strong>Max CIF Allowed</strong></td>
+        <td class="num" style="font-weight:800; color:var(--cost)">283</td>
+        <td class="num" style="font-weight:800; color:var(--cost)">251</td>
+        <td class="num" style="font-weight:800; color:var(--cost)">142</td>
+        <td class="num" style="font-weight:800; color:var(--cost)">129</td>
+      </tr>
+      <tr>
+        <td>Less: Freight + Insurance</td>
+        <td class="num">-5</td>
+        <td class="num">-5</td>
+        <td class="num">-5</td>
+        <td class="num">-5</td>
+      </tr>
+      <tr style="background:#DC2626; color:#fff">
+        <td><strong>MAX FOB PRICE TO PAY BRAND</strong></td>
+        <td class="num" style="color:#fff; font-weight:800; font-size:0.85rem">₹278 ($2.91)</td>
+        <td class="num" style="color:#fff; font-weight:800; font-size:0.85rem">₹246 ($2.57)</td>
+        <td class="num" style="color:#fff; font-weight:800; font-size:0.85rem">₹137 ($1.43)</td>
+        <td class="num" style="color:#fff; font-weight:800; font-size:0.85rem">₹124 ($1.30)</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box warn">
+    <strong>Reality Check:</strong> At MRP ₹999 for 100g, you need an FOB of ~$2.91 or below to achieve 18% margin through traditional distribution. Juan Valdez MENA's wholesale price is likely $4.00-5.00. This gap of $1-2 per jar can only be bridged by: (1) higher MRP, (2) D2C/e-commerce eliminating distributor margins, (3) significant marketing support from the brand, or (4) a combination of all three.
+  </div>
+
+  <!-- D2C SCENARIO -->
+  <div class="section-label">D2C / E-Commerce Scenario</div>
+  <p class="section-sub">Eliminating distributor margins changes the math dramatically</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Line Item</th><th style="text-align:right">100g D2C @ ₹999</th><th style="text-align:right">100g Amazon @ ₹999</th><th style="text-align:right">50g D2C @ ₹549</th></tr>
+      <tr>
+        <td>MRP ex-GST</td>
+        <td class="num">847</td>
+        <td class="num">847</td>
+        <td class="num">465</td>
+      </tr>
+      <tr>
+        <td>Platform/Payment Fees</td>
+        <td class="num">-42 (5%)</td>
+        <td class="num">-212 (25%)</td>
+        <td class="num">-23 (5%)</td>
+      </tr>
+      <tr>
+        <td>Shipping/Last-mile</td>
+        <td class="num">-60</td>
+        <td class="num">0 (FBA)</td>
+        <td class="num">-60</td>
+      </tr>
+      <tr style="background:#DBEAFE">
+        <td><strong>Net Revenue</strong></td>
+        <td class="num highlight">745</td>
+        <td class="num highlight">635</td>
+        <td class="num highlight">382</td>
+      </tr>
+      <tr>
+        <td>Landed Cost (Target FOB $4.00)</td>
+        <td class="num">-543</td>
+        <td class="num">-543</td>
+        <td class="num">-343</td>
+      </tr>
+      <tr style="background:#F0FDF4">
+        <td><strong>Gross Margin</strong></td>
+        <td class="num" style="font-weight:800; color:#16A34A">₹202 (27%)</td>
+        <td class="num" style="font-weight:800; color:#16A34A">₹92 (14.5%)</td>
+        <td class="num" style="font-weight:800; color:#16A34A">₹39 (10%)</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box success">
+    <strong>D2C is the viable path to 18% margin.</strong> Selling directly at MRP ₹999 for 100g with your own website yields 27% gross margin even at $4.00 FOB. Amazon gives ~14.5%. The traditional distribution route requires sub-$3.00 FOB which may be unrealistic for a premium brand.
+  </div>
+
+  <div class="ki-grid reveal">
+    <div class="ki-card insights">
+      <h4>Key Insights</h4>
+      <ul>
+        <li>30% BCD is the dominant cost — adds ₹100-150 per jar with no CEPA relief</li>
+        <li>IGST (18%) is recoverable as ITC — don't treat it as a cost in margin calculations</li>
+        <li>Dubai freight advantage: ₹2-3 per jar vs ₹12-17 from Colombia (~₹10 savings)</li>
+        <li>Traditional distribution eats 35% of MRP in retailer + distributor margins</li>
+        <li>D2C/own-website is the only channel that supports 18%+ margin at realistic FOB prices</li>
+      </ul>
+    </div>
+    <div class="ki-card impact">
+      <h4>Impact: What to Negotiate</h4>
+      <ul>
+        <li>Target FOB: $3.50-4.00/100g jar — below $3.50 unlocks traditional distribution viability</li>
+        <li>For 50g: Target FOB $2.00-2.50 — this format has tighter economics</li>
+        <li>Start with D2C + Amazon to prove demand, then expand to traditional trade with leverage</li>
+        <li>Ask brand for 10-15% marketing development fund to offset the duty burden</li>
+        <li>Consider MRP ₹1,099-1,199 for 100g if brand positioning supports ultra-premium</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 3: MARKET & PRICING ═══════════ -->
+<div class="tab-panel" id="panel-3">
+  <div class="sh">
+    <h1>Indian Market Intelligence</h1>
+    <p>Competitive landscape, price positioning, and market dynamics for premium freeze-dried coffee in India</p>
+  </div>
+
+  <div class="metrics-row reveal">
+    <div class="metric-card green">
+      <div class="label">India Instant Coffee Market</div>
+      <div class="value">$468M</div>
+      <div class="sub">2024, growing at 5.4% CAGR → $771M by 2033</div>
+    </div>
+    <div class="metric-card blue">
+      <div class="label">Instant Coffee Share</div>
+      <div class="value">45.2%</div>
+      <div class="sub">Of total Indian coffee market (2025)</div>
+    </div>
+    <div class="metric-card amber">
+      <div class="label">Freeze-Dried Segment</div>
+      <div class="value">Fastest Growing</div>
+      <div class="sub">Premium sub-category — cafe culture driving demand</div>
+    </div>
+    <div class="metric-card purple">
+      <div class="label">Key Trend</div>
+      <div class="value">Premiumization</div>
+      <div class="sub">Tata invested ₹150Cr in new freeze-dried plant</div>
+    </div>
+  </div>
+
+  <!-- COMPETITIVE LANDSCAPE -->
+  <div class="section-label">Competitive Price Map</div>
+  <p class="section-sub">Where Juan Valdez fits in the Indian freeze-dried coffee market</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Brand</th><th>Origin</th><th>50g MRP (₹)</th><th>100g MRP (₹)</th><th>₹/100g</th><th>Tier</th></tr>
+      <tr>
+        <td><strong>Continental Gold</strong></td>
+        <td>India</td>
+        <td class="num">200-250</td>
+        <td class="num">—</td>
+        <td class="num">400-500</td>
+        <td><span class="badge badge-cost">Value-Premium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Bru Gold</strong> (HUL)</td>
+        <td>India</td>
+        <td class="num">260-310</td>
+        <td class="num">486-620</td>
+        <td class="num">486-620</td>
+        <td><span class="badge badge-cost">Mass-Premium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Nescafe Gold</strong> (Nestle)</td>
+        <td>India</td>
+        <td class="num">340-425</td>
+        <td class="num">631-800</td>
+        <td class="num">631-800</td>
+        <td><span class="badge badge-market">Premium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Davidoff Rich Aroma</strong></td>
+        <td>Import</td>
+        <td class="num">—</td>
+        <td class="num">529-797</td>
+        <td class="num">529-797</td>
+        <td><span class="badge badge-accent">Super-Premium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Davidoff Espresso 57</strong></td>
+        <td>Import</td>
+        <td class="num">—</td>
+        <td class="num">650-750</td>
+        <td class="num">650-750</td>
+        <td><span class="badge badge-accent">Super-Premium</span></td>
+      </tr>
+      <tr style="background:#EDE9FE">
+        <td><strong>Juan Valdez (Target)</strong></td>
+        <td>Colombia via Dubai</td>
+        <td class="num" style="font-weight:800; color:var(--accent)">449-549</td>
+        <td class="num" style="font-weight:800; color:var(--accent)">899-999</td>
+        <td class="num" style="font-weight:800; color:var(--accent)">899-999</td>
+        <td><span class="badge badge-accent">Super-Premium</span></td>
+      </tr>
+      <tr>
+        <td><strong>illy Instant</strong></td>
+        <td>Import</td>
+        <td class="num">—</td>
+        <td class="num">900-1,200</td>
+        <td class="num">950-1,260</td>
+        <td><span class="badge badge-alert">Ultra-Premium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Starbucks VIA</strong></td>
+        <td>Import</td>
+        <td class="num">—</td>
+        <td class="num">sachets</td>
+        <td class="num">~1,000+</td>
+        <td><span class="badge badge-alert">Ultra-Premium</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- POSITIONING -->
+  <div class="section-label">Recommended Price Positioning</div>
+  <p class="section-sub">Juan Valdez should sit at the top of Super-Premium — above Davidoff, below illy</p>
+
+  <div class="comp-grid reveal">
+    <div class="comp-card">
+      <h4>Mass-Premium</h4>
+      <div class="price">₹486-620/100g</div>
+      <div class="detail">Bru Gold, Nescafe Gold domestic. Made in India, zero import duty. Price competition impossible for imports.</div>
+    </div>
+    <div class="comp-card chosen">
+      <h4>Super-Premium Imported</h4>
+      <div class="price">₹899-999/100g</div>
+      <div class="detail"><span class="badge badge-accent">Target Zone</span> — Above Davidoff, leveraging "100% Colombian Arabica" origin story. Juan Valdez cafe brand recognition growing.</div>
+    </div>
+    <div class="comp-card">
+      <h4>Ultra-Premium</h4>
+      <div class="price">₹1,000-1,500/100g</div>
+      <div class="detail">illy, specialty brands. Niche audience. Could stretch here if positioning as "cafe-at-home" luxury experience.</div>
+    </div>
+  </div>
+
+  <!-- JUAN VALDEZ BRAND ASSETS -->
+  <div class="section-label">Juan Valdez Brand Positioning Assets</div>
+  <p class="section-sub">What makes this brand uniquely positioned for the Indian premium market</p>
+
+  <div class="pillars reveal">
+    <div class="pillar purple">
+      <div class="pillar-icon">🇨🇴</div>
+      <h3>100% Colombian Arabica</h3>
+      <p>Owned by the Colombian Coffee Growers Federation (548,000+ farming families). Authentic single-origin story that no competitor can match. "From the farms that grow the world's best coffee."</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">☕</div>
+      <h3>630+ Cafes Worldwide</h3>
+      <p>370 in Colombia, 260 across 20 countries. Retail cafe presence in Dubai means Indian travelers already know the brand. Aspirational association.</p>
+    </div>
+    <div class="pillar amber">
+      <div class="pillar-icon">🎯</div>
+      <h3>Premiumization Tailwind</h3>
+      <p>India's freeze-dried segment is the fastest-growing coffee sub-category. Urban consumers trading up from spray-dried to freeze-dried. Perfect timing for a premium import.</p>
+    </div>
+  </div>
+
+  <!-- SKU PRICING RECOMMENDATIONS -->
+  <div class="section-label">SKU & Pricing Strategy</div>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>SKU</th><th>MRP</th><th>Channel</th><th>Rationale</th></tr>
+      <tr>
+        <td><strong>100g Classic Jar</strong></td>
+        <td class="num" style="font-weight:800">₹999</td>
+        <td>All channels</td>
+        <td>Hero SKU. Clean price point. Above Davidoff (₹797), below illy (₹1,200). Signals premium without being untouchable.</td>
+      </tr>
+      <tr>
+        <td><strong>50g Classic Jar</strong></td>
+        <td class="num" style="font-weight:800">₹549</td>
+        <td>All channels</td>
+        <td>Trial/entry pack. Lower absolute price reduces barrier. Key for first-time buyers and quick-commerce.</td>
+      </tr>
+      <tr>
+        <td><strong>95g Flavoured (Hazelnut/Vanilla)</strong></td>
+        <td class="num" style="font-weight:800">₹1,099</td>
+        <td>D2C, Amazon, gourmet</td>
+        <td>Higher margin flavoured variants. Differentiator vs competitors. Premium within premium.</td>
+      </tr>
+      <tr>
+        <td><strong>95g Organic</strong></td>
+        <td class="num" style="font-weight:800">₹1,199</td>
+        <td>D2C, gourmet stores</td>
+        <td>Highest margin SKU. Organic certification adds value perception. Nature's Basket, Foodhall placement.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="ki-grid reveal">
+    <div class="ki-card insights">
+      <h4>Key Insights</h4>
+      <ul>
+        <li>Indian premium coffee market growing at 5.4% CAGR — $468M → $771M by 2033</li>
+        <li>Freeze-dried is the fastest-growing sub-segment driven by urban premiumization</li>
+        <li>Domestic players (Bru, Nescafe) have zero import duty — price competition is futile at lower tiers</li>
+        <li>Imported brands must compete on origin story, brand aspirations, and taste differentiation</li>
+        <li>Quick-commerce (Blinkit, Zepto) is the fastest-growing premium coffee channel in India</li>
+      </ul>
+    </div>
+    <div class="ki-card impact">
+      <h4>Impact on Strategy</h4>
+      <ul>
+        <li>Don't compete on price — compete on "100% Colombian Arabica" origin authenticity</li>
+        <li>₹999 for 100g is the sweet spot: premium signal, sub-₹1,000 psychological barrier</li>
+        <li>Start with 100g Classic + 50g Classic as hero SKUs; add flavored variants in Phase 2</li>
+        <li>Quick-commerce listing (Blinkit, Zepto) should be Day 1 priority — their premium coffee adoption is explosive</li>
+        <li>Cafe travelers are your early adopters — leverage "If you loved Juan Valdez in Dubai..." messaging</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 4: NEGOTIATION PLAYBOOK ═══════════ -->
+<div class="tab-panel" id="panel-4">
+  <div class="sh">
+    <h1>Negotiation Playbook</h1>
+    <p>What to negotiate with Juan Valdez MENA — pricing, marketing support, terms, and go-to-market strategy</p>
+  </div>
+
+  <!-- FOB TARGETS -->
+  <div class="section-label">FOB Price Negotiation Targets</div>
+  <p class="section-sub">What you need to pay vs what they likely want — and where to meet</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>SKU</th><th style="text-align:right">Their Likely Ask</th><th style="text-align:right">Your Target</th><th style="text-align:right">Walk-Away Max</th><th>Leverage</th></tr>
+      <tr>
+        <td><strong>100g Classic</strong></td>
+        <td class="num">$5.00-6.00</td>
+        <td class="num" style="color:var(--cost); font-weight:700">$3.50-4.00</td>
+        <td class="num" style="color:var(--alert); font-weight:700">$4.50</td>
+        <td>India market entry, volume commitment, exclusive territory</td>
+      </tr>
+      <tr>
+        <td><strong>50g Classic</strong></td>
+        <td class="num">$3.00-3.50</td>
+        <td class="num" style="color:var(--cost); font-weight:700">$2.00-2.50</td>
+        <td class="num" style="color:var(--alert); font-weight:700">$2.75</td>
+        <td>Trial format drives 100g conversion; volume driver</td>
+      </tr>
+      <tr>
+        <td><strong>95g Flavoured</strong></td>
+        <td class="num">$6.00-7.00</td>
+        <td class="num" style="color:var(--cost); font-weight:700">$4.50-5.00</td>
+        <td class="num" style="color:var(--alert); font-weight:700">$5.50</td>
+        <td>Higher MRP (₹1,099) absorbs slightly higher cost</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box tip">
+    <strong>Volume Commitment Lever:</strong> Offer a minimum annual purchase commitment of 2-4 containers (40,000-80,000 jars) in exchange for lower FOB pricing. Frame it as: "We're investing in building your brand in a 1.4 billion person market — we need pricing that makes the economics work through India's 30% import duty."
+  </div>
+
+  <!-- MARKETING SUPPORT -->
+  <div class="section-label">Marketing Support Negotiation</div>
+  <p class="section-sub">What to ask for and industry benchmarks for FMCG import brand support</p>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Support Type</th><th>Industry Benchmark</th><th style="text-align:right">Ask Amount</th><th>Justification</th></tr>
+      <tr>
+        <td><strong>Marketing Development Fund (MDF)</strong></td>
+        <td>10-20% of FOB</td>
+        <td class="num" style="font-weight:700; color:var(--accent)">15% of FOB</td>
+        <td>Primary fund for digital marketing, influencer campaigns, social media content</td>
+      </tr>
+      <tr>
+        <td><strong>Listing Fee Support</strong></td>
+        <td>₹50K-5L per chain</td>
+        <td class="num" style="font-weight:700; color:var(--accent)">₹10-15L total</td>
+        <td>Cover listing fees for Amazon, Blinkit, Zepto, Nature's Basket, BigBasket</td>
+      </tr>
+      <tr>
+        <td><strong>Free Goods for Sampling</strong></td>
+        <td>5-10% of first order</td>
+        <td class="num" style="font-weight:700; color:var(--accent)">10% of Year 1 orders</td>
+        <td>In-store sampling, influencer seeding, corporate gifting samples</td>
+      </tr>
+      <tr>
+        <td><strong>Co-branded Marketing Assets</strong></td>
+        <td>Standard practice</td>
+        <td class="num" style="font-weight:700; color:var(--accent)">Full brand kit</td>
+        <td>High-res images, video content, brand guidelines, social media templates</td>
+      </tr>
+      <tr>
+        <td><strong>Launch Allowance</strong></td>
+        <td>3-5% of Year 1 revenue</td>
+        <td class="num" style="font-weight:700; color:var(--accent)">5% of Y1 projected</td>
+        <td>One-time fund for launch events, PR, initial advertising burst</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-box">
+    <strong>Total Marketing Support Target: 20-25% of Year 1 FOB value.</strong> For a ₹50L FOB commitment, that's ₹10-12.5L in brand support. Frame this as: "India's import duty structure makes it impossible to compete without brand investment. We're the distribution partner — you're the brand builder."
+  </div>
+
+  <!-- COMMERCIAL TERMS -->
+  <div class="section-label">Key Commercial Terms to Negotiate</div>
+
+  <div class="pillars reveal">
+    <div class="pillar purple">
+      <div class="pillar-icon">🔒</div>
+      <h3>Exclusive Distribution Rights</h3>
+      <p>Request exclusive rights for India for 2-3 years in exchange for minimum purchase commitments. This prevents parallel imports and protects your investment in brand building.</p>
+    </div>
+    <div class="pillar green">
+      <div class="pillar-icon">💳</div>
+      <h3>Payment Terms: 60-90 Day Credit</h3>
+      <p>Request 60-90 day credit terms or LC at sight. You need 25-35 days for transit + clearance plus 30-60 days to sell. Cash flow alignment is critical for import businesses.</p>
+    </div>
+    <div class="pillar amber">
+      <div class="pillar-icon">📦</div>
+      <h3>Minimum Order: Start Small</h3>
+      <p>Negotiate a low MOQ for Year 1 (1 container per quarter = 4 FCL/year). Scale to monthly shipments in Year 2 based on sell-through data. Prove before you commit big.</p>
+    </div>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar">
+      <div class="pillar-icon">🏷️</div>
+      <h3>India-Ready Labeling</h3>
+      <p>Negotiate for Juan Valdez to print non-rectifiable label elements (dates, origin, batch) on their production line. Saves ₹3-5/jar in stickering costs and eliminates port rejection risk. This is a MUST-HAVE.</p>
+    </div>
+    <div class="pillar red">
+      <div class="pillar-icon">📉</div>
+      <h3>Price Protection Clause</h3>
+      <p>30-day advance notice of any FOB price increases. Right to refuse price increases exceeding 5% without renegotiation. Protects against commodity price volatility.</p>
+    </div>
+    <div class="pillar purple">
+      <div class="pillar-icon">🔄</div>
+      <h3>Damaged/Expired Goods Policy</h3>
+      <p>Request credit or replacement for any goods damaged in transit or arriving with less than 60% shelf life remaining. Standard practice in FMCG imports.</p>
+    </div>
+  </div>
+
+  <!-- GO TO MARKET PHASES -->
+  <div class="section-label">Go-to-Market Phasing</div>
+  <p class="section-sub">Staged rollout to manage risk, prove demand, and build leverage for better terms</p>
+
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <h4>Phase 1: Digital-First Launch (Month 1-6)</h4>
+      <div class="tl-time">Investment: ₹10-15L</div>
+      <p><strong>Channels:</strong> Own D2C website, Amazon India, Flipkart<br>
+      <strong>SKUs:</strong> 100g Classic + 50g Classic<br>
+      <strong>Why:</strong> Highest margins (no distributor cut), fast feedback, build reviews/ratings. Test price points. Zero listing fees on D2C.<br>
+      <strong>Marketing:</strong> Instagram/YouTube influencer seeding, "Colombian coffee at home" content series</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot green"></div>
+      <h4>Phase 2: Quick Commerce Expansion (Month 6-12)</h4>
+      <div class="tl-time">Investment: ₹15-20L</div>
+      <p><strong>Channels:</strong> Blinkit, Zepto, Swiggy Instamart<br>
+      <strong>SKUs:</strong> Add 50g as primary (impulse format) + 100g<br>
+      <strong>Why:</strong> Quick-commerce has the highest premium coffee adoption rate in India. 10-min delivery drives impulse purchases. Metro cities first (Mumbai, Delhi, Bangalore).<br>
+      <strong>Marketing:</strong> "Order Juan Valdez in 10 minutes" campaigns, trial packs</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot amber"></div>
+      <h4>Phase 3: Gourmet Retail (Month 9-15)</h4>
+      <div class="tl-time">Investment: ₹20-30L</div>
+      <p><strong>Channels:</strong> Nature's Basket, Foodhall, Le Marche, gourmet independents<br>
+      <strong>SKUs:</strong> Full range including Flavoured (Hazelnut, Vanilla) + Organic<br>
+      <strong>Why:</strong> Physical presence builds brand credibility. Gourmet stores attract the target premium consumer. Sampling opportunities.<br>
+      <strong>Marketing:</strong> In-store tastings, shelf talkers, end-cap displays</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot purple"></div>
+      <h4>Phase 4: Modern Trade (Month 15-24)</h4>
+      <div class="tl-time">Investment: ₹30-50L</div>
+      <p><strong>Channels:</strong> Reliance Smart, DMart (premium sections), Star Bazaar, BigBasket<br>
+      <strong>SKUs:</strong> Top sellers from Phase 1-3<br>
+      <strong>Why:</strong> Enter with proven sales data and strong online ratings. Negotiate listing fees from a position of strength. Scale volume.<br>
+      <strong>Marketing:</strong> Promotional pricing, combo offers, festival packs</p>
+    </div>
+  </div>
+
+  <!-- LISTING FEES -->
+  <div class="section-label">Listing Fees Budget</div>
+
+  <div class="tbl-wrap reveal">
+    <table>
+      <tr><th>Platform/Retailer</th><th style="text-align:right">Listing Fee per SKU</th><th>Margin Model</th><th>Phase</th></tr>
+      <tr>
+        <td><strong>Amazon India</strong></td>
+        <td class="num">Nil</td>
+        <td>15-25% referral fee + FBA fees</td>
+        <td><span class="badge badge-reg">Phase 1</span></td>
+      </tr>
+      <tr>
+        <td><strong>Blinkit / Zepto</strong></td>
+        <td class="num">₹50K-1L</td>
+        <td>25-35% commission</td>
+        <td><span class="badge badge-cost">Phase 2</span></td>
+      </tr>
+      <tr>
+        <td><strong>BigBasket</strong></td>
+        <td class="num">₹50K-1L</td>
+        <td>25-30% margin</td>
+        <td><span class="badge badge-cost">Phase 2</span></td>
+      </tr>
+      <tr>
+        <td><strong>Nature's Basket / Foodhall</strong></td>
+        <td class="num">₹50K-1.5L</td>
+        <td>30-35% margin</td>
+        <td><span class="badge badge-market">Phase 3</span></td>
+      </tr>
+      <tr>
+        <td><strong>Reliance Smart</strong></td>
+        <td class="num">₹1L-3L</td>
+        <td>25-30% margin</td>
+        <td><span class="badge badge-accent">Phase 4</span></td>
+      </tr>
+      <tr>
+        <td><strong>DMart</strong></td>
+        <td class="num">Low</td>
+        <td>Demands lowest price guarantee</td>
+        <td><span class="badge badge-accent">Phase 4</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- NEGOTIATION SCRIPT -->
+  <div class="section-label">The Pitch to Juan Valdez</div>
+  <p class="section-sub">Key talking points for the brand negotiation</p>
+
+  <div class="code-block" style="font-family: var(--font-b); font-size: 0.8rem; line-height: 1.8;">
+<span class="k">THE OPPORTUNITY:</span>
+<span class="s">"India is a $468M instant coffee market growing at 5.4% CAGR.</span>
+<span class="s"> Freeze-dried is the fastest-growing segment. 1.4 billion consumers.</span>
+<span class="s"> No premium Colombian coffee brand has claimed this market yet."</span>
+
+<span class="k">THE CHALLENGE:</span>
+<span class="s">"India imposes 30% BCD + 18% IGST on coffee imports — no CEPA relief.</span>
+<span class="s"> This means ~33% non-recoverable duty on every jar. We need partner-</span>
+<span class="s"> level pricing and marketing support to make the economics viable."</span>
+
+<span class="k">THE ASK:</span>
+<span class="s">"FOB $3.50-4.00/100g with 15% MDF, 10% free goods Year 1,</span>
+<span class="s"> exclusive India distribution rights, and 60-day credit terms.</span>
+<span class="s"> In return: minimum 4 FCL Year 1, growing to 12 FCL Year 2."</span>
+
+<span class="k">THE PROOF:</span>
+<span class="s">"We'll launch D2C first, build reviews and demand, then expand</span>
+<span class="s"> to quick-commerce and gourmet retail. Data-driven scaling.</span>
+<span class="s"> Your brand, our market expertise."</span>
+  </div>
+
+  <div class="ki-grid reveal">
+    <div class="ki-card insights">
+      <h4>Key Insights</h4>
+      <ul>
+        <li>Marketing support of 20-25% of FOB is standard for new market entry FMCG deals</li>
+        <li>Exclusive territory rights are your most valuable negotiation lever — protect your brand-building investment</li>
+        <li>India-ready labeling on the production line saves ₹3-5/jar and eliminates regulatory risk</li>
+        <li>60-90 day credit terms align with the 25-35 day import cycle + selling period</li>
+        <li>Start small (1 FCL/quarter), prove sell-through, then negotiate better terms with data</li>
+      </ul>
+    </div>
+    <div class="ki-card impact">
+      <h4>Impact on Year 1 Economics</h4>
+      <ul>
+        <li>At $4.00 FOB + 15% MDF: effective FOB = $3.40 — this hits your 18% margin target on D2C</li>
+        <li>10% free goods on Year 1 orders: 4 containers × 10% = ~8,000 free jars for sampling</li>
+        <li>D2C first strategy means you can achieve 18% margin from Day 1 without traditional distribution</li>
+        <li>Phase 2-4 expansion only after proving unit economics — de-risks the venture</li>
+        <li>Total Year 1 investment: ₹40-60L (inventory + marketing + licenses + operations)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+function showTab(idx) {
+  document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll('#mainTabs button').forEach((b,i) => b.classList.toggle('active', i===idx));
+  // Re-observe reveal elements in newly shown tab
+  document.querySelectorAll('.tab-panel.active .reveal').forEach(el => {
+    el.classList.remove('visible');
+    revealObs.observe(el);
+  });
+}
+
+function openInfoModal(id) { document.getElementById(id).style.display='flex'; }
+function closeInfoModal(id) { document.getElementById(id).style.display='none'; }
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('info-modal-overlay')) e.target.style.display='none';
+});
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>
