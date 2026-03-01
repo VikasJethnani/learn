@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Power Domain Mastery — From Oil &amp; Commodity to Power Trading</title>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEZ4TJQLCY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CEZ4TJQLCY');
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -2882,11 +2890,15 @@ function showTab(idx) {
   document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
   document.querySelectorAll('#mainTabs button').forEach((b,i) => b.classList.toggle('active', i===idx));
   reObserve();
+  var tabName = document.querySelectorAll('#mainTabs button')[idx]?.textContent.trim();
+  if (typeof gtag !== 'undefined') gtag('event', 'tab_switch', { tab_name: tabName, tab_index: idx });
 }
 function showSub(group, idx) {
   document.querySelectorAll('[id^="'+group+'-"]').forEach((p,i) => p.classList.toggle('active', i===idx));
   document.querySelectorAll('#'+group+'Subs button').forEach((b,i) => b.classList.toggle('active', i===idx));
   reObserve();
+  var subName = document.querySelectorAll('#'+group+'Subs button')[idx]?.textContent.trim();
+  if (typeof gtag !== 'undefined') gtag('event', 'subtab_switch', { group: group, subtab_name: subName, subtab_index: idx });
 }
 function openInfoModal(id) { document.getElementById(id).style.display='flex'; }
 function closeInfoModal(id) { document.getElementById(id).style.display='none'; }

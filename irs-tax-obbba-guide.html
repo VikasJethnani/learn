@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IRS Tax Code & OBBBA — The CMA's Complete Guide</title>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEZ4TJQLCY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CEZ4TJQLCY');
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -2068,6 +2076,9 @@ function showTab(idx) {
     b.classList.toggle('active', i===idx));
   // Re-observe reveal elements in newly shown tab
   document.querySelectorAll('.tab-panel.active .reveal:not(.visible)').forEach(el => revealObs.observe(el));
+  // GA4 custom event
+  var tabName = document.querySelectorAll('#mainTabs button')[idx]?.textContent.trim();
+  if (typeof gtag !== 'undefined') gtag('event', 'tab_switch', { tab_name: tabName, tab_index: idx });
 }
 
 function showSub(group, idx) {
@@ -2075,6 +2086,9 @@ function showSub(group, idx) {
     p.classList.toggle('active', i===idx));
   document.querySelectorAll('#'+group+'Subs .sub-tab-card').forEach((b,i) =>
     b.classList.toggle('active', i===idx));
+  // GA4 custom event
+  var subName = document.querySelectorAll('#'+group+'Subs .sub-tab-card')[idx]?.textContent.trim();
+  if (typeof gtag !== 'undefined') gtag('event', 'subtab_switch', { group: group, subtab_name: subName, subtab_index: idx });
 }
 
 function openInfoModal(id) { document.getElementById(id).style.display='flex'; }

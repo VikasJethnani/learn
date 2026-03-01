@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Observability & Integration Guide</title>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CEZ4TJQLCY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CEZ4TJQLCY');
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -4821,12 +4829,16 @@ span.end();</div>
 function showTab(idx) {
   document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
   document.querySelectorAll('#mainTabs button').forEach((b,i) => b.classList.toggle('active', i===idx));
+  var tabName = document.querySelectorAll('#mainTabs button')[idx]?.textContent.trim();
+  if (typeof gtag !== 'undefined') gtag('event', 'tab_switch', { tab_name: tabName, tab_index: idx });
 }
 
 // Sub tabs
 function showSub(group, idx) {
   document.querySelectorAll(`[id^="${group}-"]`).forEach((p,i) => p.classList.toggle('active', i===idx));
   document.querySelectorAll(`#${group}Subs button`).forEach((b,i) => b.classList.toggle('active', i===idx));
+  var subName = document.querySelectorAll(`#${group}Subs button`)[idx]?.textContent.trim();
+  if (typeof gtag !== 'undefined') gtag('event', 'subtab_switch', { group: group, subtab_name: subName, subtab_index: idx });
 }
 
 // Scroll reveal
