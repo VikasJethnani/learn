@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRS Tax Code & OBBBA — The CMA's Complete Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html { font-size: 18px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1E40AF;
+  --primary-light: #DBEAFE;
+  --primary-dark: #1E3A8A;
+  --surface: #F8FAFC;
+  --card: #FFFFFF;
+  --text: #1E293B;
+  --text-sec: #64748B;
+  --text-light: #94A3B8;
+  --border: #E2E8F0;
+  --border-lt: #F1F5F9;
+
+  --tax-blue: #1E40AF;    --tax-blue-lt: #DBEAFE;
+  --tax-green: #15803D;   --tax-green-lt: #DCFCE7;
+  --tax-amber: #D97706;   --tax-amber-lt: #FEF3C7;
+  --tax-purple: #7C3AED;  --tax-purple-lt: #EDE9FE;
+  --tax-red: #DC2626;     --tax-red-lt: #FEE2E2;
+  --tax-teal: #0D9488;    --tax-teal-lt: #CCFBF1;
+
+  --code-bg: #0F172A;
+  --code-fg: #E2E8F0;
+  --code-kw: #93C5FD;
+  --code-str: #86EFAC;
+  --code-num: #FDE68A;
+  --code-cmt: #64748B;
+
+  --font-h: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-b: 'DM Sans', system-ui, sans-serif;
+  --font-m: 'JetBrains Mono', monospace;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px;
+  --sh-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --sh-md: 0 4px 12px rgba(0,0,0,0.08);
+  --sh-lg: 0 8px 25px rgba(30,64,175,0.10);
+  --sh-xl: 0 12px 40px rgba(30,64,175,0.15);
+}
+
+body {
+  font-family: var(--font-b);
+  background: var(--surface);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--card);
+  padding: 0 2rem;
+  display: flex; align-items: stretch;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  min-height: 3.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-h); font-weight: 800;
+  font-size: 1.05rem; color: var(--text);
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-right: 1.5rem; white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--primary); }
+#mainTabs {
+  display: flex; gap: 0.15rem; overflow-x: auto;
+  scrollbar-width: none; align-items: stretch;
+}
+#mainTabs::-webkit-scrollbar { display: none; }
+#mainTabs button {
+  font-family: var(--font-h); font-weight: 600;
+  font-size: 0.82rem; color: var(--text-sec);
+  background: transparent; border: none;
+  padding: 0.65rem 1.1rem; cursor: pointer;
+  white-space: nowrap; border-radius: 0;
+  transition: all 0.2s;
+  position: relative;
+  border-bottom: 3px solid transparent;
+}
+#mainTabs button:hover { color: var(--text); background: var(--surface); }
+#mainTabs button.active {
+  color: var(--primary); background: transparent;
+  border-bottom-color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION HEADER ── */
+.sh { text-align: center; margin-bottom: 2.5rem; }
+.sh h1 {
+  font-family: var(--font-h); font-weight: 800;
+  font-size: 2rem; color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.sh p { color: var(--text-sec); font-size: 0.95rem; max-width: 650px; margin: 0 auto; }
+
+/* ── PILLAR CARDS ── */
+.pillars {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem; margin-bottom: 2rem;
+}
+.pillar-card {
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.5rem; box-shadow: var(--sh-sm);
+  border-top: 4px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pillar-card:hover { transform: translateY(-3px); box-shadow: var(--sh-md); }
+.pillar-card[data-color="blue"] { border-top-color: var(--tax-blue); }
+.pillar-card[data-color="green"] { border-top-color: var(--tax-green); }
+.pillar-card[data-color="amber"] { border-top-color: var(--tax-amber); }
+.pillar-card[data-color="purple"] { border-top-color: var(--tax-purple); }
+.pillar-card[data-color="red"] { border-top-color: var(--tax-red); }
+.pillar-card[data-color="teal"] { border-top-color: var(--tax-teal); }
+.pillar-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+.pillar-card h3 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 1rem; margin-bottom: 0.5rem;
+}
+.pillar-card p { color: var(--text-sec); font-size: 0.82rem; }
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: var(--code-bg); color: var(--code-fg);
+  font-family: var(--font-m); font-size: 0.82rem;
+  padding: 1.5rem 1.75rem; border-radius: var(--r-lg);
+  overflow-x: auto; margin: 1.25rem 0;
+  line-height: 2;
+}
+.code-block .k { color: var(--code-kw); }
+.code-block .s { color: var(--code-str); }
+.code-block .n { color: var(--code-num); }
+.code-block .c { color: var(--code-cmt); }
+.code-block .sep {
+  display: block; height: 0; margin: 0.6rem 0;
+  border-top: 1px solid rgba(148,163,184,0.15);
+}
+.code-label {
+  display: inline-block; padding: 0.2rem 0.6rem;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.65rem; color: #fff;
+  margin-bottom: -1px; position: relative; z-index: 1;
+}
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block; padding: 0.15rem 0.55rem;
+  border-radius: 99px; font-family: var(--font-h);
+  font-weight: 700; font-size: 0.6rem;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.badge-blue { background: var(--tax-blue-lt); color: var(--tax-blue); }
+.badge-green { background: var(--tax-green-lt); color: var(--tax-green); }
+.badge-amber { background: var(--tax-amber-lt); color: var(--tax-amber); }
+.badge-purple { background: var(--tax-purple-lt); color: var(--tax-purple); }
+.badge-red { background: var(--tax-red-lt); color: var(--tax-red); }
+.badge-teal { background: var(--tax-teal-lt); color: var(--tax-teal); }
+
+/* ── INFO BOXES ── */
+.info-box {
+  padding: 0.85rem 1rem; border-radius: 0 var(--r-md) var(--r-md) 0;
+  margin: 1rem 0; font-size: 0.82rem;
+}
+.info-box-blue { background: var(--tax-blue-lt); border-left: 3px solid var(--tax-blue); }
+.info-box-green { background: var(--tax-green-lt); border-left: 3px solid var(--tax-green); }
+.info-box-amber { background: var(--tax-amber-lt); border-left: 3px solid var(--tax-amber); }
+.info-box-purple { background: var(--tax-purple-lt); border-left: 3px solid var(--tax-purple); }
+.info-box-red { background: var(--tax-red-lt); border-left: 3px solid var(--tax-red); }
+
+/* ── KEY INSIGHTS + IMPACT ── */
+.ki-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin: 2rem 0;
+}
+.ki-card {
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.25rem; box-shadow: var(--sh-sm);
+}
+.ki-card h4 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.85rem; margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.ki-card ul { list-style: none; }
+.ki-card li {
+  font-size: 0.8rem; padding: 0.3rem 0;
+  padding-left: 1.2rem; position: relative;
+  color: var(--text-sec);
+}
+.ki-card li::before {
+  content: ''; position: absolute; left: 0; top: 0.55rem;
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.ki-insights { border-left: 4px solid var(--tax-blue); }
+.ki-insights li::before { background: var(--tax-blue); }
+.ki-impact { border-left: 4px solid var(--tax-purple); }
+.ki-impact li::before { background: var(--tax-purple); }
+
+/* ── HELPER MODALS ── */
+.info-help-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--tax-purple); color: #fff;
+  border: none; cursor: pointer;
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.6rem; margin-left: 0.3rem;
+  vertical-align: middle; transition: transform 0.15s;
+}
+.info-help-btn:hover { transform: scale(1.15); }
+.info-modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(15,23,42,0.6); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.info-modal {
+  background: var(--card); border-radius: var(--r-xl);
+  padding: 2rem; max-width: 600px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: var(--sh-xl); animation: slideD 0.25s ease;
+}
+@keyframes slideD {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.info-modal h3 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 1.1rem; margin-bottom: 0.75rem;
+}
+.info-modal p, .info-modal li {
+  font-size: 0.82rem; color: var(--text-sec); line-height: 1.6;
+}
+.info-modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--border-lt); border: none; width: 32px; height: 32px;
+  border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.info-modal { position: relative; }
+
+/* ── SUB-TABS (PROMINENT) ── */
+.sub-tabs-prominent {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem; margin-bottom: 1.5rem;
+}
+.sub-tab-card {
+  background: var(--card); border: 2px solid var(--border);
+  border-radius: var(--r-lg); padding: 1rem 1.25rem;
+  cursor: pointer; transition: all 0.25s; text-align: left;
+  opacity: 0.7;
+}
+.sub-tab-card:hover { opacity: 1; }
+.sub-tab-card.active {
+  opacity: 1; transform: translateY(-4px) scale(1.03);
+  z-index: 2; box-shadow: var(--sh-lg);
+}
+.sub-tab-card.active[data-color="blue"] { border-color: var(--tax-blue); background: var(--tax-blue-lt); }
+.sub-tab-card.active[data-color="green"] { border-color: var(--tax-green); background: var(--tax-green-lt); }
+.sub-tab-card.active[data-color="amber"] { border-color: var(--tax-amber); background: var(--tax-amber-lt); }
+.sub-tab-card.active[data-color="purple"] { border-color: var(--tax-purple); background: var(--tax-purple-lt); }
+.sub-tab-card.active[data-color="red"] { border-color: var(--tax-red); background: var(--tax-red-lt); }
+.sub-tab-card h4 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.8rem; margin-bottom: 0.25rem;
+}
+.sub-tab-card p { font-size: 0.7rem; color: var(--text-sec); }
+.sub-panel { display: none; }
+.sub-panel.active { display: block; animation: fadeUp 0.3s ease; }
+
+/* ── DETAIL CARDS ── */
+.detail-card {
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.5rem; margin-bottom: 1.25rem;
+  box-shadow: var(--sh-sm); border: 1px solid var(--border-lt);
+}
+.detail-card h3 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 1rem; margin-bottom: 0.75rem;
+}
+.detail-card p { font-size: 0.82rem; color: var(--text-sec); margin-bottom: 0.75rem; }
+
+/* ── TABLE ── */
+.tax-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.78rem; margin: 1rem 0;
+}
+.tax-table th {
+  background: var(--code-bg); color: #fff;
+  font-family: var(--font-h); font-weight: 700;
+  padding: 0.6rem 0.8rem; text-align: left;
+  font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tax-table td {
+  padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border-lt);
+  color: var(--text-sec);
+}
+.tax-table tr:hover td { background: var(--surface); }
+.tax-table th:first-child { border-radius: var(--r-sm) 0 0 0; }
+.tax-table th:last-child { border-radius: 0 var(--r-sm) 0 0; }
+
+/* ── SVG CONTAINERS ── */
+.svg-container {
+  overflow-x: auto; margin: 1.5rem 0;
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1rem; box-shadow: var(--sh-sm);
+}
+.svg-container svg { width: 100%; height: auto; min-width: 820px; }
+
+/* ── TIMELINE ── */
+.tl-wrap { position: relative; margin: 1.5rem 0; padding-left: 2rem; }
+.tl-line {
+  position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(to bottom, var(--tax-blue), var(--tax-purple));
+  border-radius: 2px;
+}
+.tl-item { position: relative; margin-bottom: 1.5rem; }
+.tl-dot {
+  position: absolute; left: -2rem; top: 0.2rem;
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 3px solid var(--card); box-shadow: var(--sh-sm);
+}
+.tl-item h4 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.85rem; margin-bottom: 0.25rem;
+}
+.tl-item p { font-size: 0.78rem; color: var(--text-sec); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  html { font-size: 16px; }
+  .pillars, .ki-grid, .sub-tabs-prominent { grid-template-columns: 1fr; }
+  .nav-bar { padding: 0 0.75rem; flex-wrap: wrap; min-height: auto; border-bottom-color: var(--border); }
+  .nav-logo { padding: 0.6rem 0; margin-right: auto; font-size: 0.95rem; color: var(--text); }
+  #mainTabs { width: 100%; padding-bottom: 0.35rem; gap: 0; }
+  #mainTabs button { font-size: 0.72rem; padding: 0.45rem 0.7rem; border-bottom-width: 2px; }
+  .container { padding: 1rem; }
+  .sh h1 { font-size: 1.5rem; }
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--font-h); font-weight: 800;
+  font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--text-sec);
+  margin-top: 2rem; margin-bottom: 0.25rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.section-sub { font-size: 0.78rem; color: var(--text-light); margin-bottom: 1rem; }
+
+/* ── COMPARISON GRID ── */
+.compare-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem; margin: 1rem 0;
+}
+.compare-card {
+  background: var(--card); border-radius: var(--r-lg);
+  padding: 1.25rem; border: 2px solid var(--border);
+  box-shadow: var(--sh-sm);
+}
+.compare-card.recommended {
+  border-color: var(--tax-blue);
+  box-shadow: var(--sh-lg);
+}
+.compare-card h4 {
+  font-family: var(--font-h); font-weight: 700;
+  font-size: 0.88rem; margin-bottom: 0.5rem;
+}
+.pro { color: var(--tax-green); font-size: 0.78rem; }
+.con { color: var(--tax-red); font-size: 0.78rem; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAVIGATION ════════════ -->
+<nav class="nav-bar">
+  <div class="nav-logo">IRS <span>&</span> OBBBA</div>
+  <div id="mainTabs">
+    <button class="active" onclick="showTab(0)">Tax Code Foundation</button>
+    <button onclick="showTab(1)">The OBBBA Decoded</button>
+    <button onclick="showTab(2)">Deferred Tax Deep Dive</button>
+    <button onclick="showTab(3)">International Tax & Tech</button>
+    <button onclick="showTab(4)">Your CMA Playbook</button>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ════════════ TAB 1: TAX CODE FOUNDATION ════════════ -->
+<div class="tab-panel active">
+  <div class="sh">
+    <h1>The IRS Tax Code — What Actually Matters</h1>
+    <p>The IRC has 11 subtitles and thousands of sections. Here are the ones that will define your career in US tech corporate tax.</p>
+  </div>
+
+  <!-- PILLARS -->
+  <div class="pillars reveal">
+    <div class="pillar-card" data-color="blue">
+      <div class="pillar-icon">&#167;</div>
+      <h3>Income & Deductions</h3>
+      <p>Sections 61–280E govern what counts as income and what's deductible. The backbone of every provision you'll touch.</p>
+    </div>
+    <div class="pillar-card" data-color="green">
+      <div class="pillar-icon">&#9881;</div>
+      <h3>Corporate Mechanics</h3>
+      <p>Sections 301–385 cover distributions, reorganizations, and entity classification — the plumbing of corporate tax.</p>
+    </div>
+    <div class="pillar-card" data-color="amber">
+      <div class="pillar-icon">&#127760;</div>
+      <h3>International Provisions</h3>
+      <p>Sections 861–999 plus GILTI/FDII (now renamed). If your company has any foreign subsidiary, this is your world.</p>
+    </div>
+  </div>
+
+  <!-- SUB-TABS: Key Sections for Tech -->
+  <div class="section-label">CRITICAL IRC SECTIONS FOR US TECH</div>
+  <p class="section-sub">These are the sections you'll encounter weekly. Know them cold.</p>
+
+  <div class="sub-tabs-prominent" id="t1Subs">
+    <button class="sub-tab-card active" data-color="blue" onclick="showSub('t1',0)">
+      <h4>&#167; 174 / 174A — R&D</h4>
+      <p>Research & experimental expenditures</p>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('t1',1)">
+      <h4>&#167; 168(k) — Depreciation</h4>
+      <p>Bonus depreciation & cost recovery</p>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('t1',2)">
+      <h4>&#167; 163(j) — Interest</h4>
+      <p>Business interest expense limitation</p>
+    </button>
+    <button class="sub-tab-card" data-color="purple" onclick="showSub('t1',3)">
+      <h4>&#167; 162(m) — Exec Comp</h4>
+      <p>Executive compensation deduction limits</p>
+    </button>
+  </div>
+
+  <!-- SUB-PANEL: Section 174 -->
+  <div id="t1-0" class="sub-panel active">
+    <div class="detail-card">
+      <h3>Section 174 / New Section 174A — Research & Experimental Expenditures <button class="info-help-btn" onclick="openInfoModal('modal-174-history')">?</button></h3>
+      <p>This is <strong>the single most impactful tax section for US tech companies</strong>. Before TCJA's 2022 change, companies could immediately expense all R&D costs. Then TCJA forced 5-year amortization of domestic R&E (15 years for foreign). The OBBBA reversed this with new Section 174A.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Treatment</th>
+            <th>Impact on Tech</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-green">Pre-2022</span></td>
+            <td>Immediate expensing of all R&E costs</td>
+            <td>Large current deductions, lower taxable income</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-red">2022–2024</span></td>
+            <td>5-year amortization (domestic) / 15-year (foreign)</td>
+            <td>Massive tax increases for R&D-heavy tech companies</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">2025+ (OBBBA)</span></td>
+            <td>New &#167;174A: full expensing restored for domestic R&E</td>
+            <td>Immediate cash tax savings; DTA/DTL remeasurement</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-amber">
+        <strong>CMA Impact:</strong> When your company capitalizes software development costs for GAAP (ASC 350-40) but expenses them for tax under &#167;174A, you create a <em>taxable temporary difference</em> that generates a <strong>deferred tax liability</strong>. You'll need to model this every quarter.
+      </div>
+
+      <div class="code-block">
+<span class="c">// Journal Entry: Tax Benefit from R&D Expensing</span>
+<span class="c">// GAAP: Capitalized $10M software dev costs, amortize over 3 years</span>
+<span class="c">// Tax:  Expense $10M immediately under §174A</span>
+<span class="sep"></span>
+<span class="k">Year 1</span> — Taxable temp difference = $<span class="n">10M</span> - $<span class="n">3.33M</span> = $<span class="n">6.67M</span>
+
+  <span class="k">Dr</span>  Income Tax Expense       $<span class="n">1,400,700</span>   <span class="c">// 6.67M × 21%</span>
+    <span class="k">Cr</span>  Deferred Tax Liability   $<span class="n">1,400,700</span>
+<span class="sep"></span>
+<span class="c">// This DTL reverses as GAAP amortization catches up to tax</span>
+
+<span class="k">Year 2</span> — DTL reversal = $<span class="n">3.33M</span> × <span class="n">21%</span> = $<span class="n">700,000</span>
+<span class="k">Year 3</span> — DTL reversal = $<span class="n">3.33M</span> × <span class="n">21%</span> = $<span class="n">700,000</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB-PANEL: Section 168(k) -->
+  <div id="t1-1" class="sub-panel">
+    <div class="detail-card">
+      <h3>Section 168(k) — Bonus Depreciation <button class="info-help-btn" onclick="openInfoModal('modal-168k')">?</button></h3>
+      <p>Allows businesses to deduct the full cost of qualifying assets in the year placed in service rather than depreciating over the asset's useful life. The OBBBA permanently restored 100% bonus depreciation for property acquired after January 19, 2025.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Year</th><th>Bonus %</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2023</td><td><span class="badge badge-amber">80%</span></td><td>TCJA phase-down</td></tr>
+          <tr><td>2024</td><td><span class="badge badge-amber">60%</span></td><td>TCJA phase-down</td></tr>
+          <tr><td>2025</td><td><span class="badge badge-red">40%</span> → <span class="badge badge-green">100%</span></td><td>OBBBA restored (retroactive to 1/20/2025)</td></tr>
+          <tr><td>2026+</td><td><span class="badge badge-green">100%</span></td><td>Permanent</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-blue">
+        <strong>For Tech:</strong> Server equipment, networking gear, furniture for offices — all qualify. A $5M data center buildout that would have been depreciated over 5 years can now be fully expensed in Year 1, creating a temporary difference and a DTL of ~$1.05M.
+      </div>
+
+      <div class="code-block">
+<span class="c">// Example: $5M server equipment placed in service Q3 2025</span>
+
+<span class="k">GAAP</span>:  Depreciate over <span class="n">5</span> years = $<span class="n">1M</span>/year
+<span class="k">Tax</span>:   100% bonus depreciation = $<span class="n">5M</span> in Year 1
+<span class="sep"></span>
+<span class="k">Year 1 Temp Difference</span> = $<span class="n">5M</span> - $<span class="n">1M</span> = $<span class="n">4M</span> (taxable)
+<span class="k">DTL Created</span>            = $<span class="n">4M</span> × <span class="n">21%</span> = $<span class="n">840,000</span>
+<span class="sep"></span>
+<span class="c">// Reversal schedule:</span>
+
+<span class="k">Year 2</span>:  $<span class="n">1M</span> × <span class="n">21%</span> = $<span class="n">210,000</span>  DTL reversal
+<span class="k">Year 3</span>:  $<span class="n">1M</span> × <span class="n">21%</span> = $<span class="n">210,000</span>  DTL reversal
+<span class="k">Year 4</span>:  $<span class="n">1M</span> × <span class="n">21%</span> = $<span class="n">210,000</span>  DTL reversal
+<span class="k">Year 5</span>:  $<span class="n">1M</span> × <span class="n">21%</span> = $<span class="n">210,000</span>  DTL reversal
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB-PANEL: Section 163(j) -->
+  <div id="t1-2" class="sub-panel">
+    <div class="detail-card">
+      <h3>Section 163(j) — Business Interest Expense Limitation <button class="info-help-btn" onclick="openInfoModal('modal-163j')">?</button></h3>
+      <p>Limits the deduction for business interest expense to 30% of Adjusted Taxable Income (ATI). The OBBBA permanently restored the more generous <strong>EBITDA-based</strong> ATI calculation, meaning depreciation and amortization are added back.</p>
+
+      <div class="svg-container">
+        <svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="820" height="280" rx="8" fill="#F8FAFC"/>
+          <!-- Title -->
+          <text x="410" y="30" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="14" fill="#1E293B">Section 163(j) ATI Calculation — EBIT vs EBITDA</text>
+
+          <!-- EBIT Box (old) -->
+          <rect x="40" y="55" width="350" height="190" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="2" stroke-dasharray="6 3"/>
+          <text x="215" y="80" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="11" fill="#DC2626">2022–2024: EBIT-Based ATI (Stricter)</text>
+          <text x="60" y="110" font-family="JetBrains Mono" font-size="10" fill="#1E293B">Taxable Income</text>
+          <text x="60" y="130" font-family="JetBrains Mono" font-size="10" fill="#15803D">+ Business Interest Expense</text>
+          <text x="60" y="150" font-family="JetBrains Mono" font-size="10" fill="#DC2626">− Business Interest Income</text>
+          <text x="60" y="170" font-family="JetBrains Mono" font-size="10" fill="#DC2626">− NOL deduction</text>
+          <text x="60" y="195" font-family="Plus Jakarta Sans" font-weight="700" font-size="11" fill="#DC2626">= ATI (smaller base)</text>
+          <text x="60" y="220" font-family="JetBrains Mono" font-size="10" fill="#64748B">Deductible Interest = 30% × ATI</text>
+          <text x="60" y="235" font-family="JetBrains Mono" font-size="9" fill="#DC2626">D&amp;A NOT added back → lower limit</text>
+
+          <!-- EBITDA Box (new) -->
+          <rect x="430" y="55" width="350" height="190" rx="10" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+          <text x="605" y="80" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="11" fill="#15803D">2025+ (OBBBA): EBITDA-Based ATI</text>
+          <text x="450" y="110" font-family="JetBrains Mono" font-size="10" fill="#1E293B">Taxable Income</text>
+          <text x="450" y="130" font-family="JetBrains Mono" font-size="10" fill="#15803D">+ Business Interest Expense</text>
+          <text x="450" y="150" font-family="JetBrains Mono" font-size="10" fill="#DC2626">− Business Interest Income</text>
+          <text x="450" y="170" font-family="JetBrains Mono" font-size="10" fill="#DC2626">− NOL deduction</text>
+          <text x="450" y="190" font-family="JetBrains Mono" font-size="10" fill="#1E40AF">+ Depreciation &amp; Amortization</text>
+          <text x="450" y="215" font-family="Plus Jakarta Sans" font-weight="700" font-size="11" fill="#15803D">= ATI (larger base)</text>
+          <text x="450" y="235" font-family="JetBrains Mono" font-size="9" fill="#15803D">D&amp;A added back → higher limit → more interest deductible</text>
+
+          <!-- Arrow -->
+          <line x1="395" y1="150" x2="425" y2="150" stroke="#1E40AF" stroke-width="2" marker-end="url(#arrowBlue)">
+            <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite"/>
+          </line>
+          <defs>
+            <marker id="arrowBlue" viewBox="0 0 10 8" refX="8" refY="4" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#1E40AF"/></marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="info-box info-box-green">
+        <strong>CMA Impact:</strong> If your tech company carries significant debt (acquisition financing, credit facilities), the switch back to EBITDA-based ATI means you can deduct <em>more</em> interest expense. Any previously disallowed interest carried forward as a DTA may now become realizable — triggering a DTA valuation allowance reassessment.
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB-PANEL: Section 162(m) -->
+  <div id="t1-3" class="sub-panel">
+    <div class="detail-card">
+      <h3>Section 162(m) — Executive Compensation Limitation</h3>
+      <p>Limits the deductibility of compensation paid to "covered employees" to <strong>$1 million per person</strong>. After TCJA, this covers the CEO, CFO, and the three next highest-paid officers. Starting 2027, it expands to the <strong>five</strong> next highest-paid employees.</p>
+
+      <div class="info-box info-box-purple">
+        <strong>Why This Matters in Tech:</strong> Tech companies pay executives primarily in stock-based compensation (RSUs, options). When an RSU vests at $5M, GAAP records the expense over the vesting period, but tax can only deduct up to $1M. The excess $4M is a <strong>permanent difference</strong> — it increases your effective tax rate (ETR) permanently and never reverses.
+      </div>
+
+      <div class="code-block">
+<span class="c">// Example: CFO RSU compensation</span>
+
+<span class="k">Total comp</span>            = $<span class="n">8,000,000</span>
+<span class="k">Tax deductible</span>        = $<span class="n">1,000,000</span>   <span class="c">// §162(m) limit</span>
+<span class="k">Permanent difference</span>  = $<span class="n">7,000,000</span>
+<span class="sep"></span>
+<span class="c">// ETR impact:</span>
+
+<span class="k">Additional tax</span>  = $<span class="n">7M</span> × <span class="n">21%</span> = $<span class="n">1,470,000</span>
+
+<span class="c">// This shows up as a permanent item in your rate reconciliation</span>
+<span class="c">// No DTA or DTL — it's gone forever</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY INSIGHTS + IMPACT -->
+  <div class="ki-grid reveal">
+    <div class="ki-card ki-insights">
+      <h4>&#128161; Key Insights</h4>
+      <ul>
+        <li>Section 174A is the #1 section for tech — master the book-tax difference between ASC 350-40 capitalization and tax expensing</li>
+        <li>100% bonus depreciation creates large DTLs that reverse over the GAAP useful life of assets</li>
+        <li>163(j) EBITDA-based calculation can unlock previously disallowed interest deductions and affect DTA realizability</li>
+        <li>162(m) is a permanent difference — no deferred tax, just straight ETR impact from exec comp</li>
+      </ul>
+    </div>
+    <div class="ki-card ki-impact">
+      <h4>&#127919; Impact On Your Work</h4>
+      <ul>
+        <li>You'll compute 174A temporary differences every quarter — build a schedule that tracks GAAP amortization vs tax expensing</li>
+        <li>Bonus depreciation fixed asset schedules need to reconcile with your company's fixed asset sub-ledger</li>
+        <li>During quarterly provision, always check if 163(j) carryforwards need DTA/VA reassessment</li>
+        <li>The 162(m) permanent difference is a common audit focus — maintain a clear covered employee comp schedule</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Additional: Tax Rate Structure -->
+  <div class="section-label">THE CORPORATE TAX RATE LANDSCAPE</div>
+  <p class="section-sub">Where the 21% rate fits and what else applies</p>
+
+  <div class="detail-card reveal">
+    <h3>Federal Corporate Tax Rate — Permanently 21%</h3>
+    <p>The OBBBA makes the 21% flat corporate tax rate permanent (it was set to sunset under TCJA). But 21% is just the starting point — your effective tax rate (ETR) will differ based on state taxes, permanent differences, credits, and international provisions.</p>
+
+    <table class="tax-table">
+      <thead>
+        <tr><th>Component</th><th>Rate / Range</th><th>How It Hits Your Provision</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Federal statutory rate</td><td><span class="badge badge-blue">21%</span></td><td>Starting point for ETR reconciliation</td></tr>
+        <tr><td>State income taxes (net of federal benefit)</td><td><span class="badge badge-amber">2–8%</span></td><td>Blended state rate × (1 − 21%) = net state ETR impact</td></tr>
+        <tr><td>CAMT (if applicable)</td><td><span class="badge badge-red">15%</span></td><td>15% on adjusted financial statement income if avg revenue > $1B</td></tr>
+        <tr><td>GILTI inclusion</td><td><span class="badge badge-teal">10.5–13.125%</span></td><td>Effective rate on CFC tested income (now renamed NCTI)</td></tr>
+        <tr><td>R&D credits (§41)</td><td><span class="badge badge-green">−1 to −3%</span></td><td>Reduces ETR — track credit carryforwards</td></tr>
+        <tr><td>Stock comp excess tax benefits</td><td><span class="badge badge-green">Varies</span></td><td>Windfall benefits reduce ETR; shortfalls increase it</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════ TAB 2: THE OBBBA DECODED ════════════ -->
+<div class="tab-panel">
+  <div class="sh">
+    <h1>The One, Big, Beautiful Bill Act — Decoded</h1>
+    <p>Signed into law July 4, 2025 as Public Law 119-21. Here's everything that changed, when it takes effect, and what it means for your provision work.</p>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-label">ENACTMENT TIMELINE</div>
+  <p class="section-sub">Different provisions have different effective dates — get these wrong and your provision is wrong</p>
+
+  <div class="detail-card reveal">
+    <div class="tl-wrap">
+      <div class="tl-line"></div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--tax-blue)"></div>
+        <h4>January 20, 2025 — Bonus Depreciation Retroactive Date</h4>
+        <p>100% bonus depreciation applies to qualified property <strong>acquired after</strong> this date. If your company bought assets between 1/20 and 7/4, they retroactively qualify for full expensing.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--tax-green)"></div>
+        <h4>January 1, 2025 — R&D Expensing (§174A) Effective</h4>
+        <p>Domestic R&E costs are immediately deductible for tax years <strong>beginning after December 31, 2024</strong>. Calendar-year companies: this applies to your full 2025 tax year.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--tax-amber)"></div>
+        <h4>January 1, 2025 — 163(j) EBITDA Restored</h4>
+        <p>The EBITDA-based ATI calculation is permanent for tax years beginning after 12/31/2024. D&A added back to ATI for interest limitation purposes.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--tax-red)"></div>
+        <h4>July 4, 2025 — Enactment Date (ASC 740 Recognition)</h4>
+        <p>Under ASC 740, effects of the new law are recognized in the period that <strong>includes</strong> the enactment date. Calendar-year entities recognize all deferred tax remeasurements as a <strong>discrete item in Q3 2025</strong>.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--tax-purple)"></div>
+        <h4>January 1, 2026 — Estate/Gift Exemption Increase</h4>
+        <p>Unified exemption permanently increases to $15M per individual ($30M married). Annual gift exclusion remains $19,000 for 2026.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--tax-teal)"></div>
+        <h4>January 1, 2026 — 163(j) CFC Exclusion</h4>
+        <p>New limitation: CFC-related items excluded from domestic ATI calculation. Companies with CFCs may see reduced interest deductibility starting 2026.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB-TABS: Individual vs Corporate vs International -->
+  <div class="section-label">OBBBA PROVISIONS BY CATEGORY</div>
+  <p class="section-sub">Click each category to see what changed and the exact IRC sections affected</p>
+
+  <div class="sub-tabs-prominent" id="t2Subs">
+    <button class="sub-tab-card active" data-color="blue" onclick="showSub('t2',0)">
+      <h4>Individual Provisions</h4>
+      <p>Tips, overtime, SALT, child tax credit</p>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('t2',1)">
+      <h4>Corporate Provisions</h4>
+      <p>R&D, depreciation, interest, 21% rate</p>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('t2',2)">
+      <h4>International Provisions</h4>
+      <p>GILTI→NCTI, FDII→FDDEI, BEAT changes</p>
+    </button>
+    <button class="sub-tab-card" data-color="purple" onclick="showSub('t2',3)">
+      <h4>Estate & Gift Tax</h4>
+      <p>$15M exemption, permanent increase</p>
+    </button>
+  </div>
+
+  <!-- Individual Provisions -->
+  <div id="t2-0" class="sub-panel active">
+    <div class="detail-card">
+      <h3>Individual Tax Provisions — The Headlines</h3>
+      <p>While your day-to-day CMA work focuses on corporate tax, understanding individual provisions matters for executive compensation planning, employee benefits analysis, and your own tax return.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Provision</th><th>IRC Section</th><th>What Changed</th><th>Effective</th><th>Sunset</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>No Tax on Tips</strong></td>
+            <td>New §74A</td>
+            <td>Qualified tips deductible up to $25K/year</td>
+            <td>2025</td>
+            <td>2028</td>
+          </tr>
+          <tr>
+            <td><strong>No Tax on Overtime</strong></td>
+            <td>New §74B</td>
+            <td>Overtime pay deductible up to $12.5K ($25K joint)</td>
+            <td>2025</td>
+            <td>2028</td>
+          </tr>
+          <tr>
+            <td><strong>Car Loan Interest</strong></td>
+            <td>New §163(j)</td>
+            <td>Personal vehicle loan interest deductible up to $10K</td>
+            <td>2025</td>
+            <td>2028</td>
+          </tr>
+          <tr>
+            <td><strong>Senior Deduction</strong></td>
+            <td>Amended §63</td>
+            <td>Additional $6,000 standard deduction for age 65+</td>
+            <td>2025</td>
+            <td>2028</td>
+          </tr>
+          <tr>
+            <td><strong>SALT Cap Increase</strong></td>
+            <td>Amended §164</td>
+            <td>Cap raised to $40K (income &lt; $500K), phases out above</td>
+            <td>2025</td>
+            <td>2029</td>
+          </tr>
+          <tr>
+            <td><strong>Standard Deduction</strong></td>
+            <td>Amended §63</td>
+            <td>TCJA levels made permanent: $32,200 MFJ for 2026</td>
+            <td>Permanent</td>
+            <td>None</td>
+          </tr>
+          <tr>
+            <td><strong>Child Tax Credit</strong></td>
+            <td>Amended §24</td>
+            <td>Increased to $2,200/child, inflation-adjusted, permanent</td>
+            <td>2025</td>
+            <td>None</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-blue">
+        <strong>CMA Relevance:</strong> The SALT cap increase matters for your personal return if you're in a high-tax state (CA, NY, NJ). The tips/overtime provisions affect payroll tax calculations if your company has eligible employees. The standard deduction permanence removes the "TCJA sunset cliff" from planning models.
+      </div>
+    </div>
+  </div>
+
+  <!-- Corporate Provisions -->
+  <div id="t2-1" class="sub-panel">
+    <div class="detail-card">
+      <h3>Corporate Tax Provisions — The Core of Your Work</h3>
+      <p>These are the provisions that directly hit your quarterly ASC 740 provision, your ETR reconciliation, and your deferred tax roll-forward. Know every detail.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Provision</th><th>IRC Section</th><th>Before OBBBA</th><th>After OBBBA</th><th>Deferred Tax Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>R&D Expensing</strong></td>
+            <td>New §174A</td>
+            <td>5-yr amortization (domestic)</td>
+            <td>Immediate expensing (domestic)</td>
+            <td>DTA from prior capitalization reverses; new DTLs possible</td>
+          </tr>
+          <tr>
+            <td><strong>Bonus Depreciation</strong></td>
+            <td>§168(k)</td>
+            <td>Phasing down (60% in 2024)</td>
+            <td>Permanent 100%</td>
+            <td>DTLs increase for companies with significant CapEx</td>
+          </tr>
+          <tr>
+            <td><strong>Interest Limitation</strong></td>
+            <td>§163(j)</td>
+            <td>EBIT-based ATI</td>
+            <td>EBITDA-based ATI (permanent)</td>
+            <td>Disallowed interest carryforward DTAs may become realizable</td>
+          </tr>
+          <tr>
+            <td><strong>Corporate Tax Rate</strong></td>
+            <td>§11</td>
+            <td>21% (was set to sunset)</td>
+            <td>21% permanent</td>
+            <td>No remeasurement needed — rate unchanged</td>
+          </tr>
+          <tr>
+            <td><strong>Pass-Through Deduction</strong></td>
+            <td>§199A</td>
+            <td>20% deduction (sunsetting)</td>
+            <td>20% permanent</td>
+            <td>Relevant if company has pass-through subsidiaries</td>
+          </tr>
+          <tr>
+            <td><strong>Manufacturing Expensing</strong></td>
+            <td>New §168(n)</td>
+            <td>N/A</td>
+            <td>100% for qualified production property through 2032</td>
+            <td>Large DTLs for companies building domestic facilities</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SVG: OBBBA Corporate Impact Flow -->
+      <div class="svg-container">
+        <svg viewBox="0 0 820 350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="820" height="350" rx="8" fill="#F8FAFC"/>
+          <text x="410" y="28" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#1E293B">OBBBA Corporate Provisions → Deferred Tax Impact Flow</text>
+
+          <!-- Provision boxes -->
+          <rect x="30" y="50" width="150" height="55" rx="8" fill="#DBEAFE" stroke="#1E40AF" stroke-width="2"/>
+          <text x="105" y="72" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#1E40AF">§174A R&amp;D</text>
+          <text x="105" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Full expensing</text>
+
+          <rect x="200" y="50" width="150" height="55" rx="8" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+          <text x="275" y="72" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#15803D">§168(k) Bonus</text>
+          <text x="275" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">100% permanent</text>
+
+          <rect x="370" y="50" width="150" height="55" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+          <text x="445" y="72" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#D97706">§163(j) Interest</text>
+          <text x="445" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">EBITDA-based</text>
+
+          <rect x="540" y="50" width="150" height="55" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+          <text x="615" y="72" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#7C3AED">§168(n) Mfg</text>
+          <text x="615" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">QPP expensing</text>
+
+          <!-- Arrows down -->
+          <line x1="105" y1="105" x2="105" y2="145" stroke="#1E40AF" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+          <line x1="275" y1="105" x2="275" y2="145" stroke="#15803D" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+          <line x1="445" y1="105" x2="445" y2="145" stroke="#D97706" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+          <line x1="615" y1="105" x2="615" y2="145" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- Central processing box -->
+          <rect x="60" y="145" width="600" height="50" rx="10" fill="#0F172A"/>
+          <text x="360" y="168" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="12" fill="#E2E8F0">ASC 740 Provision — Remeasure All Deferred Tax Balances at Enactment (Q3 2025)</text>
+          <text x="360" y="185" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">Discrete item in the period including July 4, 2025</text>
+
+          <!-- Arrows to outcomes -->
+          <line x1="180" y1="195" x2="180" y2="240" stroke="#DC2626" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+          <line x1="410" y1="195" x2="410" y2="240" stroke="#D97706" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+          <line x1="620" y1="195" x2="620" y2="240" stroke="#15803D" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/></line>
+
+          <!-- Outcome boxes -->
+          <rect x="80" y="240" width="200" height="70" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/>
+          <text x="180" y="262" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#DC2626">DTL Impact</text>
+          <text x="180" y="280" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">R&D + Bonus Depreciation →</text>
+          <text x="180" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#DC2626">Increased DTLs (tax &lt; GAAP basis)</text>
+
+          <rect x="310" y="240" width="200" height="70" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+          <text x="410" y="262" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#D97706">VA Reassessment</text>
+          <text x="410" y="280" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">163(j) carryforwards +</text>
+          <text x="410" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#D97706">NOL realization → test VA</text>
+
+          <rect x="530" y="240" width="200" height="70" rx="8" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+          <text x="630" y="262" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#15803D">ETR Impact</text>
+          <text x="630" y="280" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Discrete adj in Q3 2025</text>
+          <text x="630" y="295" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#15803D">May significantly move ETR</text>
+
+          <!-- Legend -->
+          <text x="410" y="340" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#94A3B8">All effects recognized as discrete items in the interim period including the enactment date (Q3 2025 for calendar-year entities)</text>
+        </svg>
+      </div>
+
+      <div class="info-box info-box-red">
+        <strong>Critical CAMT Interaction:</strong> Companies subject to the Corporate Alternative Minimum Tax (15% on adjusted financial statement income) may find that OBBBA's R&D and depreciation benefits create book-tax mismatches that <em>increase</em> CAMT liability. The acceleration of tax deductions widens the gap between financial statement income and taxable income, potentially triggering or increasing CAMT. This is an active area of IRS guidance — watch Notice 2026-7.
+      </div>
+    </div>
+  </div>
+
+  <!-- International Provisions (brief here, deep dive in Tab 4) -->
+  <div id="t2-2" class="sub-panel">
+    <div class="detail-card">
+      <h3>International Provisions — The Rebranding</h3>
+      <p>The OBBBA fundamentally restructured the international tax framework created by TCJA in 2017. The most visible change: the names changed, reflecting a policy shift away from targeting "intangible income."</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Old Name</th><th>New Name</th><th>Rate Change</th><th>Key Structural Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>GILTI</strong><br><span style="font-size:0.7rem;color:var(--text-light)">Global Intangible Low-Taxed Income</span></td>
+            <td><strong>NCTI</strong><br><span style="font-size:0.7rem;color:var(--text-light)">Net CFC Tested Income</span></td>
+            <td>10.5% → <span class="badge badge-blue">12.6%</span> effective</td>
+            <td>QBAI exemption eliminated — all CFC income subject to tax</td>
+          </tr>
+          <tr>
+            <td><strong>FDII</strong><br><span style="font-size:0.7rem;color:var(--text-light)">Foreign-Derived Intangible Income</span></td>
+            <td><strong>FDDEI</strong><br><span style="font-size:0.7rem;color:var(--text-light)">Foreign-Derived Deduction Eligible Income</span></td>
+            <td>13.125% → <span class="badge badge-amber">14%</span> effective</td>
+            <td>QBAI removed from FDDEI calculation too</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:0.78rem; color:var(--text-sec)"><strong>BEAT</strong> (Base Erosion Anti-Abuse Tax) — modified but maintained; rate adjustments and expanded covered payments</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-amber">
+        <strong>Deep Dive:</strong> Tab 4 "International Tax & Tech" covers GILTI→NCTI and FDII→FDDEI changes in full detail, including the elimination of QBAI, country-by-country considerations, and specific impacts for tech company structures with IP held offshore.
+      </div>
+    </div>
+  </div>
+
+  <!-- Estate & Gift -->
+  <div id="t2-3" class="sub-panel">
+    <div class="detail-card">
+      <h3>Estate & Gift Tax — The Permanent $15M Exemption</h3>
+      <p>The OBBBA eliminated the "use it or lose it" pressure created by TCJA's sunset. The unified estate and gift tax exemption is now permanently increased.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Item</th><th>2025</th><th>2026</th><th>Key Detail</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Unified Exemption (Individual)</td><td>$13.99M</td><td><strong>$15M</strong></td><td>Inflation-adjusted annually after 2026</td></tr>
+          <tr><td>Unified Exemption (Married)</td><td>$27.98M</td><td><strong>$30M</strong></td><td>Portability election available</td></tr>
+          <tr><td>Annual Gift Exclusion</td><td>$19,000</td><td>$19,000</td><td>Per donee, unchanged</td></tr>
+          <tr><td>Top Estate Tax Rate</td><td>40%</td><td>40%</td><td>Unchanged</td></tr>
+          <tr><td>TCJA Sunset Threat</td><td colspan="2" style="text-align:center"><span class="badge badge-green">Eliminated</span></td><td>Was going to revert to ~$7M in 2026</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-purple">
+        <strong>CMA Relevance:</strong> While estate taxes aren't part of your corporate provision, executive compensation teams often consult with tax on estate planning implications. Understanding the $15M exemption helps you advise executives on equity compensation timing and gifting strategies. If your company's founder or key executives have significant stock holdings, this informs their estate planning conversations.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Insights for Tab 2 -->
+  <div class="ki-grid reveal">
+    <div class="ki-card ki-insights">
+      <h4>&#128161; Key Insights</h4>
+      <ul>
+        <li>The enactment date (July 4, 2025) is THE critical date for ASC 740 — all deferred tax remeasurements are discrete items in Q3 2025</li>
+        <li>Many provisions are retroactive to 1/1/2025 or 1/20/2025 — you may need to true up H1 2025 estimated payments</li>
+        <li>The CAMT interaction is the sleeper issue — R&D expensing benefits can be partially offset by increased CAMT liability</li>
+        <li>GILTI→NCTI renaming reflects real structural changes (QBAI elimination), not just cosmetic updates</li>
+      </ul>
+    </div>
+    <div class="ki-card ki-impact">
+      <h4>&#127919; Impact On Your Work</h4>
+      <ul>
+        <li>Your Q3 2025 provision was the most complex quarter in years — document every discrete adjustment with memo support</li>
+        <li>Build a comprehensive "OBBBA Impact" workpaper that maps each provision to its deferred tax effect</li>
+        <li>Coordinate with your company's external tax advisors (likely your former E&Y/KPMG colleagues) on CAMT modeling</li>
+        <li>Update your annual effective tax rate (AETR) forecast to incorporate all OBBBA provisions from the enactment date forward</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TAB 3: DEFERRED TAX DEEP DIVE ════════════ -->
+<div class="tab-panel">
+  <div class="sh">
+    <h1>Deferred Tax Deep Dive — ASC 740 Under the OBBBA</h1>
+    <p>The OBBBA created the most complex deferred tax remeasurement event since TCJA in 2017. Here's exactly how to handle it.</p>
+  </div>
+
+  <!-- PILLARS: Three Core Concepts -->
+  <div class="pillars reveal">
+    <div class="pillar-card" data-color="blue">
+      <div class="pillar-icon">&#9878;</div>
+      <h3>Temporary Differences</h3>
+      <p>When GAAP and tax treat the same item differently in timing, creating DTAs or DTLs that reverse over time.</p>
+    </div>
+    <div class="pillar-card" data-color="green">
+      <div class="pillar-icon">&#9874;</div>
+      <h3>Permanent Differences</h3>
+      <p>Items treated differently by GAAP and tax that <em>never</em> reverse — they permanently affect your ETR.</p>
+    </div>
+    <div class="pillar-card" data-color="purple">
+      <div class="pillar-icon">&#9888;</div>
+      <h3>Valuation Allowance</h3>
+      <p>The "more likely than not" test: will you actually realize your DTAs? The OBBBA changes the math.</p>
+    </div>
+  </div>
+
+  <!-- SUB-TABS: DTA vs DTL vs VA -->
+  <div class="section-label">OBBBA-DRIVEN DEFERRED TAX CHANGES <button class="info-help-btn" onclick="openInfoModal('modal-asc740-basics')">?</button></div>
+  <p class="section-sub">Each provision creates specific deferred tax consequences — trace them through</p>
+
+  <div class="sub-tabs-prominent" id="t3Subs">
+    <button class="sub-tab-card active" data-color="blue" onclick="showSub('t3',0)">
+      <h4>DTL Generators</h4>
+      <p>R&D expensing, bonus depreciation</p>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('t3',1)">
+      <h4>DTA Impacts</h4>
+      <p>Interest carryforwards, NOLs, credits</p>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('t3',2)">
+      <h4>VA Reassessment</h4>
+      <p>Valuation allowance under new law</p>
+    </button>
+    <button class="sub-tab-card" data-color="purple" onclick="showSub('t3',3)">
+      <h4>The Q3 2025 Provision</h4>
+      <p>Step-by-step discrete recognition</p>
+    </button>
+  </div>
+
+  <!-- DTL Generators -->
+  <div id="t3-0" class="sub-panel active">
+    <div class="detail-card">
+      <h3>DTL Generators — How R&D and Depreciation Create Deferred Tax Liabilities</h3>
+      <p>When you deduct something for tax before you expense it for GAAP, the tax basis of the asset is <em>lower</em> than the book basis. This creates a taxable temporary difference and a DTL.</p>
+
+      <!-- SVG: Book vs Tax Basis Diagram -->
+      <div class="svg-container">
+        <svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="820" height="420" rx="8" fill="#F8FAFC"/>
+          <text x="410" y="28" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#1E293B">Book vs Tax Basis — How DTLs Are Born (§174A Example)</text>
+
+          <!-- Phase labels -->
+          <rect x="30" y="45" width="760" height="22" rx="4" fill="#1E40AF"/>
+          <text x="410" y="60" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#fff">Year 1: $10M R&D Spend — Software Development for SaaS Product</text>
+
+          <!-- Book side -->
+          <rect x="40" y="80" width="350" height="300" rx="10" fill="#DBEAFE" stroke="#1E40AF" stroke-width="1.5"/>
+          <text x="215" y="105" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="12" fill="#1E40AF">GAAP TREATMENT (ASC 350-40)</text>
+
+          <rect x="60" y="120" width="310" height="40" rx="6" fill="#fff" stroke="#1E40AF" stroke-width="1"/>
+          <text x="215" y="137" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1E293B">Capitalize: $10M on Balance Sheet</text>
+          <text x="215" y="152" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Intangible Asset — Internal-Use Software</text>
+
+          <rect x="60" y="175" width="310" height="55" rx="6" fill="#fff" stroke="#1E40AF" stroke-width="1"/>
+          <text x="215" y="192" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="600" font-size="9" fill="#1E40AF">Amortize Over 3 Years (Straight-Line)</text>
+          <text x="215" y="210" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Year 1: $3.33M expense | Book Basis: $6.67M</text>
+          <text x="215" y="224" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Year 2: $3.33M expense | Book Basis: $3.33M</text>
+
+          <rect x="60" y="245" width="310" height="35" rx="6" fill="#DBEAFE" stroke="#1E40AF" stroke-width="1"/>
+          <text x="215" y="260" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#1E40AF">Year 1 Book Basis = $6.67M</text>
+          <text x="215" y="274" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">($10M cost − $3.33M amortization)</text>
+
+          <rect x="60" y="295" width="310" height="70" rx="6" fill="#fff" stroke="#1E40AF" stroke-width="1"/>
+          <text x="215" y="315" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="600" font-size="9" fill="#1E293B">Year 1 GAAP Income Impact</text>
+          <text x="215" y="332" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1E293B">Expense recognized: $3.33M</text>
+          <text x="215" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Pre-tax income is HIGHER by $6.67M</text>
+          <text x="215" y="362" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">vs if fully expensed</text>
+
+          <!-- Tax side -->
+          <rect x="430" y="80" width="350" height="300" rx="10" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+          <text x="605" y="105" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="12" fill="#15803D">TAX TREATMENT (§174A)</text>
+
+          <rect x="450" y="120" width="310" height="40" rx="6" fill="#fff" stroke="#15803D" stroke-width="1"/>
+          <text x="605" y="137" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1E293B">Full Expensing: $10M deducted in Year 1</text>
+          <text x="605" y="152" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Entire R&amp;D cost expensed immediately</text>
+
+          <rect x="450" y="175" width="310" height="55" rx="6" fill="#fff" stroke="#15803D" stroke-width="1"/>
+          <text x="605" y="192" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="600" font-size="9" fill="#15803D">No Future Tax Deductions Remaining</text>
+          <text x="605" y="210" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Year 1: $10M deducted | Tax Basis: $0</text>
+          <text x="605" y="224" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Year 2: $0 deduction | Tax Basis: $0</text>
+
+          <rect x="450" y="245" width="310" height="35" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="1"/>
+          <text x="605" y="260" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#15803D">Year 1 Tax Basis = $0</text>
+          <text x="605" y="274" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">(Fully expensed — nothing left)</text>
+
+          <rect x="450" y="295" width="310" height="70" rx="6" fill="#fff" stroke="#15803D" stroke-width="1"/>
+          <text x="605" y="315" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="600" font-size="9" fill="#1E293B">Year 1 Taxable Income Impact</text>
+          <text x="605" y="332" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1E293B">Deduction taken: $10M</text>
+          <text x="605" y="350" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">Taxable income is LOWER by $6.67M</text>
+          <text x="605" y="362" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#64748B">vs GAAP income</text>
+
+          <!-- Bottom annotation -->
+          <rect x="200" y="390" width="420" height="25" rx="6" fill="#0F172A"/>
+          <text x="410" y="407" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#FDE68A">Temp Diff = Book $6.67M − Tax $0 = $6.67M → DTL = $1.4M (× 21%)</text>
+        </svg>
+      </div>
+
+      <div class="detail-card" style="margin-top:1rem;">
+        <h3>Complete DTL Roll-Forward — R&D Example</h3>
+        <table class="tax-table">
+          <thead>
+            <tr><th>Year</th><th>Book Basis</th><th>Tax Basis</th><th>Temp Diff</th><th>DTL (@ 21%)</th><th>DTL Change</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Year 1</td><td>$6.67M</td><td>$0</td><td>$6.67M</td><td>$1,400,700</td><td><span class="badge badge-red">+$1,400,700</span></td></tr>
+            <tr><td>Year 2</td><td>$3.33M</td><td>$0</td><td>$3.33M</td><td>$699,300</td><td><span class="badge badge-green">−$701,400</span></td></tr>
+            <tr><td>Year 3</td><td>$0</td><td>$0</td><td>$0</td><td>$0</td><td><span class="badge badge-green">−$699,300</span></td></tr>
+          </tbody>
+        </table>
+        <div class="info-box info-box-amber">
+          <strong>Key Insight:</strong> The DTL is largest in Year 1 when the timing gap is widest. It reverses as GAAP "catches up" through amortization. For a tech company spending $100M+/year on R&D, this creates DTLs in the tens of millions.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DTA Impacts -->
+  <div id="t3-1" class="sub-panel">
+    <div class="detail-card">
+      <h3>DTA Impacts — How the OBBBA Affects Deferred Tax Assets</h3>
+      <p>DTAs represent future tax benefits — amounts you'll save on taxes in future periods. The OBBBA changes which DTAs exist and whether they're realizable.</p>
+
+      <div class="section-label">KEY DTA CATEGORIES AFFECTED</div>
+
+      <div class="pillars">
+        <div class="pillar-card" data-color="blue">
+          <h3>§174 Amortization DTAs</h3>
+          <p>Companies that capitalized R&D for tax in 2022–2024 had DTAs for the unamortized balance. Under OBBBA transition rules, small businesses (≤$25M gross receipts) can deduct these retroactively. Larger companies get a 1-2 year catch-up deduction for remaining balances.</p>
+          <div class="info-box info-box-blue" style="margin-top:0.75rem;">
+            <strong>Action:</strong> Reverse existing §174 DTAs as they become deductible under OBBBA transition rules. This is a discrete benefit in Q3 2025.
+          </div>
+        </div>
+        <div class="pillar-card" data-color="green">
+          <h3>§163(j) Interest Carryforwards</h3>
+          <p>Companies with disallowed business interest from years when EBIT-based ATI was used now have interest carryforward DTAs. The return to EBITDA-based ATI means more current interest is deductible, making carryforwards more likely to be realized.</p>
+          <div class="info-box info-box-green" style="margin-top:0.75rem;">
+            <strong>Action:</strong> Reassess VA against 163(j) carryforward DTAs — the broader EBITDA base makes realization more likely.
+          </div>
+        </div>
+        <div class="pillar-card" data-color="amber">
+          <h3>Stock-Based Compensation DTAs</h3>
+          <p>SBC creates DTAs based on GAAP expense recognized during vesting. At vest/exercise, the DTA is compared to actual tax deduction (FMV at vest). Windfalls (stock up) → excess benefit to APIC. Shortfalls (stock down) → DTA write-off to expense.</p>
+          <div class="info-box info-box-amber" style="margin-top:0.75rem;">
+            <strong>OBBBA Note:</strong> Expansion of §162(m) covered employees may limit tax deductions for more executives, creating permanent differences that reduce or eliminate the DTA benefit.
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+<span class="c">// Stock-Based Compensation DTA — RSU Example</span>
+<span class="c">// Grant: 10,000 RSUs to VP Engineering at grant-date FMV $100/share</span>
+<span class="c">// 4-year vest, GAAP expense = $250K/year ($1M total)</span>
+<span class="sep"></span>
+<span class="k">During Vesting Period (each year):</span>
+
+  <span class="k">Dr</span>  Deferred Tax Asset      $<span class="n">52,500</span>    <span class="c">// $250K × 21%</span>
+    <span class="k">Cr</span>  Income Tax Benefit    $<span class="n">52,500</span>
+<span class="sep"></span>
+<span class="k">At Vest Date — Stock Price = $150 (Windfall):</span>
+
+  Tax Deduction      = <span class="n">10,000</span> × $<span class="n">150</span> = $<span class="n">1,500,000</span>
+  DTA balance        = $<span class="n">210,000</span>          <span class="c">// $1M × 21%</span>
+  Actual tax benefit = $<span class="n">315,000</span>          <span class="c">// $1.5M × 21%</span>
+
+  <span class="s">Excess benefit = $105,000 → recognized in income tax expense (ASU 2016-09)</span>
+<span class="sep"></span>
+<span class="k">At Vest Date — Stock Price = $60 (Shortfall):</span>
+
+  Tax Deduction      = <span class="n">10,000</span> × $<span class="n">60</span> = $<span class="n">600,000</span>
+  DTA balance        = $<span class="n">210,000</span>
+  Actual tax benefit = $<span class="n">126,000</span>          <span class="c">// $600K × 21%</span>
+
+  <span class="s">Shortfall = $84,000 → additional tax expense (hits ETR)</span>
+<span class="sep"></span>
+<span class="c">// BUT if VP is a "covered employee" under §162(m):</span>
+
+<span class="k">Tax Deduction CAPPED at $1,000,000 regardless of FMV</span>
+
+  Actual benefit = $<span class="n">210,000</span>              <span class="c">// $1M × 21%</span>
+  <span class="s">Permanent difference on excess → straight ETR hit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VA Reassessment -->
+  <div id="t3-2" class="sub-panel">
+    <div class="detail-card">
+      <h3>Valuation Allowance Reassessment — The High-Stakes Judgment Call</h3>
+      <p>ASC 740-10-30-5: A valuation allowance shall be recognized for DTAs when it is "more likely than not" (>50%) that some or all of the DTA will <em>not</em> be realized. The OBBBA changes the positive and negative evidence on both sides.</p>
+
+      <!-- SVG: VA Decision Framework -->
+      <div class="svg-container">
+        <svg viewBox="0 0 820 380" xmlns="http://www.w3.org/2000/svg">
+          <rect width="820" height="380" rx="8" fill="#F8FAFC"/>
+          <text x="410" y="28" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#1E293B">Valuation Allowance Assessment Framework — Post-OBBBA</text>
+
+          <!-- Positive Evidence -->
+          <rect x="30" y="50" width="370" height="290" rx="10" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+          <text x="215" y="75" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="12" fill="#15803D">POSITIVE EVIDENCE (Supports Realization)</text>
+
+          <rect x="50" y="90" width="330" height="35" rx="6" fill="#fff"/>
+          <text x="65" y="112" font-family="DM Sans" font-weight="600" font-size="9" fill="#15803D">&#10003; Cumulative 3-year pre-tax profits</text>
+
+          <rect x="50" y="135" width="330" height="35" rx="6" fill="#fff"/>
+          <text x="65" y="150" font-family="DM Sans" font-weight="600" font-size="9" fill="#15803D">&#10003; Strong future earnings forecasts</text>
+          <text x="65" y="163" font-family="JetBrains Mono" font-size="7" fill="#64748B">Budgets, contracts, backlog — objective evidence</text>
+
+          <rect x="50" y="180" width="330" height="35" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+          <text x="65" y="195" font-family="DM Sans" font-weight="600" font-size="9" fill="#D97706">&#9733; OBBBA: More current deductions → lower taxable income</text>
+          <text x="65" y="208" font-family="JetBrains Mono" font-size="7" fill="#64748B">Creates DTLs that serve as a source of future taxable income</text>
+
+          <rect x="50" y="225" width="330" height="35" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+          <text x="65" y="240" font-family="DM Sans" font-weight="600" font-size="9" fill="#D97706">&#9733; OBBBA: DTL reversals = future taxable income</text>
+          <text x="65" y="253" font-family="JetBrains Mono" font-size="7" fill="#64748B">DTLs from §174A/§168(k) reverse and create taxable income</text>
+
+          <rect x="50" y="270" width="330" height="55" rx="6" fill="#DBEAFE" stroke="#1E40AF" stroke-width="1"/>
+          <text x="65" y="290" font-family="DM Sans" font-weight="700" font-size="9" fill="#1E40AF">KEY POINT: Scheduling matters</text>
+          <text x="65" y="305" font-family="JetBrains Mono" font-size="7" fill="#64748B">DTL reversals must align in TIMING with DTA reversals.</text>
+          <text x="65" y="318" font-family="JetBrains Mono" font-size="7" fill="#64748B">A DTL reversing in 2030 doesn't help a DTA expiring in 2027.</text>
+
+          <!-- Negative Evidence -->
+          <rect x="420" y="50" width="370" height="290" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+          <text x="605" y="75" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="12" fill="#DC2626">NEGATIVE EVIDENCE (Against Realization)</text>
+
+          <rect x="440" y="90" width="330" height="35" rx="6" fill="#fff"/>
+          <text x="455" y="112" font-family="DM Sans" font-weight="600" font-size="9" fill="#DC2626">&#10007; Cumulative 3-year pre-tax losses</text>
+
+          <rect x="440" y="135" width="330" height="35" rx="6" fill="#fff"/>
+          <text x="455" y="150" font-family="DM Sans" font-weight="600" font-size="9" fill="#DC2626">&#10007; History of DTA expirations (unused credits/NOLs)</text>
+          <text x="455" y="163" font-family="JetBrains Mono" font-size="7" fill="#64748B">Objective historical evidence weighs heavily</text>
+
+          <rect x="440" y="180" width="330" height="35" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+          <text x="455" y="195" font-family="DM Sans" font-weight="600" font-size="9" fill="#D97706">&#9733; OBBBA: Lower taxable income from accelerated deductions</text>
+          <text x="455" y="208" font-family="JetBrains Mono" font-size="7" fill="#64748B">May make NOL/credit carryforward realization harder near-term</text>
+
+          <rect x="440" y="225" width="330" height="35" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+          <text x="455" y="240" font-family="DM Sans" font-weight="600" font-size="9" fill="#D97706">&#9733; OBBBA: CAMT interaction may limit cash tax savings</text>
+          <text x="455" y="253" font-family="JetBrains Mono" font-size="7" fill="#64748B">Book-tax mismatches from R&D expensing can trigger CAMT</text>
+
+          <rect x="440" y="270" width="330" height="55" rx="6" fill="#DBEAFE" stroke="#1E40AF" stroke-width="1"/>
+          <text x="455" y="290" font-family="DM Sans" font-weight="700" font-size="9" fill="#1E40AF">WEIGHT OF EVIDENCE</text>
+          <text x="455" y="305" font-family="JetBrains Mono" font-size="7" fill="#64748B">Negative objective evidence (actual losses) outweighs</text>
+          <text x="455" y="318" font-family="JetBrains Mono" font-size="7" fill="#64748B">positive subjective evidence (future projections).</text>
+
+          <!-- Bottom bar -->
+          <rect x="150" y="350" width="520" height="25" rx="6" fill="#0F172A"/>
+          <text x="410" y="367" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#FDE68A">Result: Weigh all evidence → Determine VA as discrete item in Q3 2025</text>
+        </svg>
+      </div>
+
+      <div class="info-box info-box-purple">
+        <strong>For Entities WITH a Valuation Allowance:</strong> The OBBBA can have a <em>significant</em> impact. If OBBBA provisions reduce current taxable income (via R&D expensing and bonus depreciation), this may mean the company needs to increase its VA because there is less current taxable income to absorb DTA benefits. Conversely, if OBBBA creates large DTLs that reverse in periods when DTAs also reverse, those DTLs become a source of future taxable income that supports DTA realization — potentially allowing a VA <em>release</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- The Q3 2025 Provision -->
+  <div id="t3-3" class="sub-panel">
+    <div class="detail-card">
+      <h3>The Q3 2025 Provision — Step-by-Step Discrete Recognition</h3>
+      <p>ASC 740-10-45-15: The effect of a change in tax law is recognized in the period that <em>includes</em> the enactment date. For calendar-year entities, that's Q3 2025 (July 4 enactment). Here's the workflow:</p>
+
+      <div class="code-block">
+<span class="c">// ═══ Q3 2025 DISCRETE TAX PROVISION WORKFLOW ═══</span>
+<span class="sep"></span>
+<span class="k">STEP 1: Identify All Affected Deferred Tax Balances</span>
+
+  <span class="c">// Review every line item on your deferred tax roll-forward</span>
+
+  ├── §174 R&D amortization DTAs (from 2022-2024 capitalization)
+  ├── §168(k) bonus depreciation DTLs
+  ├── §163(j) interest carryforward DTAs
+  ├── NOL carryforward DTAs
+  ├── R&D credit carryforward DTAs
+  ├── SBC-related DTAs (for covered employees under §162(m))
+  └── International: GILTI/FDII deferred taxes
+<span class="sep"></span>
+<span class="k">STEP 2: Remeasure Beginning-of-Period DT Balances</span>
+
+  <span class="c">// Use the NEW law to re-calculate what DTAs/DTLs would be</span>
+  <span class="c">// as if the law had been in effect at the start of the period</span>
+
+  For each item:
+    New_DT       = Temp_Difference × <span class="n">21%</span>   <span class="c">// rate unchanged, but AMOUNTS change</span>
+    Discrete_Adj = New_DT − Old_DT
+<span class="sep"></span>
+<span class="k">STEP 3: Record Discrete Tax Expense/Benefit</span>
+
+  <span class="c">// Do NOT spread this through the AETR</span>
+  <span class="c">// This is a discrete, period-specific item</span>
+
+  <span class="k">Dr</span>  Income Tax Expense (or Benefit)    $X
+    <span class="k">Cr</span>  Deferred Tax Asset/Liability      $X
+<span class="sep"></span>
+<span class="k">STEP 4: Reassess Valuation Allowances</span>
+
+  <span class="c">// Under new law, re-evaluate "more likely than not"</span>
+  <span class="c">// Changes to VA are ALSO discrete items in Q3</span>
+<span class="sep"></span>
+<span class="k">STEP 5: Update AETR Forecast</span>
+
+  <span class="c">// The OBBBA affects the AETR for the remainder of 2025</span>
+  <span class="c">// and all future years — update your forecast model</span>
+<span class="sep"></span>
+<span class="k">STEP 6: Prepare Disclosures</span>
+
+  <span class="c">// Rate reconciliation: add line item for "Effect of change in tax law"</span>
+  <span class="c">// Significant components of deferred tax: update all affected items</span>
+  <span class="c">// ASU 2023-09 enhanced disclosures may also be required</span>
+      </div>
+
+      <div class="info-box info-box-red">
+        <strong>Common Mistake:</strong> Do NOT include the effect of the law change in your annual effective tax rate (AETR) calculation. It must be recognized as a <strong>discrete item</strong> in the interim period including the enactment date. Including it in the AETR would spread the impact across remaining quarters, which violates ASC 740-270-25.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Insights for Tab 3 -->
+  <div class="ki-grid reveal">
+    <div class="ki-card ki-insights">
+      <h4>&#128161; Key Insights</h4>
+      <ul>
+        <li>R&D expensing (§174A) + bonus depreciation (§168k) are the two biggest DTL generators for tech companies under OBBBA</li>
+        <li>Pre-existing §174 DTAs from 2022-2024 capitalization need to be reversed under OBBBA transition rules</li>
+        <li>VA assessment is a two-edged sword: OBBBA creates DTLs (positive evidence for DTA realization) but also reduces taxable income (potentially negative evidence)</li>
+        <li>All remeasurements are DISCRETE items in Q3 2025 — never spread through the AETR</li>
+      </ul>
+    </div>
+    <div class="ki-card ki-impact">
+      <h4>&#127919; Impact On Your Work</h4>
+      <ul>
+        <li>Build an "OBBBA Deferred Tax Remeasurement" workpaper with every affected line item, old balance, new balance, and discrete adjustment</li>
+        <li>Work closely with your tax team to model the §174A transition — the catch-up deduction for prior year capitalized R&D is a one-time benefit</li>
+        <li>Document your VA assessment thoroughly — this is the #1 audit focus area in post-OBBBA provisions</li>
+        <li>Your Q3 2025 ETR reconciliation needs a prominent "Effect of OBBBA enactment" line item — prepare the disclosure language early</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TAB 4: INTERNATIONAL TAX & TECH ════════════ -->
+<div class="tab-panel">
+  <div class="sh">
+    <h1>International Tax & Tech — The GILTI/FDII Overhaul</h1>
+    <p>If your tech company has even one foreign subsidiary, international tax provisions define a huge chunk of your provision. The OBBBA rewrote the rules.</p>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar-card" data-color="teal">
+      <div class="pillar-icon">&#127760;</div>
+      <h3>GILTI → NCTI</h3>
+      <p>Global Intangible Low-Taxed Income becomes Net CFC Tested Income. Not just a name change — the QBAI exemption is eliminated, broadening the tax base.</p>
+    </div>
+    <div class="pillar-card" data-color="blue">
+      <div class="pillar-icon">&#128230;</div>
+      <h3>FDII → FDDEI</h3>
+      <p>Foreign-Derived Intangible Income becomes Foreign-Derived Deduction Eligible Income. The incentive rate rises from 13.125% to 14%, and QBAI is removed.</p>
+    </div>
+    <div class="pillar-card" data-color="red">
+      <div class="pillar-icon">&#128737;</div>
+      <h3>BEAT — Modified</h3>
+      <p>Base Erosion Anti-Abuse Tax remains but with expanded covered payments and rate adjustments. Affects companies making large deductible payments to foreign affiliates.</p>
+    </div>
+  </div>
+
+  <!-- SUB-TABS -->
+  <div class="sub-tabs-prominent" id="t4Subs">
+    <button class="sub-tab-card active" data-color="teal" onclick="showSub('t4',0)">
+      <h4>GILTI → NCTI Deep Dive</h4>
+      <p>What changed and the deferred tax impact</p>
+    </button>
+    <button class="sub-tab-card" data-color="blue" onclick="showSub('t4',1)">
+      <h4>FDII → FDDEI</h4>
+      <p>Export incentive rate and calculation changes</p>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('t4',2)">
+      <h4>Tech Company Structures</h4>
+      <p>Common IP structures and OBBBA impact</p>
+    </button>
+  </div>
+
+  <!-- GILTI → NCTI -->
+  <div id="t4-0" class="sub-panel active">
+    <div class="detail-card">
+      <h3>GILTI → Net CFC Tested Income (NCTI) — The Full Picture</h3>
+      <p>GILTI was designed to tax income earned by CFCs above a "routine" return on tangible assets (QBAI). The OBBBA eliminates the QBAI concept entirely, meaning <em>all</em> CFC tested income is subject to US tax.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Element</th><th>Old (GILTI)</th><th>New (NCTI)</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Base</strong></td>
+            <td>CFC tested income <em>minus</em> 10% of QBAI</td>
+            <td>All CFC tested income (no QBAI exemption)</td>
+            <td><span class="badge badge-red">Broader base</span> — more income taxed</td>
+          </tr>
+          <tr>
+            <td><strong>Deduction</strong></td>
+            <td>50% deduction (§250)</td>
+            <td>40% deduction (permanent)</td>
+            <td>Effective rate: 10.5% → <span class="badge badge-amber">12.6%</span></td>
+          </tr>
+          <tr>
+            <td><strong>FTC Limitation</strong></td>
+            <td>80% of foreign taxes creditable</td>
+            <td>80% maintained</td>
+            <td>Unchanged but applied to larger base</td>
+          </tr>
+          <tr>
+            <td><strong>Country-by-Country</strong></td>
+            <td>Blended basket (all CFCs aggregated)</td>
+            <td>Country-by-country allocation</td>
+            <td><span class="badge badge-red">Major</span> — can't blend high/low tax jurisdictions</td>
+          </tr>
+          <tr>
+            <td><strong>Deferred Tax Policy</strong></td>
+            <td>Election: deferred or period cost</td>
+            <td>Same election available</td>
+            <td>Companies using deferred approach must remeasure</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="svg-container">
+        <svg viewBox="0 0 820 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="820" height="300" rx="8" fill="#F8FAFC"/>
+          <text x="410" y="25" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#1E293B">GILTI vs NCTI Calculation Comparison</text>
+
+          <!-- Old calculation -->
+          <rect x="30" y="45" width="370" height="230" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <text x="215" y="68" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="11" fill="#DC2626">OLD: GILTI Calculation</text>
+
+          <text x="50" y="95" font-family="JetBrains Mono" font-size="9" fill="#1E293B">CFC Tested Income</text>
+          <text x="330" y="95" font-family="JetBrains Mono" font-size="9" fill="#FDE68A" text-anchor="end">$50,000,000</text>
+
+          <text x="50" y="115" font-family="JetBrains Mono" font-size="9" fill="#DC2626">Less: 10% x QBAI</text>
+          <text x="330" y="115" font-family="JetBrains Mono" font-size="9" fill="#DC2626" text-anchor="end">($20,000,000)</text>
+
+          <text x="50" y="130" font-family="JetBrains Mono" font-size="7" fill="#64748B">  (QBAI = $200M tangible assets x 10%)</text>
+          <rect x="50" y="140" width="330" height="1" fill="#DC2626"/>
+
+          <text x="50" y="160" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B">GILTI Inclusion</text>
+          <text x="330" y="160" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B" text-anchor="end">$30,000,000</text>
+
+          <text x="50" y="180" font-family="JetBrains Mono" font-size="9" fill="#15803D">Less: 50% Sec. 250 Deduction</text>
+          <text x="330" y="180" font-family="JetBrains Mono" font-size="9" fill="#15803D" text-anchor="end">($15,000,000)</text>
+
+          <rect x="50" y="188" width="330" height="1" fill="#DC2626"/>
+
+          <text x="50" y="208" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B">Taxable @ 21%</text>
+          <text x="330" y="208" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B" text-anchor="end">$15,000,000</text>
+
+          <rect x="50" y="220" width="330" height="28" rx="4" fill="#DC2626" opacity="0.12"/>
+          <text x="215" y="239" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="12" fill="#DC2626">US Tax = $3,150,000</text>
+
+          <text x="50" y="262" font-family="JetBrains Mono" font-size="8" fill="#64748B">Effective: 6.3% on total CFC income / 10.5% on inclusion</text>
+
+          <!-- New calculation -->
+          <rect x="420" y="45" width="370" height="230" rx="10" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.5"/>
+          <text x="605" y="68" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="11" fill="#0D9488">NEW: NCTI Calculation</text>
+
+          <text x="440" y="95" font-family="JetBrains Mono" font-size="9" fill="#1E293B">CFC Tested Income</text>
+          <text x="720" y="95" font-family="JetBrains Mono" font-size="9" fill="#1E293B" text-anchor="end">$50,000,000</text>
+
+          <text x="440" y="115" font-family="JetBrains Mono" font-size="9" fill="#0D9488">Less: QBAI</text>
+          <text x="720" y="115" font-family="JetBrains Mono" font-size="9" fill="#0D9488" text-anchor="end">$0</text>
+
+          <text x="440" y="130" font-family="JetBrains Mono" font-size="7" fill="#64748B">  (QBAI exemption ELIMINATED)</text>
+          <rect x="440" y="140" width="330" height="1" fill="#0D9488"/>
+
+          <text x="440" y="160" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B">NCTI Inclusion</text>
+          <text x="720" y="160" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B" text-anchor="end">$50,000,000</text>
+
+          <text x="440" y="180" font-family="JetBrains Mono" font-size="9" fill="#15803D">Less: 40% Deduction</text>
+          <text x="720" y="180" font-family="JetBrains Mono" font-size="9" fill="#15803D" text-anchor="end">($20,000,000)</text>
+
+          <rect x="440" y="188" width="330" height="1" fill="#0D9488"/>
+
+          <text x="440" y="208" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B">Taxable @ 21%</text>
+          <text x="720" y="208" font-family="JetBrains Mono" font-weight="700" font-size="9" fill="#1E293B" text-anchor="end">$30,000,000</text>
+
+          <rect x="440" y="220" width="330" height="28" rx="4" fill="#0D9488" opacity="0.12"/>
+          <text x="605" y="239" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="12" fill="#0D9488">US Tax = $6,300,000</text>
+
+          <text x="440" y="262" font-family="JetBrains Mono" font-size="8" fill="#DC2626">Effective: 12.6% on total CFC income — Tax DOUBLED</text>
+        </svg>
+      </div>
+
+      <div class="info-box info-box-red">
+        <strong>Critical for Tech:</strong> Companies with significant tangible assets overseas (data centers, manufacturing equipment) benefited enormously from the 10% QBAI exemption. Its elimination doubles the effective rate on CFC income in many cases. If your company elected to record deferred taxes on GILTI, you must remeasure all NCTI-related deferred tax balances at the new 12.6% effective rate as a discrete item in Q3 2025.
+      </div>
+    </div>
+  </div>
+
+  <!-- FDII → FDDEI -->
+  <div id="t4-1" class="sub-panel">
+    <div class="detail-card">
+      <h3>FDII → FDDEI — The Export Incentive</h3>
+      <p>FDII was designed to incentivize US companies to serve foreign markets from the US (rather than moving IP offshore). The OBBBA renames it FDDEI and makes the rate slightly less favorable but permanent.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Element</th><th>Old (FDII)</th><th>New (FDDEI)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Deduction</td><td>37.5%</td><td>33.34%</td></tr>
+          <tr><td>Effective Rate</td><td>13.125%</td><td><strong>14%</strong></td></tr>
+          <tr><td>QBAI in Calculation</td><td>Yes (reduced deemed intangible income)</td><td>No — QBAI removed</td></tr>
+          <tr><td>Duration</td><td>Sunsetting</td><td><strong>Permanent</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+<span class="c">// FDDEI Calculation — SaaS Company Example</span>
+<span class="c">// US-headquartered tech company with $200M foreign-derived revenue</span>
+<span class="sep"></span>
+<span class="k">Total Gross Income</span>:                $<span class="n">500,000,000</span>
+<span class="k">Foreign-Derived Gross Income</span>:       $<span class="n">200,000,000</span>    <span class="c">// 40% from foreign customers</span>
+<span class="k">Deduction Eligible Income (DEI)</span>:    $<span class="n">400,000,000</span>    <span class="c">// after cost allocations</span>
+<span class="sep"></span>
+<span class="k">FDDEI Ratio</span>   = Foreign / Total = <span class="n">200M / 500M</span> = <span class="n">40%</span>
+<span class="k">FDDEI Amount</span>  = DEI × Ratio     = $<span class="n">400M</span> × <span class="n">40%</span> = $<span class="n">160,000,000</span>
+<span class="sep"></span>
+<span class="k">FDDEI Deduction</span>  = $<span class="n">160M</span> × <span class="n">33.34%</span>  = $<span class="n">53,344,000</span>
+<span class="k">Tax Savings</span>      = $<span class="n">53.3M</span> × <span class="n">21%</span>    = $<span class="n">11,202,240</span>
+
+<span class="c">// Effective rate on FDDEI: 21% × (1 − 33.34%) = 14%</span>
+<span class="c">// vs statutory 21% → saving 7% on $160M = $11.2M annually</span>
+      </div>
+
+      <div class="info-box info-box-teal" style="background:var(--tax-teal-lt); border-left-color:var(--tax-teal);">
+        <strong>Strategic Insight:</strong> The OBBBA intentionally makes NCTI (12.6%) cheaper than FDDEI (14%) to incentivize keeping operations in the US while serving foreign markets from domestic IP. This creates a tax incentive structure: best rate for keeping IP domestic and exporting, medium rate for offshore CFC income, highest rate (21%) for purely domestic income.
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Company Structures -->
+  <div id="t4-2" class="sub-panel">
+    <div class="detail-card">
+      <h3>Common Tech Company IP Structures — Before and After OBBBA</h3>
+      <p>Many US tech companies structured their IP ownership through low-tax jurisdictions (Ireland, Netherlands, Singapore). The OBBBA's elimination of QBAI and move to country-by-country NCTI fundamentally changes the calculus.</p>
+
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h4>Structure A: IP Offshore (Pre-OBBBA)</h4>
+          <p style="font-size:0.78rem; color:var(--text-sec);">IP held by Irish subsidiary. US parent licenses IP from CFC. Profits accumulate offshore at low local rate.</p>
+          <p class="con" style="margin-top:0.5rem;"><strong>Post-OBBBA:</strong></p>
+          <ul style="font-size:0.75rem; color:var(--text-sec); padding-left:1rem; margin-top:0.25rem;">
+            <li>QBAI exemption gone — all CFC income taxed at 12.6%</li>
+            <li>Country-by-country means can't blend with high-tax jurisdictions</li>
+            <li>Significantly less beneficial than before</li>
+          </ul>
+        </div>
+        <div class="compare-card recommended">
+          <span class="badge badge-blue" style="margin-bottom:0.5rem;">Favored Post-OBBBA</span>
+          <h4>Structure B: IP Domestic (FDDEI)</h4>
+          <p style="font-size:0.78rem; color:var(--text-sec);">IP held by US parent. Foreign revenue qualifies for FDDEI deduction. R&D costs fully expensed under §174A.</p>
+          <p class="pro" style="margin-top:0.5rem;"><strong>Post-OBBBA Advantages:</strong></p>
+          <ul style="font-size:0.75rem; color:var(--text-sec); padding-left:1rem; margin-top:0.25rem;">
+            <li>14% effective rate on foreign-derived income</li>
+            <li>Full R&D expensing under §174A (immediate)</li>
+            <li>No transfer pricing risk on IP migration</li>
+            <li>Simpler compliance — no CFC reporting for IP income</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <h4>Structure C: Hybrid (Cost-Sharing)</h4>
+          <p style="font-size:0.78rem; color:var(--text-sec);">R&D performed in US, costs shared with foreign subsidiary via cost-sharing arrangement. IP co-owned.</p>
+          <p class="con" style="margin-top:0.5rem;"><strong>Post-OBBBA Complications:</strong></p>
+          <ul style="font-size:0.75rem; color:var(--text-sec); padding-left:1rem; margin-top:0.25rem;">
+            <li>Foreign R&D still amortized over 15 years (§174A domestic-only)</li>
+            <li>Cost-sharing payments may trigger BEAT</li>
+            <li>NCTI applies to CFC's share of profits at 12.6%</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-box info-box-purple">
+        <strong>CMA Action Item:</strong> If your company is evaluating IP restructuring post-OBBBA, you'll need to model the deferred tax impact of migrating IP back to the US. This involves: (1) potential gain recognition on IP transfer, (2) new FDDEI benefit calculations, (3) unwind of existing NCTI deferred taxes, and (4) transfer pricing documentation. Coordinate with your Big 4 advisors for the transfer pricing study.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Insights for Tab 4 -->
+  <div class="ki-grid reveal">
+    <div class="ki-card ki-insights">
+      <h4>&#128161; Key Insights</h4>
+      <ul>
+        <li>QBAI elimination is the single biggest international tax change — doubles effective NCTI rate for asset-heavy offshore structures</li>
+        <li>Country-by-country NCTI prevents blending high and low-tax CFC income — each jurisdiction evaluated separately</li>
+        <li>The 12.6% NCTI rate vs 14% FDDEI rate creates a deliberate incentive structure favoring domestic IP with foreign sales</li>
+        <li>Companies with the "deferred" GILTI accounting policy must remeasure all NCTI deferred taxes at Q3 2025 enactment</li>
+      </ul>
+    </div>
+    <div class="ki-card ki-impact">
+      <h4>&#127919; Impact On Your Work</h4>
+      <ul>
+        <li>Review your company's CFC structure and model the NCTI impact at 12.6% without QBAI — this may be a material ETR impact</li>
+        <li>If your company uses the "deferred" approach for GILTI, prepare discrete remeasurement calculations for Q3 2025</li>
+        <li>Coordinate with transfer pricing team on any IP restructuring analysis — the deferred tax consequences are significant</li>
+        <li>Update your international tax provision model: NCTI/FDDEI calculations, FTC limitations, and BEAT applicability testing</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TAB 5: YOUR CMA PLAYBOOK ════════════ -->
+<div class="tab-panel">
+  <div class="sh">
+    <h1>Your CMA Playbook — From Big 4 to US Tech</h1>
+    <p>You've done the audits at E&Y/KPMG. Now you're on the other side of the table. Here's how to apply your skills in a US tech corporate tax function.</p>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar-card" data-color="blue">
+      <div class="pillar-icon">&#128197;</div>
+      <h3>The Quarterly Provision Cycle</h3>
+      <p>Your calendar now revolves around the ASC 740 provision. Q-end close, AETR updates, discrete items, and disclosure prep — every quarter, without fail.</p>
+    </div>
+    <div class="pillar-card" data-color="green">
+      <div class="pillar-icon">&#128202;</div>
+      <h3>ETR Management</h3>
+      <p>Your CFO cares about one number: the effective tax rate. Understanding what moves it — and forecasting accurately — is your core value proposition.</p>
+    </div>
+    <div class="pillar-card" data-color="purple">
+      <div class="pillar-icon">&#127942;</div>
+      <h3>Tax Planning & Strategy</h3>
+      <p>Beyond compliance: identifying opportunities like R&D credits, FDDEI benefits, and structuring decisions that create real business value.</p>
+    </div>
+  </div>
+
+  <!-- SUB-TABS -->
+  <div class="sub-tabs-prominent" id="t5Subs">
+    <button class="sub-tab-card active" data-color="blue" onclick="showSub('t5',0)">
+      <h4>Quarterly Provision Workflow</h4>
+      <p>Step-by-step close process</p>
+    </button>
+    <button class="sub-tab-card" data-color="green" onclick="showSub('t5',1)">
+      <h4>ETR Reconciliation Mastery</h4>
+      <p>Every line item explained</p>
+    </button>
+    <button class="sub-tab-card" data-color="amber" onclick="showSub('t5',2)">
+      <h4>Key Workpapers & Schedules</h4>
+      <p>What to build and maintain</p>
+    </button>
+    <button class="sub-tab-card" data-color="purple" onclick="showSub('t5',3)">
+      <h4>Career Growth Roadmap</h4>
+      <p>From staff to senior to manager</p>
+    </button>
+  </div>
+
+  <!-- Quarterly Provision Workflow -->
+  <div id="t5-0" class="sub-panel active">
+    <div class="detail-card">
+      <h3>The Quarterly Tax Provision — Your Rhythm</h3>
+      <p>At a tech company, the quarterly provision is the single most important deliverable. Unlike your Big 4 days where you audited the provision, now you <em>own</em> it.</p>
+
+      <div class="svg-container">
+        <svg viewBox="0 0 820 350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="820" height="350" rx="8" fill="#F8FAFC"/>
+          <text x="410" y="25" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#1E293B">Quarterly ASC 740 Provision Workflow — US Tech Company</text>
+
+          <!-- Phase 1 -->
+          <rect x="30" y="45" width="180" height="25" rx="4" fill="#1E40AF"/>
+          <text x="120" y="62" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="9" fill="#fff">PHASE 1: Pre-Close (Day 1-3)</text>
+
+          <rect x="30" y="78" width="180" height="80" rx="6" fill="#DBEAFE" stroke="#1E40AF" stroke-width="1"/>
+          <text x="40" y="95" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Update AETR forecast model</text>
+          <text x="40" y="110" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Identify discrete items</text>
+          <text x="40" y="125" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Review tax law changes</text>
+          <text x="40" y="140" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Coordinate with FP&amp;A on PBT</text>
+
+          <!-- Arrow -->
+          <line x1="210" y1="110" x2="240" y2="110" stroke="#1E40AF" stroke-width="2" stroke-dasharray="6 3">
+            <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Phase 2 -->
+          <rect x="240" y="45" width="180" height="25" rx="4" fill="#15803D"/>
+          <text x="330" y="62" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="9" fill="#fff">PHASE 2: Compute (Day 3-7)</text>
+
+          <rect x="240" y="78" width="180" height="80" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="1"/>
+          <text x="250" y="95" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Calculate current tax expense</text>
+          <text x="250" y="110" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Roll forward deferred taxes</text>
+          <text x="250" y="125" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Apply AETR to YTD income</text>
+          <text x="250" y="140" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Record discrete adjustments</text>
+
+          <!-- Arrow -->
+          <line x1="420" y1="110" x2="450" y2="110" stroke="#15803D" stroke-width="2" stroke-dasharray="6 3">
+            <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Phase 3 -->
+          <rect x="450" y="45" width="180" height="25" rx="4" fill="#D97706"/>
+          <text x="540" y="62" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="9" fill="#fff">PHASE 3: Review (Day 7-10)</text>
+
+          <rect x="450" y="78" width="180" height="80" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+          <text x="460" y="95" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; ETR reasonableness check</text>
+          <text x="460" y="110" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; VA assessment update</text>
+          <text x="460" y="125" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Tax account reconciliation</text>
+          <text x="460" y="140" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Manager/Director review</text>
+
+          <!-- Arrow -->
+          <line x1="630" y1="110" x2="660" y2="110" stroke="#D97706" stroke-width="2" stroke-dasharray="6 3">
+            <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Phase 4 -->
+          <rect x="660" y="45" width="130" height="25" rx="4" fill="#7C3AED"/>
+          <text x="725" y="62" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="9" fill="#fff">PHASE 4: Close</text>
+
+          <rect x="660" y="78" width="130" height="80" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1"/>
+          <text x="670" y="95" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Post JEs</text>
+          <text x="670" y="110" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; Prepare disclosures</text>
+          <text x="670" y="125" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; External audit support</text>
+          <text x="670" y="140" font-family="DM Sans" font-size="8" fill="#1E293B">&#9744; File with controller</text>
+
+          <!-- Workpapers section -->
+          <rect x="30" y="180" width="760" height="25" rx="4" fill="#0F172A"/>
+          <text x="410" y="197" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#E2E8F0">KEY JOURNAL ENTRIES — What You're Actually Booking</text>
+
+          <rect x="30" y="215" width="370" height="120" rx="8" fill="#0F172A"/>
+          <text x="45" y="238" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// Current Tax Expense (Federal + State)</text>
+          <text x="45" y="255" font-family="JetBrains Mono" font-size="9" fill="#E2E8F0">Dr Income Tax Expense - Current  $XX</text>
+          <text x="45" y="272" font-family="JetBrains Mono" font-size="9" fill="#E2E8F0">  Cr Income Tax Payable          $XX</text>
+          <text x="45" y="292" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// Based on AETR × YTD pre-tax income</text>
+          <text x="45" y="312" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// Less: prior quarters' current expense</text>
+          <text x="45" y="325" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// = current quarter's incremental expense</text>
+
+          <rect x="420" y="215" width="370" height="120" rx="8" fill="#0F172A"/>
+          <text x="435" y="238" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// Deferred Tax Expense (Net Change)</text>
+          <text x="435" y="255" font-family="JetBrains Mono" font-size="9" fill="#E2E8F0">Dr Income Tax Expense - Deferred $XX</text>
+          <text x="435" y="272" font-family="JetBrains Mono" font-size="9" fill="#E2E8F0">  Cr Deferred Tax Liability      $XX</text>
+          <text x="435" y="292" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// Net movement in all DTA/DTL balances</text>
+          <text x="435" y="312" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// Including VA changes</text>
+          <text x="435" y="325" font-family="JetBrains Mono" font-size="9" fill="#93C5FD">// + discrete items (law changes, etc.)</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETR Reconciliation -->
+  <div id="t5-1" class="sub-panel">
+    <div class="detail-card">
+      <h3>ETR Reconciliation — Every Line Item Explained</h3>
+      <p>The rate reconciliation bridges from the 21% statutory rate to your actual ETR. Here's what each line item means, what drives it, and what OBBBA changed.</p>
+
+      <table class="tax-table">
+        <thead>
+          <tr><th>Line Item</th><th>Typical Impact</th><th>Driver</th><th>OBBBA Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Federal statutory rate</strong></td>
+            <td>21.0%</td>
+            <td>Fixed starting point</td>
+            <td><span class="badge badge-green">Permanent</span></td>
+          </tr>
+          <tr>
+            <td><strong>State taxes, net of federal benefit</strong></td>
+            <td>+2% to +6%</td>
+            <td>Blended state rate × (1-21%)</td>
+            <td>States may decouple from OBBBA provisions</td>
+          </tr>
+          <tr>
+            <td><strong>R&D tax credits (§41)</strong></td>
+            <td>−1% to −4%</td>
+            <td>Qualified R&D spend × credit rate</td>
+            <td>Unchanged; but §174A interaction with credit basis</td>
+          </tr>
+          <tr>
+            <td><strong>Stock-based compensation</strong></td>
+            <td>−1% to +2%</td>
+            <td>Windfall/shortfall on vesting + §162(m) permanent</td>
+            <td>§162(m) expansion increases perm diff in 2027+</td>
+          </tr>
+          <tr>
+            <td><strong>FDII/FDDEI benefit</strong></td>
+            <td>−1% to −3%</td>
+            <td>Foreign-derived income × deduction rate</td>
+            <td>Rate changes from 13.125% to 14% effective</td>
+          </tr>
+          <tr>
+            <td><strong>GILTI/NCTI inclusion</strong></td>
+            <td>+0.5% to +3%</td>
+            <td>CFC income × effective inclusion rate</td>
+            <td>QBAI eliminated; rate 10.5% → 12.6%</td>
+          </tr>
+          <tr>
+            <td><strong>Valuation allowance change</strong></td>
+            <td>Variable</td>
+            <td>Reassessment of DTA realization</td>
+            <td>Must reassess post-OBBBA — could be release or increase</td>
+          </tr>
+          <tr>
+            <td><strong>Effect of law change (discrete)</strong></td>
+            <td>Variable</td>
+            <td>OBBBA deferred tax remeasurements</td>
+            <td><span class="badge badge-red">New Q3 2025</span> — one-time discrete item</td>
+          </tr>
+          <tr>
+            <td><strong>Other permanent items</strong></td>
+            <td>+0.5% to +1%</td>
+            <td>Meals, fines, lobbying, etc.</td>
+            <td>Minimal OBBBA impact</td>
+          </tr>
+          <tr style="background:#DBEAFE;">
+            <td><strong>Effective tax rate</strong></td>
+            <td><strong>18% to 26%</strong></td>
+            <td>Sum of all components</td>
+            <td>OBBBA may reduce ETR by 1-3% for R&D-heavy tech</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-blue">
+        <strong>Pro Tip:</strong> When your CFO asks "why did our ETR move?", you need to explain it in 30 seconds or less. Build a quarter-over-quarter ETR bridge chart showing the drivers. The top 3 movers for tech companies are always: (1) R&D credits, (2) stock comp windfalls/shortfalls, and (3) international provisions.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Workpapers -->
+  <div id="t5-2" class="sub-panel">
+    <div class="detail-card">
+      <h3>Essential Workpapers You Must Build & Maintain</h3>
+      <p>In Big 4, you reviewed these. Now you build them. Each workpaper has a specific purpose, update frequency, and audit trail requirement.</p>
+
+      <div class="pillars">
+        <div class="pillar-card" data-color="blue">
+          <h3>1. Deferred Tax Roll-Forward</h3>
+          <p><strong>Frequency:</strong> Quarterly<br>
+          <strong>Content:</strong> Every temporary difference, beginning balance, current year movement, and ending balance. Split by federal, state, and international.<br>
+          <strong>OBBBA Addition:</strong> Add an "OBBBA Remeasurement" column to isolate the discrete Q3 2025 adjustment.<br>
+          <strong>Audit Focus:</strong> Completeness of temp differences and rate accuracy.</p>
+        </div>
+        <div class="pillar-card" data-color="green">
+          <h3>2. ETR Reconciliation</h3>
+          <p><strong>Frequency:</strong> Quarterly<br>
+          <strong>Content:</strong> Walk from 21% statutory to actual ETR. Each line item needs a supporting calculation.<br>
+          <strong>OBBBA Addition:</strong> "Effect of law change" discrete line item with detailed support memo.<br>
+          <strong>Audit Focus:</strong> Accuracy of each rate driver and completeness of permanent items.</p>
+        </div>
+        <div class="pillar-card" data-color="amber">
+          <h3>3. Valuation Allowance Memo</h3>
+          <p><strong>Frequency:</strong> Quarterly assessment, full memo annually<br>
+          <strong>Content:</strong> All positive and negative evidence, scheduling of temp diff reversals, sources of taxable income.<br>
+          <strong>OBBBA Addition:</strong> Impact of new DTLs as source of future income; effect on DTA scheduling.<br>
+          <strong>Audit Focus:</strong> #1 audit area — judgment-heavy, material impact potential.</p>
+        </div>
+      </div>
+
+      <div class="pillars" style="margin-top:1rem;">
+        <div class="pillar-card" data-color="purple">
+          <h3>4. §174A R&D Tracking Schedule</h3>
+          <p><strong>Frequency:</strong> Monthly<br>
+          <strong>Content:</strong> Domestic vs foreign R&D spend, GAAP capitalization under ASC 350-40, tax expensing under §174A, resulting temporary difference.<br>
+          <strong>Key Reconciliation:</strong> R&D spend per GL → GAAP treatment → Tax treatment → Temp diff → DT impact.</p>
+        </div>
+        <div class="pillar-card" data-color="teal">
+          <h3>5. International Tax Provision</h3>
+          <p><strong>Frequency:</strong> Quarterly<br>
+          <strong>Content:</strong> NCTI computation by CFC (country-by-country), FDDEI calculation, FTC limitation, BEAT testing if applicable.<br>
+          <strong>OBBBA Update:</strong> Rebuild NCTI model without QBAI; apply 40% deduction; new rate of 12.6%.</p>
+        </div>
+        <div class="pillar-card" data-color="red">
+          <h3>6. Uncertain Tax Positions (FIN 48)</h3>
+          <p><strong>Frequency:</strong> Quarterly review, annual refresh<br>
+          <strong>Content:</strong> All tax positions that don't meet "more likely than not" recognition threshold. OBBBA creates new positions (§174A eligibility, FDDEI qualification) that need UTB assessment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Career Growth Roadmap -->
+  <div id="t5-3" class="sub-panel">
+    <div class="detail-card">
+      <h3>Career Growth Roadmap — CMA in US Tech Tax</h3>
+      <p>Your CMA + Big 4 background gives you a foundation. Here's how to level up in a US tech corporate tax function and what skills differentiate each level.</p>
+
+      <div class="tl-wrap">
+        <div class="tl-line"></div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--tax-blue)"></div>
+          <h4>Year 1-2: Tax Staff / Senior Tax Analyst</h4>
+          <p><strong>Where You Are Now.</strong> You're executing the provision workpapers, maintaining the deferred tax roll-forward, preparing R&D credit documentation, and supporting the quarterly close.</p>
+          <div class="info-box info-box-blue" style="margin-top:0.5rem;">
+            <strong>Skills to Master:</strong> ASC 740 mechanics cold — you should be able to explain any deferred tax balance to an auditor. Learn your company's specific tax profile: which sections drive the ETR, what's the VA position, what are the material UTBs. Build Excel models that scale.
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--tax-green)"></div>
+          <h4>Year 3-5: Tax Manager</h4>
+          <p><strong>The Transition.</strong> You move from executing to owning. You own the full provision process, manage external auditor relationships, and start making judgment calls on VA and UTBs.</p>
+          <div class="info-box info-box-green" style="margin-top:0.5rem;">
+            <strong>Skills to Master:</strong> International tax provisions (NCTI/FDDEI), state tax apportionment, tax automation tools (OneSource, Corptax, Longview), and stakeholder communication. You should be able to brief the CFO on ETR drivers in 5 minutes.
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--tax-purple)"></div>
+          <h4>Year 5-8: Senior Tax Manager / Tax Director</h4>
+          <p><strong>Strategic Influence.</strong> You drive tax planning: M&A tax structuring, IP location decisions, credit optimization, and ETR management. You interact with the board's audit committee.</p>
+          <div class="info-box info-box-purple" style="margin-top:0.5rem;">
+            <strong>Skills to Master:</strong> M&A tax due diligence (§338(h)(10), §382 NOL limitations), transfer pricing strategy, tax controversy management, and tax technology transformation. Your CMA gives you a cost management edge that pure CPAs lack.
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--tax-amber)"></div>
+          <h4>Year 8+: VP of Tax / Head of Tax</h4>
+          <p><strong>The Goal.</strong> You own the tax function, manage a team of 5-20+, report to the CFO, and present to the audit committee. You set the company's global tax strategy.</p>
+          <div class="info-box info-box-amber" style="margin-top:0.5rem;">
+            <strong>Differentiators:</strong> Business acumen beyond tax — understand product strategy, market expansion, and how tax enables (or constrains) business decisions. Pillar 2 (global minimum tax) compliance, ESG tax reporting, and tax technology investment decisions become your domain.
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box info-box-blue" style="margin-top:1.5rem;">
+        <strong>Your CMA Advantage:</strong> Unlike CPAs who come from an audit/assurance mindset, your CMA certification emphasizes <em>management accounting</em> — strategic planning, performance management, and decision analysis. In a corporate tax function, this translates to a natural ability to connect tax outcomes to business decisions. When the VP of Tax needs someone to model "what happens to our ETR if we acquire this company," your CMA training in financial analysis makes you the person they turn to.
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Key Insights -->
+  <div class="ki-grid reveal">
+    <div class="ki-card ki-insights">
+      <h4>&#128161; Key Insights</h4>
+      <ul>
+        <li>The quarterly provision is your primary deliverable — own every workpaper and understand every number</li>
+        <li>ETR management is about forecasting accurately and explaining variances clearly — build the bridge chart</li>
+        <li>The OBBBA created new workpapers you need (§174A tracking, OBBBA remeasurement, updated NCTI model)</li>
+        <li>Your CMA + Big 4 background is a powerful combination — lean into the strategic/analytical skills that differentiate you</li>
+      </ul>
+    </div>
+    <div class="ki-card ki-impact">
+      <h4>&#127919; Impact On Your Work</h4>
+      <ul>
+        <li>Start building a personal "tax knowledge base" — when you encounter a new section or concept, document how it applies to your company</li>
+        <li>Network with your former E&Y/KPMG colleagues — they're now on the other side, and mutual knowledge sharing is invaluable</li>
+        <li>Pursue the CPA if you haven't already — it complements your CMA and opens doors in senior tax roles</li>
+        <li>Stay current on IRS guidance (IRS.gov/newsroom) and FASB updates — the OBBBA will generate guidance for years</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .container -->
+
+<!-- ════════════ HELPER MODALS ════════════ -->
+
+<!-- Modal: §174 History -->
+<div id="modal-174-history" class="info-modal-overlay" style="display:none">
+  <div class="info-modal">
+    <button class="info-modal-close" onclick="closeInfoModal('modal-174-history')">&times;</button>
+    <h3>Section 174 — The Full History</h3>
+    <p>Section 174 has been one of the most volatile sections in the IRC:</p>
+    <ul style="margin:0.75rem 0; padding-left:1.2rem;">
+      <li><strong>1954-2021:</strong> Taxpayers could immediately deduct R&E expenditures or elect to capitalize and amortize over 60+ months</li>
+      <li><strong>2017 TCJA:</strong> Amended §174 to require capitalization and amortization over 5 years (domestic) or 15 years (foreign), effective for tax years beginning after 12/31/2021</li>
+      <li><strong>2022-2024:</strong> Mandatory amortization in effect. Tech companies saw massive tax increases as billions in R&D costs could no longer be immediately deducted</li>
+      <li><strong>2025 OBBBA:</strong> New §174A restores immediate expensing for domestic R&E. Foreign R&E remains subject to 15-year amortization. Small businesses (≤$25M gross receipts) can retroactively expense back to 2022</li>
+    </ul>
+    <p style="margin-top:0.75rem;"><strong>Why This Matters:</strong> For a tech company spending $500M+ annually on R&D, the difference between immediate expensing and 5-year amortization is a ~$400M temporary difference, translating to ~$84M in deferred tax impact. This single section can move your ETR by 2-4 percentage points.</p>
+  </div>
+</div>
+
+<!-- Modal: §168(k) -->
+<div id="modal-168k" class="info-modal-overlay" style="display:none">
+  <div class="info-modal">
+    <button class="info-modal-close" onclick="closeInfoModal('modal-168k')">&times;</button>
+    <h3>Bonus Depreciation — How It Works</h3>
+    <p><strong>What Qualifies:</strong> Tangible property with a recovery period of 20 years or less (MACRS), certain computer software, and qualified improvement property. The property must be "new to the taxpayer" (used property now qualifies under TCJA).</p>
+    <p style="margin-top:0.5rem;"><strong>Interaction with GAAP:</strong> Under GAAP, these same assets are depreciated over their useful life (typically 3-10 years for tech equipment). This creates a taxable temporary difference: tax deducts faster than GAAP, so the tax basis is lower than the book basis, generating a DTL.</p>
+    <p style="margin-top:0.5rem;"><strong>New §168(n):</strong> The OBBBA also created a NEW section for "qualified production property" (factories, manufacturing facilities) with 100% expensing through 2032. This is separate from §168(k) and has its own rules for what qualifies.</p>
+  </div>
+</div>
+
+<!-- Modal: §163(j) -->
+<div id="modal-163j" class="info-modal-overlay" style="display:none">
+  <div class="info-modal">
+    <button class="info-modal-close" onclick="closeInfoModal('modal-163j')">&times;</button>
+    <h3>Section 163(j) — Interest Limitation Details</h3>
+    <p><strong>The Formula:</strong> Deductible business interest = Business Interest Income + 30% of ATI + Floor Plan Financing Interest</p>
+    <p style="margin-top:0.5rem;"><strong>EBIT vs EBITDA:</strong> The critical difference is whether depreciation and amortization are added back to taxable income when computing ATI. With EBITDA (post-OBBBA), ATI is larger, so 30% of ATI is larger, meaning more interest is deductible.</p>
+    <p style="margin-top:0.5rem;"><strong>Carryforward:</strong> Disallowed interest carries forward indefinitely. These carryforwards create DTAs. The OBBBA's return to EBITDA may make these DTAs more realizable.</p>
+    <p style="margin-top:0.5rem;"><strong>2026 Wrinkle:</strong> Starting in 2026, CFC-related items are excluded from domestic ATI. If your company's ATI includes significant CFC income, this reduces the interest limitation capacity. Model this carefully for 2026+ forecasts.</p>
+  </div>
+</div>
+
+<!-- Modal: ASC 740 Basics -->
+<div id="modal-asc740-basics" class="info-modal-overlay" style="display:none">
+  <div class="info-modal">
+    <button class="info-modal-close" onclick="closeInfoModal('modal-asc740-basics')">&times;</button>
+    <h3>ASC 740 — Income Tax Accounting Fundamentals</h3>
+    <p><strong>Core Principle:</strong> ASC 740 requires companies to recognize the current and future tax consequences of all events that have been recognized in the financial statements.</p>
+    <p style="margin-top:0.5rem;"><strong>Current Tax:</strong> Taxes payable (or refundable) for the current year based on taxable income and enacted tax rates.</p>
+    <p style="margin-top:0.5rem;"><strong>Deferred Tax:</strong> The future tax consequences of temporary differences between the tax basis and book basis of assets and liabilities.</p>
+    <ul style="margin:0.5rem 0; padding-left:1.2rem;">
+      <li><strong>DTA:</strong> Future tax benefit — tax basis > book basis (you'll deduct more in the future)</li>
+      <li><strong>DTL:</strong> Future tax cost — book basis > tax basis (you've already deducted more for tax)</li>
+      <li><strong>Valuation Allowance:</strong> Contra-asset reducing DTA when realization is not "more likely than not" (>50%)</li>
+    </ul>
+    <p style="margin-top:0.5rem;"><strong>Law Change Recognition:</strong> ASC 740-10-25-47: Effects of changes in tax laws are recognized in the period that includes the enactment date. This is why the OBBBA (enacted July 4, 2025) creates a discrete item in Q3 2025.</p>
+  </div>
+</div>
+
+<!-- ════════════ JAVASCRIPT ════════════ -->
+<script>
+function showTab(idx) {
+  document.querySelectorAll('.tab-panel').forEach((p,i) =>
+    p.classList.toggle('active', i===idx));
+  document.querySelectorAll('#mainTabs button').forEach((b,i) =>
+    b.classList.toggle('active', i===idx));
+  // Re-observe reveal elements in newly shown tab
+  document.querySelectorAll('.tab-panel.active .reveal:not(.visible)').forEach(el => revealObs.observe(el));
+}
+
+function showSub(group, idx) {
+  document.querySelectorAll('[id^="'+group+'-"]').forEach((p,i) =>
+    p.classList.toggle('active', i===idx));
+  document.querySelectorAll('#'+group+'Subs .sub-tab-card').forEach((b,i) =>
+    b.classList.toggle('active', i===idx));
+}
+
+function openInfoModal(id) { document.getElementById(id).style.display='flex'; }
+function closeInfoModal(id) { document.getElementById(id).style.display='none'; }
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('info-modal-overlay')) e.target.style.display='none';
+});
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+
+</body>
+</html>
